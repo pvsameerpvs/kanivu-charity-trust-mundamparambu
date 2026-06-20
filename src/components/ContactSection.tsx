@@ -4,11 +4,11 @@ import { motion } from "framer-motion";
 import {
   MapPin,
   Phone,
-  MessageCircle,
   Heart,
   HandHeart,
   ArrowRight,
 } from "lucide-react";
+import WhatsAppIcon from "@/components/WhatsAppIcon";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
@@ -65,7 +65,7 @@ export default function ContactSection() {
             <Card className="h-full border border-gray-100 rounded-2xl hover:shadow-lg transition-all">
               <CardContent className="p-6 text-center">
                 <div className="w-14 h-14 rounded-full bg-green-50 flex items-center justify-center mx-auto mb-4">
-                  <MessageCircle className="w-7 h-7 text-green-600" />
+                  <WhatsAppIcon className="w-7 h-7 text-green-600" />
                 </div>
                 <h3 className="font-bold text-gray-900 mb-2">WhatsApp</h3>
                 <p className="text-gray-600 text-sm font-semibold">
@@ -104,7 +104,7 @@ export default function ContactSection() {
             rel="noopener noreferrer"
           >
             <Button className="bg-green-600 hover:bg-green-700 text-white rounded-full px-7 h-11 gap-2 shadow-lg shadow-green-200">
-              <MessageCircle className="w-4 h-4" />
+              <WhatsAppIcon className="w-4 h-4" />
               WhatsApp ചെയ്യുക
             </Button>
           </a>

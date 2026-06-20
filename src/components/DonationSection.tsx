@@ -3,11 +3,11 @@
 import { motion } from "framer-motion";
 import {
   Heart,
-  MessageCircle,
   Banknote,
   ShieldCheck,
   Users,
 } from "lucide-react";
+import WhatsAppIcon from "@/components/WhatsAppIcon";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import SectionWrapper from "@/components/SectionWrapper";
@@ -59,7 +59,7 @@ export default function DonationSection() {
             <Card className="bg-white/90 backdrop-blur-sm border border-gray-100 rounded-2xl hover:shadow-lg transition-all">
               <CardContent className="p-6 text-center">
                 <div className="w-12 h-12 rounded-full bg-green-50 flex items-center justify-center mx-auto mb-3">
-                  <MessageCircle className="w-6 h-6 text-green-600" />
+                  <WhatsAppIcon className="w-6 h-6 text-green-600" />
                 </div>
                 <h3 className="font-bold text-gray-900 mb-1">
                   WhatsApp വഴി ബന്ധപ്പെടുക
@@ -112,7 +112,7 @@ export default function DonationSection() {
               rel="noopener noreferrer"
             >
               <Button className="bg-[#25D366] hover:bg-[#22c35e] text-white rounded-full px-10 h-14 text-lg gap-3 shadow-xl shadow-green-200 hover:shadow-2xl transition-all duration-300 animate-pulse-soft">
-                <MessageCircle className="w-6 h-6 fill-white" />
+                <WhatsAppIcon className="w-6 h-6" />
                 WhatsApp വഴി സഹായിക്കാം
               </Button>
             </a>

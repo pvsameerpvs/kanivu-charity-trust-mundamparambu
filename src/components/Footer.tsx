@@ -8,24 +8,15 @@ export default function Footer() {
       <div className="container mx-auto px-4 py-16">
         <div className="grid md:grid-cols-12 gap-10">
           <div className="md:col-span-4">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="relative w-12 h-12 shrink-0">
-                <Image
-                  src="/images/kaniv/kaniv-logo.svg"
-                  alt="കനിവ് ചാരിറ്റി ട്രസ്റ്റ് ലോഗോ"
-                  fill
-                  className="object-contain brightness-0 invert"
-                />
-              </div>
-              <div className="flex flex-col">
-                <span className="text-lg font-bold text-white leading-tight">
-                  കനിവ് ചാരിറ്റി ട്രസ്റ്റ്
-                </span>
-                <span className="text-xs text-gray-400 tracking-wider">
-                  KANIV CHARITY TRUST • MUNDAMPARAMBU
-                </span>
-              </div>
-            </div>
+            <div className="mb-4">
+            <Image
+              src="/images/kaniv/kaniv-logo.png"
+              alt="കനിവ് ചാരിറ്റി ട്രസ്റ്റ് ലോഗോ"
+              width={240}
+              height={80}
+              className="object-contain brightness-0 invert h-16 w-auto"
+            />
+          </div>
             <p className="text-gray-400 text-sm leading-relaxed mb-2 italic">
               &ldquo;കയ്യെത്തും ദൂരത്തൊരു കൈത്താങ്ങ്&rdquo;
             </p>

@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     siteName: "കനിവ് ചാരിറ്റി ട്രസ്റ്റ് മുണ്ടംപറമ്പ്",
     images: [
       {
-        url: "/images/kaniv/kaniv-group.svg",
+        url: "/images/hero-section/hero1.jpeg",
         width: 800,
         height: 500,
         alt: "കനിവ് ചാരിറ്റി ട്രസ്റ്റ് കൂട്ടായ്മ",

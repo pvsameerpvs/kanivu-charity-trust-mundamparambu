@@ -54,7 +54,7 @@ export default function EducationSection() {
             <div className="relative">
               <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-xl">
                 <Image
-                  src="/images/kaniv/kaniv-education-support.svg"
+                  src="/images/hero-section/hero25.jpeg"
                   alt="കനിവ് വിദ്യാഭ്യാസ സഹായ പ്രവർത്തനം"
                   fill
                   className="object-cover"

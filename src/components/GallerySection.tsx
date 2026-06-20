@@ -15,32 +15,32 @@ import SectionWrapper from "@/components/SectionWrapper";
 
 const galleryItems = [
   {
-    src: "/images/kaniv/kaniv-group.svg",
+    src: "/images/hero-section/hero1.jpeg",
     caption: "കനിവ് കൂട്ടായ്മ",
     category: "പരിപാടികൾ",
   },
   {
-    src: "/images/kaniv/kaniv-award.svg",
+    src: "/images/hero-section/hero5.jpeg",
     caption: "ആദരവും സഹായവും",
     category: "സഹായ വിതരണം",
   },
   {
-    src: "/images/kaniv/kaniv-home-support.svg",
+    src: "/images/hero-section/hero10.jpeg",
     caption: "ഭവന സഹായ പ്രവർത്തനം",
     category: "ഭവന പദ്ധതി",
   },
   {
-    src: "/images/kaniv/kaniv-football.svg",
+    src: "/images/hero-section/hero15.jpeg",
     caption: "ഫുട്ബോൾ ടൂർണമെന്റ്",
     category: "കായിക പ്രവർത്തനങ്ങൾ",
   },
   {
-    src: "/images/kaniv/kaniv-education-support.svg",
+    src: "/images/hero-section/hero25.jpeg",
     caption: "വിദ്യാർത്ഥികൾക്ക് കൈത്താങ്ങ്",
     category: "വിദ്യാഭ്യാസ സഹായം",
   },
   {
-    src: "/images/kaniv/kaniv-office-opening.svg",
+    src: "/images/hero-section/hero20.jpeg",
     caption: "ഓഫീസ് ഉദ്ഘാടനം",
     category: "പരിപാടികൾ",
   },

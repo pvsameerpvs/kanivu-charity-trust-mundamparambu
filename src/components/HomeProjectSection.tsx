@@ -73,11 +73,27 @@ export default function HomeProjectSection() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="order-1 md:order-2"
           >
-            <div className="relative">
-              <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-xl">
+            <div className="relative grid grid-cols-2 gap-3">
+              <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-xl col-span-2">
                 <Image
-                  src="/images/kaniv/kaniv-home-support.svg"
+                  src="/images/hero-section/hero13.jpeg"
                   alt="കനിവ് ഭവന സഹായ പദ്ധതി"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+              <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-lg">
+                <Image
+                  src="/images/hero-section/hero11.jpeg"
+                  alt="കനിവ് ഭവന സഹായം"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+              <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-lg">
+                <Image
+                  src="/images/hero-section/hero12.jpeg"
+                  alt="കനിവ് ഭവന പദ്ധതി"
                   fill
                   className="object-cover"
                 />
