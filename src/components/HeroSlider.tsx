@@ -5,43 +5,15 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight, Heart, ArrowDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 
-const slides = [
-  {
-    src: "/images/hero-section/hero1.jpeg",
-    alt: "കനിവ് ചാരിറ്റി ട്രസ്റ്റ് കൂട്ടായ്മ",
-  },
-  {
-    src: "/images/hero-section/hero5.jpeg",
-    alt: "കനിവ് ആദരവും അംഗീകാരവും",
-  },
-  {
-    src: "/images/hero-section/hero10.jpeg",
-    alt: "കനിവ് ഭവന സഹായ പദ്ധതി",
-  },
-  {
-    src: "/images/hero-section/hero15.jpeg",
-    alt: "കനിവ് ഫുട്ബോൾ ടൂർണമെന്റ്",
-  },
-  {
-    src: "/images/hero-section/hero20.jpeg",
-    alt: "കനിവ് ഓഫീസ് ഉദ്ഘാടനം",
-  },
-  {
-    src: "/images/hero-section/hero25.jpeg",
-    alt: "കനിവ് വിദ്യാഭ്യാസ സഹായ പ്രവർത്തനം",
-  },
-];
+const slides = Array.from({ length: 26 }, (_, i) => ({
+  src: `/images/hero-section/hero${i + 1}.jpeg`,
+  alt: `കനിവ് ചാരിറ്റി ട്രസ്റ്റ് - ചിത്രം ${i + 1}`,
+}));
 
 export default function HeroSlider() {
   const [current, setCurrent] = useState(0);
   const [direction, setDirection] = useState(1);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   const next = useCallback(() => {
     setDirection(1);
@@ -54,10 +26,9 @@ export default function HeroSlider() {
   }, []);
 
   useEffect(() => {
-    if (!mounted) return;
     const timer = setInterval(next, 5000);
     return () => clearInterval(timer);
-  }, [next, mounted]);
+  }, [next]);
 
   const variants = {
     enter: (dir: number) => ({ x: dir > 0 ? "100%" : "-100%", opacity: 0 }),
@@ -204,22 +175,7 @@ export default function HeroSlider() {
         <ChevronRight className="w-4 h-4 md:w-5 md:h-5 text-white" />
       </button>
 
-      <div className="absolute bottom-14 md:bottom-16 left-1/2 -translate-x-1/2 flex gap-2 z-10">
-        {slides.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => {
-              setDirection(i > current ? 1 : -1);
-              setCurrent(i);
-            }}
-            className={`rounded-full transition-all duration-300 ${
-              i === current
-                ? "bg-[#1CA3D8] w-6 md:w-8 h-2 md:h-2.5"
-                : "bg-white/40 hover:bg-white/70 w-2 h-2 md:w-2.5 md:h-2.5"
-            }`}
-          />
-        ))}
-      </div>
+
     </section>
   );
 }
