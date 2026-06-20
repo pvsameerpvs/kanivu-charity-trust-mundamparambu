@@ -1,17 +1,31 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import {
   BookOpen,
   GraduationCap,
   Gift,
   Heart,
-  ArrowRight,
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import SectionWrapper from "@/components/SectionWrapper";
+
+const eduSlides = [
+  {
+    src: "/images/hero-section/hero26.jpeg",
+    alt: "കനിവ് വിദ്യാഭ്യാസ സഹായ പ്രവർത്തനം",
+  },
+  {
+    src: "/images/hero-section/hero24.jpeg",
+    alt: "കനിവ് വിദ്യാഭ്യാസ പിന്തുണ",
+  },
+  {
+    src: "/images/hero-section/hero23.jpeg",
+    alt: "കനിവ് വിദ്യാർത്ഥി സഹായം",
+  },
+];
 
 const educationCards = [
   {
@@ -38,6 +52,13 @@ const educationCards = [
 ];
 
 export default function EducationSection() {
+  const [current, setCurrent] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => setCurrent((p) => (p + 1) % eduSlides.length), 2000);
+    return () => clearInterval(timer);
+  }, []);
+
   return (
     <SectionWrapper
       id="education"
@@ -53,15 +74,36 @@ export default function EducationSection() {
           >
             <div className="relative">
               <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-xl">
-                <Image
-                  src="/images/hero-section/hero25.jpeg"
-                  alt="കനിവ് വിദ്യാഭ്യാസ സഹായ പ്രവർത്തനം"
-                  fill
-                  className="object-cover"
-                />
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={current}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.5 }}
+                    className="absolute inset-0"
+                  >
+                    <Image
+                      src={eduSlides[current].src}
+                      alt={eduSlides[current].alt}
+                      fill
+                      className="object-cover"
+                    />
+                  </motion.div>
+                </AnimatePresence>
               </div>
               <div className="absolute -bottom-4 -right-4 w-32 h-32 bg-[#1CA3D8]/20 rounded-2xl -z-10" />
               <div className="absolute -top-4 -left-4 w-24 h-24 bg-[#EF1C25]/10 rounded-2xl -z-10" />
+              <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+                {eduSlides.map((_, i) => (
+                  <span
+                    key={i}
+                    className={`w-2 h-2 rounded-full transition-all ${
+                      i === current ? "bg-[#1CA3D8] w-4" : "bg-white/60"
+                    }`}
+                  />
+                ))}
+              </div>
             </div>
           </motion.div>
 

@@ -1,197 +1,198 @@
 "use client";
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useRef } from "react";
+import { motion } from "framer-motion";
 import Image from "next/image";
-import { X, Heart, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowRight, Camera } from "lucide-react";
+import WhatsAppIcon from "@/components/WhatsAppIcon";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogClose,
-} from "@/components/ui/dialog";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import SectionWrapper from "@/components/SectionWrapper";
 
-const galleryItems = [
-  {
-    src: "/images/hero-section/hero1.jpeg",
-    caption: "കനിവ് കൂട്ടായ്മ",
-    category: "പരിപാടികൾ",
-  },
-  {
-    src: "/images/hero-section/hero5.jpeg",
-    caption: "ആദരവും സഹായവും",
-    category: "സഹായ വിതരണം",
-  },
-  {
-    src: "/images/hero-section/hero10.jpeg",
-    caption: "ഭവന സഹായ പ്രവർത്തനം",
-    category: "ഭവന പദ്ധതി",
-  },
-  {
-    src: "/images/hero-section/hero15.jpeg",
-    caption: "ഫുട്ബോൾ ടൂർണമെന്റ്",
-    category: "കായിക പ്രവർത്തനങ്ങൾ",
-  },
-  {
-    src: "/images/hero-section/hero25.jpeg",
-    caption: "വിദ്യാർത്ഥികൾക്ക് കൈത്താങ്ങ്",
-    category: "വിദ്യാഭ്യാസ സഹായം",
-  },
-  {
-    src: "/images/hero-section/hero20.jpeg",
-    caption: "ഓഫീസ് ഉദ്ഘാടനം",
-    category: "പരിപാടികൾ",
-  },
+const WHATSAPP_URL = "https://wa.me/919567178007";
+
+const captions = [
+  "കനിവ് കൂട്ടായ്മ",
+  "സഹായം കൈമാറുന്ന നിമിഷം",
+  "ഒരു ഭവനം പദ്ധതി",
+  "വിദ്യാർത്ഥികൾക്ക് കൈത്താങ്ങ്",
+  "ഫുട്ബോൾ ടൂർണമെന്റ്",
+  "ഓഫീസ് ഉദ്ഘാടനം",
+  "ജനകീയ കൂട്ടായ്മ",
+  "സ്നേഹത്തിന്റെ നിമിഷങ്ങൾ",
+  "കരുണയുടെ കൈത്താങ്ങ്",
+  "കനിവിന്റെ പ്രവർത്തകർ",
 ];
 
-const categories = [
-  "എല്ലാം",
-  "പരിപാടികൾ",
-  "സഹായ വിതരണം",
-  "ഭവന പദ്ധതി",
-  "കായിക പ്രവർത്തനങ്ങൾ",
-  "വിദ്യാഭ്യാസ സഹായം",
+const aspectRatios = [
+  "aspect-[4/3]",
+  "aspect-[3/4]",
+  "aspect-[1/1]",
+  "aspect-[16/10]",
+  "aspect-[2/3]",
+  "aspect-[3/2]",
 ];
 
-export default function GallerySection() {
-  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
-  const [activeCategory, setActiveCategory] = useState("എല്ലാം");
+interface GalleryImage {
+  src: string;
+  caption: string;
+  aspect: string;
+  id: string;
+}
 
-  const filtered =
-    activeCategory === "എല്ലാം"
-      ? galleryItems
-      : galleryItems.filter((item) => item.category === activeCategory);
+function buildRowImages(startIdx: number, count: number): GalleryImage[] {
+  return Array.from({ length: count }, (_, i) => {
+    const num = ((startIdx - 1 + i) % 68) + 1;
+    return {
+      src: `/images/gallery/gallery${num}.jpeg`,
+      caption: captions[i % captions.length],
+      aspect: aspectRatios[i % aspectRatios.length],
+      id: `g-${num}`,
+    };
+  });
+}
 
-  const openLightbox = (index: number) => setLightboxIndex(index);
-  const closeLightbox = () => setLightboxIndex(null);
+const row1 = buildRowImages(1, 23);
+const row2 = buildRowImages(24, 23);
+const row3 = buildRowImages(47, 22);
 
-  const nextImage = () => {
-    if (lightboxIndex !== null) {
-      const items =
-        activeCategory === "എല്ലാം"
-          ? galleryItems
-          : galleryItems.filter((item) => item.category === activeCategory);
-      setLightboxIndex((lightboxIndex + 1) % items.length);
-    }
-  };
-
-  const prevImage = () => {
-    if (lightboxIndex !== null) {
-      const items =
-        activeCategory === "എല്ലാം"
-          ? galleryItems
-          : galleryItems.filter((item) => item.category === activeCategory);
-      setLightboxIndex((lightboxIndex - 1 + items.length) % items.length);
-    }
-  };
+function MarqueeRow({
+  images,
+  direction,
+  speed = 60,
+}: {
+  images: GalleryImage[];
+  direction: "left" | "right";
+  speed?: number;
+}) {
+  const animClass =
+    direction === "left" ? "animate-marquee-left" : "animate-marquee-right";
 
   return (
-    <SectionWrapper id="gallery" className="py-20 md:py-28 bg-[#F8FBFF]">
-      <div className="container mx-auto px-4">
-        <div className="text-center max-w-2xl mx-auto mb-10">
-          <div className="inline-flex items-center gap-2 bg-[#EAF7FD] rounded-full px-4 py-1.5 mb-4">
-            <Heart className="w-4 h-4 fill-current text-[#EF1C25]" />
-            <span className="text-sm font-medium text-[#1CA3D8]">
-              ഗ്യാലറി
-            </span>
+    <div className="marquee-container relative flex overflow-hidden w-full">
+      <div
+        className={`flex gap-3 md:gap-4 ${animClass}`}
+        style={{ animationDuration: `${speed}s` }}
+      >
+        {[...images, ...images].map((img, i) => (
+          <div
+            key={`${img.id}-${i}`}
+            className={`relative flex-shrink-0 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 cursor-pointer ${img.aspect} w-[170px] sm:w-[210px] md:w-[250px] lg:w-[280px] group/card`}
+          >
+            <Image
+              src={img.src}
+              alt={img.caption}
+              fill
+              className="object-cover transition-transform duration-700 group-hover/card:scale-110"
+              sizes="(max-width: 640px) 170px, (max-width: 768px) 210px, (max-width: 1024px) 250px, 280px"
+            />
+
           </div>
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            ഞങ്ങളുടെ പ്രവർത്തന ഗ്യാലറി
-          </h2>
-          <p className="text-gray-600">
-            കനിവ് ചാരിറ്റി ട്രസ്റ്റിന്റെ വിവിധ പ്രവർത്തനങ്ങളുടെ ചിത്രങ്ങൾ
-          </p>
-        </div>
+        ))}
+      </div>
+    </div>
+  );
+}
 
-        <Tabs
-          defaultValue="എല്ലാം"
-          onValueChange={setActiveCategory}
-          className="mb-10"
-        >
-          <TabsList className="flex flex-wrap justify-center gap-2 bg-transparent h-auto">
-            {categories.map((cat) => (
-              <TabsTrigger
-                key={cat}
-                value={cat}
-                className="rounded-full px-5 py-2 data-[state=active]:bg-[#1CA3D8] data-[state=active]:text-white text-gray-600 border border-gray-200 data-[state=active]:border-[#1CA3D8]"
-              >
-                {cat}
-              </TabsTrigger>
-            ))}
-          </TabsList>
-        </Tabs>
+export default function GallerySection() {
+  const sectionRef = useRef<HTMLElement>(null);
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {filtered.map((item, i) => (
-            <motion.div
-              key={`${item.caption}-${i}`}
-              layout
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: i * 0.05 }}
-              onClick={() => openLightbox(i)}
-              className="relative group cursor-pointer rounded-2xl overflow-hidden aspect-[4/3] shadow-md hover:shadow-xl transition-all duration-300"
-            >
-              <Image
-                src={item.src}
-                alt={item.caption}
-                fill
-                className="object-cover group-hover:scale-110 transition-transform duration-500"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-                <p className="text-white font-medium text-sm">
-                  {item.caption}
-                </p>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+  return (
+    <section
+      ref={sectionRef}
+      id="gallery"
+      className="relative py-20 md:py-28 bg-[#F8FBFF] overflow-hidden"
+    >
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-[#1CA3D8]/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 left-0 w-80 h-80 bg-[#F7941D]/5 rounded-full blur-3xl" />
       </div>
 
-      <Dialog
-        open={lightboxIndex !== null}
-        onOpenChange={(open) => !open && closeLightbox()}
-      >
-        <DialogContent className="max-w-4xl p-0 bg-black/90 border-0 rounded-2xl overflow-hidden">
-          {lightboxIndex !== null && (
-            <div className="relative w-full aspect-[16/10]">
-              <Image
-                src={filtered[lightboxIndex].src}
-                alt={filtered[lightboxIndex].caption}
-                fill
-                className="object-contain"
-              />
-            </div>
-          )}
-          <DialogClose className="absolute top-4 right-4 w-10 h-10 rounded-full bg-black/50 flex items-center justify-center text-white hover:bg-black/70">
-            <X className="w-5 h-5" />
-          </DialogClose>
-
-          <button
-            onClick={prevImage}
-            className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/50 flex items-center justify-center text-white hover:bg-black/70"
+      <div className="relative z-10">
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center max-w-3xl mx-auto mb-12 md:mb-16"
           >
-            <ChevronLeft className="w-5 h-5" />
-          </button>
-          <button
-            onClick={nextImage}
-            className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/50 flex items-center justify-center text-white hover:bg-black/70"
-          >
-            <ChevronRight className="w-5 h-5" />
-          </button>
+            <Badge
+              variant="outline"
+              className="inline-flex items-center gap-1.5 px-4 py-1.5 mb-4 md:mb-5 text-[#1CA3D8] border-[#1CA3D8]/30 bg-[#1CA3D8]/5 rounded-full text-xs md:text-sm font-medium"
+            >
+              <Camera className="w-3.5 h-3.5" />
+              പ്രവർത്തന ഗ്യാലറി
+            </Badge>
 
-          {lightboxIndex !== null && (
-            <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent">
-              <p className="text-white text-center font-medium">
-                {filtered[lightboxIndex].caption}
-              </p>
-            </div>
-          )}
-        </DialogContent>
-      </Dialog>
-    </SectionWrapper>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#111827] mb-4 leading-tight">
+              കനിവിന്റെ ഓർമ്മ ചിത്രങ്ങൾ
+            </h2>
+
+            <p className="text-[#4B5563] text-sm md:text-base leading-relaxed max-w-2xl mx-auto">
+              സഹായം, സേവനം, കൂട്ടായ്മ — കനിവിന്റെ ഓരോ പ്രവർത്തനവും
+              സമൂഹത്തിനായുള്ള സ്നേഹത്തിന്റെ അടയാളങ്ങളാണ്.
+            </p>
+          </motion.div>
+        </div>
+
+        <div className="container mx-auto px-4 space-y-4 md:space-y-6">
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+          >
+            <MarqueeRow images={row1} direction="left" speed={60} />
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
+            <MarqueeRow images={row2} direction="right" speed={65} />
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+          >
+            <MarqueeRow images={row3} direction="left" speed={55} />
+          </motion.div>
+        </div>
+
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="flex flex-wrap items-center justify-center gap-4 mt-12 md:mt-16"
+          >
+            <Button className="h-11 md:h-12 px-6 md:px-8 rounded-full bg-[#1CA3D8] hover:bg-[#1CA3D8]/90 text-white font-medium text-sm md:text-base gap-2 shadow-lg shadow-[#1CA3D8]/20">
+              കൂടുതൽ ചിത്രങ്ങൾ കാണാം
+              <ArrowRight className="w-4 h-4" />
+            </Button>
+
+            <a
+              href={WHATSAPP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Button
+                variant="outline"
+                className="h-11 md:h-12 px-6 md:px-8 rounded-full border-[#1CA3D8]/30 text-[#1CA3D8] hover:bg-[#1CA3D8]/5 font-medium text-sm md:text-base gap-2"
+              >
+              <WhatsAppIcon className="w-4 h-4" />
+              WhatsApp വഴി ബന്ധപ്പെടുക
+              </Button>
+            </a>
+          </motion.div>
+        </div>
+      </div>
+    </section>
   );
 }
