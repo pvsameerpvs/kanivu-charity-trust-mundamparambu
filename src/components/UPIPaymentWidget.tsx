@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import {
@@ -18,7 +18,12 @@ import { Button } from "@/components/ui/button";
 
 const UPI_ID = "kanivu2214@fbl";
 const PAYEE_NAME = "KANIVU CHARITY TRUST MUNDAMPARAMBU";
-const UPI_LINK = `upi://pay?pa=${UPI_ID}&pn=${encodeURIComponent(PAYEE_NAME)}&cu=INR`;
+const ENCODED_NAME = encodeURIComponent(PAYEE_NAME);
+const GPAY_ANDROID = `intent://pay#Intent;scheme=upi;package=com.google.android.apps.nbu.paisa.user;S.pa=${UPI_ID};S.pn=${ENCODED_NAME};S.cu=INR;end`;
+const GPAY_IOS = `upi://pay?pa=${UPI_ID}&pn=${ENCODED_NAME}&cu=INR`;
+const PHONEPE_LINK = `phonepe://pay?pa=${UPI_ID}&pn=${ENCODED_NAME}&cu=INR`;
+const PAYTM_LINK = `paytmmp://pay?pa=${UPI_ID}&pn=${ENCODED_NAME}&cu=INR`;
+const UPI_LINK = `upi://pay?pa=${UPI_ID}&pn=${ENCODED_NAME}&cu=INR`;
 
 function GooglePayIcon() {
   return (
@@ -64,6 +69,16 @@ function BHIMIcon() {
 
 export default function UPIPaymentWidget() {
   const [copied, setCopied] = useState(false);
+  const [gpayLink, setGpayLink] = useState(UPI_LINK);
+
+  useEffect(() => {
+    const ua = navigator.userAgent;
+    if (/iPad|iPhone|iPod/.test(ua)) {
+      setGpayLink(GPAY_IOS);
+    } else {
+      setGpayLink(GPAY_ANDROID);
+    }
+  }, []);
 
   const copyUPIId = async () => {
     try {
@@ -150,7 +165,7 @@ export default function UPIPaymentWidget() {
           </div>
 
           <a
-            href={UPI_LINK}
+            href={gpayLink}
             target="_blank"
             rel="noopener noreferrer"
             className="block"
@@ -162,7 +177,7 @@ export default function UPIPaymentWidget() {
           </a>
 
           <a
-            href={UPI_LINK}
+            href={PHONEPE_LINK}
             target="_blank"
             rel="noopener noreferrer"
             className="block"
@@ -174,7 +189,7 @@ export default function UPIPaymentWidget() {
           </a>
 
           <a
-            href={UPI_LINK}
+            href={PAYTM_LINK}
             target="_blank"
             rel="noopener noreferrer"
             className="block"

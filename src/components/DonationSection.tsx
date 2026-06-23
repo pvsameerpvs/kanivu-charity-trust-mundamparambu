@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import SectionWrapper from "@/components/SectionWrapper";
 import UPIPaymentWidget from "@/components/UPIPaymentWidget";
+import DonationPopup from "@/components/DonationPopup";
 
 export default function DonationSection() {
   const [showUPI, setShowUPI] = useState(false);
@@ -151,6 +152,7 @@ export default function DonationSection() {
           </motion.div>
         </div>
       </div>
+      <DonationPopup />
     </SectionWrapper>
   );
 }
