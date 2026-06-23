@@ -50,6 +50,16 @@ export default function Header() {
             />
           </Link>
 
+          {/* Mobile centered title */}
+          <div className="hidden max-lg:flex flex-col items-center justify-center absolute left-1/2 -translate-x-1/2 text-center pointer-events-none z-0">
+            <div className="font-['Baloo_Chettan_2',_sans-serif] font-extrabold text-black text-[10px] leading-tight">
+              “കയ്യെത്തും ദൂരത്തൊരു കൈത്താങ്ങ്”
+            </div>
+            <div className="font-['Baloo_Chettan_2',_Manjari,_sans-serif] font-bold text-black text-[9px] leading-snug">
+              കനിവ് ചാരിറ്റബിൾ ട്രസ്റ്റ് മുണ്ടംപറമ്പ്
+            </div>
+          </div>
+
           <nav className="hidden lg:flex items-center gap-0.5 mx-4">
             {navLinks.map((link) => (
               <Link
@@ -67,9 +77,10 @@ export default function Header() {
               href="https://wa.me/919567178007?text=%E0%B4%A8%E0%B4%AE%E0%B4%B8%E0%B5%8D%E0%B4%95%E0%B4%BE%E0%B4%B0%E0%B4%82%2C%20%E0%B4%95%E0%B4%A8%E0%B4%BF%E0%B4%B5%E0%B5%8D%20%E0%B4%9A%E0%B4%BE%E0%B4%B0%E0%B4%BF%E0%B4%B1%E0%B5%8D%E0%B4%B1%E0%B4%BF%20%E0%B4%9F%E0%B5%8D%E0%B4%B0%E0%B4%B8%E0%B5%8D%E0%B4%B1%E0%B5%8D%E0%B4%B1%E0%B4%BF%E0%B4%A8%E0%B5%8D%E0%B4%B1%E0%B5%86%20%E0%B4%AA%E0%B5%8D%E0%B4%B0%E0%B4%B5%E0%B5%BC%E0%B4%A4%E0%B5%8D%E0%B4%A4%E0%B4%A8%E0%B4%99%E0%B5%8D%E0%B4%99%E0%B5%BE%E0%B4%95%E0%B5%8D%E0%B4%95%E0%B5%8D%20%E0%B4%B8%E0%B4%B9%E0%B4%BE%E0%B4%AF%E0%B4%82%20%E0%B4%A8%E0%B5%BD%E0%B4%95%E0%B4%BE%E0%B5%BB%20%E0%B4%86%E0%B4%97%E0%B5%8D%E0%B4%B0%E0%B4%B9%E0%B4%BF%E0%B4%95%E0%B5%8D%E0%B4%95%E0%B5%81%E0%B4%A8%E0%B5%8D%E0%B4%A8%E0%B5%81.%20%E0%B4%B5%E0%B4%BF%E0%B4%B6%E0%B4%A6%E0%B4%BE%E0%B4%82%E0%B4%B6%E0%B4%99%E0%B5%8D%E0%B4%99%E0%B5%BE%20%E0%B4%85%E0%B4%B1%E0%B4%BF%E0%B4%AF%E0%B4%BF%E0%B4%95%E0%B5%8D%E0%B4%95%E0%B4%BE%E0%B4%AE%E0%B5%8B%3F"
               target="_blank"
               rel="noopener noreferrer"
+              className="hidden lg:inline-flex"
             >
-              <Button className="inline-flex h-10 md:h-9 bg-[#EF1C25] hover:bg-[#d91920] text-white rounded-full px-3 sm:px-4 text-xs sm:text-sm md:text-xs gap-1.5 shadow-lg shadow-red-200 hover:shadow-xl transition-all duration-300">
-                <Heart className="size-4 sm:size-[18px] md:size-4 fill-current" />
+              <Button className="inline-flex h-9 bg-[#EF1C25] hover:bg-[#d91920] text-white rounded-full px-4 text-xs gap-1.5 shadow-lg shadow-red-200 hover:shadow-xl transition-all duration-300">
+                <Heart className="size-4 fill-current" />
                 സഹായിക്കാം
               </Button>
             </a>
@@ -113,7 +124,7 @@ export default function Header() {
                       </Link>
                     ))}
                   </nav>
-                  <div className="p-5 border-t space-y-3">
+                  <div className="p-5 border-t">
                     <a
                       href="https://www.instagram.com/kaniv_mundamparamba?utm_source=qr"
                       target="_blank"
@@ -122,17 +133,6 @@ export default function Header() {
                     >
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="size-5"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
                       Instagram
-                    </a>
-                    <a
-                      href="https://wa.me/919567178007?text=%E0%B4%A8%E0%B4%AE%E0%B4%B8%E0%B5%8D%E0%B4%95%E0%B4%BE%E0%B4%B0%E0%B4%82%2C%20%E0%B4%95%E0%B4%A8%E0%B4%BF%E0%B4%B5%E0%B5%8D%20%E0%B4%9A%E0%B4%BE%E0%B4%B0%E0%B4%BF%E0%B4%B1%E0%B5%8D%E0%B4%B1%E0%B4%BF%20%E0%B4%9F%E0%B5%8D%E0%B4%B0%E0%B4%B8%E0%B5%8D%E0%B4%B1%E0%B5%8D%E0%B4%B1%E0%B4%BF%E0%B4%A8%E0%B5%8D%E0%B4%B1%E0%B5%86%20%E0%B4%AA%E0%B5%8D%E0%B4%B0%E0%B4%B5%E0%B5%BC%E0%B4%A4%E0%B5%8D%E0%B4%A4%E0%B4%A8%E0%B4%99%E0%B5%8D%E0%B4%99%E0%B5%BE%E0%B4%95%E0%B5%8D%E0%B4%95%E0%B5%8D%20%E0%B4%B8%E0%B4%B9%E0%B4%BE%E0%B4%AF%E0%B4%82%20%E0%B4%A8%E0%B5%BD%E0%B4%95%E0%B4%BE%E0%B5%BB%20%E0%B4%86%E0%B4%97%E0%B5%8D%E0%B4%B0%E0%B4%B9%E0%B4%BF%E0%B4%95%E0%B5%8D%E0%B4%95%E0%B5%81%E0%B4%A8%E0%B5%8D%E0%B4%A8%E0%B5%81.%20%E0%B4%B5%E0%B4%BF%E0%B4%B6%E0%B4%A6%E0%B4%BE%E0%B4%82%E0%B4%B6%E0%B4%99%E0%B5%8D%E0%B4%99%E0%B5%BE%20%E0%B4%85%E0%B4%B1%E0%B4%BF%E0%B4%AF%E0%B4%BF%E0%B4%95%E0%B5%8D%E0%B4%95%E0%B4%BE%E0%B4%AE%E0%B5%8B%3F"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-full"
-                    >
-                      <Button className="w-full bg-[#EF1C25] hover:bg-[#d91920] text-white rounded-full gap-2 h-12 text-base">
-                        <Heart className="size-5 fill-current" />
-                        സഹായിക്കാം
-                      </Button>
                     </a>
                   </div>
                 </div>

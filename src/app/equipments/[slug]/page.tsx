@@ -100,19 +100,19 @@ export default async function EquipmentDetailPage({ params }: Props) {
                 </div>
               )}
 
-              <div className="flex flex-col sm:flex-row gap-4 pt-4">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-4">
                 <a
                   href={getWhatsAppUrl(eq.nameMl)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex-1 inline-flex items-center justify-center gap-3 h-12 px-5 rounded-2xl bg-[#25D366] hover:bg-[#1DA95A] text-white font-medium transition-all duration-300 shadow-lg shadow-[#25D366]/25"
+                  className="w-full sm:flex-1 inline-flex items-center justify-center gap-2 sm:gap-3 h-11 sm:h-12 px-4 sm:px-5 rounded-2xl bg-[#25D366] hover:bg-[#1DA95A] text-white text-sm sm:text-base font-medium transition-all duration-300 shadow-lg shadow-[#25D366]/25"
                 >
                   <WhatsAppIcon className="size-5 shrink-0" />
-                  WhatsApp വഴി അന്വേഷിക്കുക
+                  <span className="truncate">WhatsApp വഴി അന്വേഷിക്കുക</span>
                 </a>
                 <a
                   href={`tel:+91${WHATSAPP_NUMBER}`}
-                  className="flex-1 inline-flex items-center justify-center gap-3 h-12 px-5 rounded-2xl bg-white hover:bg-gray-50 text-gray-800 font-medium border border-gray-200 transition-all duration-300"
+                  className="w-full sm:flex-1 inline-flex items-center justify-center gap-2 sm:gap-3 h-11 sm:h-12 px-4 sm:px-5 rounded-2xl bg-white hover:bg-gray-50 text-gray-800 text-sm sm:text-base font-medium border border-gray-200 transition-all duration-300"
                 >
                   <span className="text-lg leading-none">📞</span>
                   +91 {WHATSAPP_NUMBER.slice(0, 5)} {WHATSAPP_NUMBER.slice(5)}
