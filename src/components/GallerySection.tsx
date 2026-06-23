@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { ArrowRight, Camera } from "lucide-react";
+import Link from "next/link";
 import WhatsAppIcon from "@/components/WhatsAppIcon";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -172,10 +173,12 @@ export default function GallerySection() {
             transition={{ duration: 0.5, delay: 0.4 }}
             className="flex flex-wrap items-center justify-center gap-4 mt-12 md:mt-16"
           >
-            <Button className="h-11 md:h-12 px-6 md:px-8 rounded-full bg-[#1CA3D8] hover:bg-[#1CA3D8]/90 text-white font-medium text-sm md:text-base gap-2 shadow-lg shadow-[#1CA3D8]/20">
-              കൂടുതൽ ചിത്രങ്ങൾ കാണാം
-              <ArrowRight className="w-4 h-4" />
-            </Button>
+            <Link href="/gallery">
+              <Button className="h-11 md:h-12 px-6 md:px-8 rounded-full bg-[#1CA3D8] hover:bg-[#1CA3D8]/90 text-white font-medium text-sm md:text-base gap-2 shadow-lg shadow-[#1CA3D8]/20">
+                കൂടുതൽ ചിത്രങ്ങൾ കാണാം
+                <ArrowRight className="w-4 h-4" />
+              </Button>
+            </Link>
 
             <a
               href={WHATSAPP_URL}

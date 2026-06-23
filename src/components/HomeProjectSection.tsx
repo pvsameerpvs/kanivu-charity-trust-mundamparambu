@@ -1,10 +1,16 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { Home, CheckCircle2, Heart, ArrowRight } from "lucide-react";
+import { Home, CheckCircle2, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import SectionWrapper from "@/components/SectionWrapper";
+
+const bhavanamSlides = Array.from({ length: 6 }, (_, i) => ({
+  src: `/images/bhvanam/bhavanam${i + 1}.jpeg`,
+  alt: `കനിവ് ഭവന പദ്ധതി ${i + 1}`,
+}));
 
 const features = [
   "നിർധന കുടുംബങ്ങൾക്ക് വീടൊരുക്കൽ",
@@ -14,6 +20,13 @@ const features = [
 ];
 
 export default function HomeProjectSection() {
+  const [current, setCurrent] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => setCurrent((p) => (p + 1) % bhavanamSlides.length), 2000);
+    return () => clearInterval(timer);
+  }, []);
+
   return (
     <SectionWrapper id="home-project" className="py-20 md:py-28">
       <div className="container mx-auto px-4">
@@ -73,33 +86,38 @@ export default function HomeProjectSection() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="order-1 md:order-2"
           >
-            <div className="relative grid grid-cols-2 gap-3">
-              <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-xl col-span-2">
-                <Image
-                  src="/images/hero-section/hero13.jpeg"
-                  alt="കനിവ് ഭവന സഹായ പദ്ധതി"
-                  fill
-                  className="object-cover"
-                />
+            <div className="relative">
+              <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-xl">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={current}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.5 }}
+                    className="absolute inset-0"
+                  >
+                    <Image
+                      src={bhavanamSlides[current].src}
+                      alt={bhavanamSlides[current].alt}
+                      fill
+                      className="object-cover"
+                    />
+                  </motion.div>
+                </AnimatePresence>
               </div>
-              <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-lg">
-                <Image
-                  src="/images/hero-section/hero11.jpeg"
-                  alt="കനിവ് ഭവന സഹായം"
-                  fill
-                  className="object-cover"
-                />
+              <div className="absolute -bottom-4 -right-4 w-32 h-32 bg-[#EF1C25]/10 rounded-2xl -z-10" />
+              <div className="absolute -top-4 -left-4 w-24 h-24 bg-[#F7941D]/20 rounded-2xl -z-10" />
+              <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+                {bhavanamSlides.map((_, i) => (
+                  <span
+                    key={i}
+                    className={`w-2 h-2 rounded-full transition-all ${
+                      i === current ? "bg-[#F7941D] w-4" : "bg-white/60"
+                    }`}
+                  />
+                ))}
               </div>
-              <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-lg">
-                <Image
-                  src="/images/hero-section/hero12.jpeg"
-                  alt="കനിവ് ഭവന പദ്ധതി"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-[#EF1C25]/10 rounded-2xl -z-10" />
-              <div className="absolute -top-4 -right-4 w-24 h-24 bg-[#F7941D]/20 rounded-2xl -z-10" />
             </div>
           </motion.div>
         </div>

@@ -175,6 +175,22 @@ export default function HeroSlider() {
         <ChevronRight className="w-4 h-4 md:w-5 md:h-5 text-white" />
       </button>
 
+      <motion.div
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ delay: 1 }}
+        className="absolute bottom-24 right-6 md:bottom-28 md:right-8 z-10"
+      >
+        <a
+          href="https://www.instagram.com/kaniv_mundamparamba?utm_source=qr"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center justify-center w-12 h-12 md:w-14 md:h-14 rounded-full bg-gradient-to-tr from-[#f9ce34] via-[#ee2a7b] to-[#6228d7] text-white hover:scale-110 transition-all duration-300 shadow-lg shadow-pink-500/30"
+          title="Instagram"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6 md:w-7 md:h-7"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+        </a>
+      </motion.div>
 
     </section>
   );
