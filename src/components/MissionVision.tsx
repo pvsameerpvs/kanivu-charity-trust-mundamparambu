@@ -40,7 +40,7 @@ export default function MissionVision() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.15 }}
-              className={`${card.bgLight} rounded-2xl p-8 border border-gray-100 hover:shadow-xl transition-all duration-300 group`}
+              className={`${card.bgLight} rounded-2xl p-6 md:p-8 border border-gray-100 hover:shadow-xl transition-all duration-300 group`}
             >
               <div
                 className={`w-14 h-14 rounded-xl bg-gradient-to-br ${card.color} flex items-center justify-center mb-5 shadow-lg group-hover:scale-110 transition-transform duration-300`}

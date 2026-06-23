@@ -179,13 +179,13 @@ export default function DonationPopup() {
             <div className="p-4 sm:p-5">
               <div className="grid sm:grid-cols-2 gap-3 sm:gap-4 items-start">
                 <div className="flex flex-col items-center">
-                  <div className="relative w-40 h-40 sm:w-36 sm:h-36 rounded-xl overflow-hidden bg-white p-2 shadow-md ring-1 ring-gray-100">
+                  <div className="relative w-32 h-32 sm:w-36 sm:h-36 rounded-xl overflow-hidden bg-white p-2 shadow-md ring-1 ring-gray-100">
                     <Image
                       src="/images/qr-code/paymentq-r.jpeg"
                       alt="UPI QR Code"
                       fill
                       className="object-contain"
-                      sizes="144px"
+                      sizes="(max-width: 640px) 128px, 144px"
                     />
                   </div>
                   <div className="flex items-center gap-1 mt-1.5 text-xs sm:text-xs text-gray-400">

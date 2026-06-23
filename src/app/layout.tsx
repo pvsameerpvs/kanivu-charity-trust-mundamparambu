@@ -17,6 +17,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(
+    process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL}`
+      : "http://localhost:3000"
+  ),
   title: "കനിവ് ചാരിറ്റി ട്രസ്റ്റ് മുണ്ടംപറമ്പ് | Charity Trust in Malappuram",
   description:
     "മുണ്ടംപറമ്പിലെ ജീവകാരുണ്യ പ്രവർത്തനങ്ങൾക്ക് നേതൃത്വം നൽകുന്ന കനിവ് ചാരിറ്റി ട്രസ്റ്റ് ചികിത്സാ സഹായം, വിദ്യാഭ്യാസ സഹായം, ഭവന സഹായം, സാമൂഹിക സേവനം എന്നിവയിൽ പ്രവർത്തിക്കുന്നു.",
@@ -36,14 +41,6 @@ export const metadata: Metadata = {
     type: "website",
     locale: "ml_IN",
     siteName: "കനിവ് ചാരിറ്റി ട്രസ്റ്റ് മുണ്ടംപറമ്പ്",
-    images: [
-      {
-        url: "/images/hero-section/hero1.jpeg",
-        width: 800,
-        height: 500,
-        alt: "കനിവ് ചാരിറ്റി ട്രസ്റ്റ് കൂട്ടായ്മ",
-      },
-    ],
   },
   robots: {
     index: true,

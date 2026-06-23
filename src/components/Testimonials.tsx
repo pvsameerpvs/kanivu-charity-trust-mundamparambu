@@ -43,7 +43,7 @@ export default function Testimonials() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.15 }}
-              className="bg-white rounded-2xl p-8 border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300 relative"
+              className="bg-white rounded-2xl p-6 md:p-8 border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300 relative"
             >
               <Quote className="w-8 h-8 text-[#1CA3D8]/20 mb-4" />
               <p className="text-gray-700 leading-relaxed mb-6 italic">

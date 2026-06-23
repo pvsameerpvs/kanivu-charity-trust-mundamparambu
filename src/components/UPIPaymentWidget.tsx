@@ -119,13 +119,13 @@ export default function UPIPaymentWidget() {
           viewport={{ once: true }}
           className="flex flex-col items-center md:items-start"
         >
-          <div className="relative w-52 h-52 rounded-2xl overflow-hidden bg-white p-3 shadow-lg ring-1 ring-gray-100">
+          <div className="relative w-44 sm:w-48 md:w-52 h-44 sm:h-48 md:h-52 rounded-2xl overflow-hidden bg-white p-3 shadow-lg ring-1 ring-gray-100">
             <Image
               src="/images/qr-code/paymentq-r.jpeg"
               alt="UPI Payment QR Code - Kanivu Charity Trust"
               fill
               className="object-contain"
-              sizes="208px"
+              sizes="(max-width: 640px) 176px, (max-width: 768px) 192px, 208px"
               priority
             />
           </div>

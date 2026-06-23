@@ -40,9 +40,10 @@ export default function Header() {
           <Image
             src="/images/kaniv/kaniv-logo.png"
             alt="കനിവ് ചാരിറ്റി ട്രസ്റ്റ് ലോഗോ"
-            width={260}
-            height={80}
-            className="object-contain h-14 w-auto md:h-16"
+            width={180}
+            height={55}
+            className="object-contain h-12 w-auto md:h-16"
+            sizes="180px"
             priority
           />
         </Link>
@@ -65,7 +66,7 @@ export default function Header() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <Button className="hidden sm:inline-flex bg-[#EF1C25] hover:bg-[#d91920] text-white rounded-full px-4 h-9 text-xs gap-1.5 shadow-md shadow-red-200 hover:shadow-lg transition-all duration-300">
+            <Button className="inline-flex bg-[#EF1C25] hover:bg-[#d91920] text-white rounded-full px-3 md:px-4 h-8 md:h-9 text-[11px] md:text-xs gap-1 shadow-md shadow-red-200 hover:shadow-lg transition-all duration-300">
               <Heart className="w-3.5 h-3.5 fill-current" />
               സഹായിക്കാം
             </Button>
@@ -81,7 +82,7 @@ export default function Header() {
           </Button>
 
           <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
-            <SheetContent side="right" className="w-80 p-0" showCloseButton={false}>
+            <SheetContent side="right" className="w-80 max-w-[85vw] p-0" showCloseButton={false}>
               <div className="flex flex-col h-full">
                 <div className="flex items-center justify-between p-5 border-b">
                   <Image

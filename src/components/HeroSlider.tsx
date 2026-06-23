@@ -39,7 +39,7 @@ export default function HeroSlider() {
   return (
     <section
       id="home"
-      className="relative w-full h-[calc(100dvh-64px)] md:h-[calc(100dvh-72px)] min-h-[450px] overflow-hidden"
+      className="relative w-full h-[calc(100dvh-64px)] md:h-[calc(100dvh-72px)] min-h-[400px] sm:min-h-[450px] overflow-hidden"
     >
       <AnimatePresence initial={false} custom={direction} mode="popLayout">
         <motion.div
@@ -112,7 +112,7 @@ export default function HeroSlider() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6, duration: 0.6 }}
-              className="text-sm md:text-base text-white/70 leading-relaxed mb-6 md:mb-8 max-w-2xl hidden sm:block"
+              className="text-sm md:text-base text-white/70 leading-relaxed mb-6 md:mb-8 max-w-2xl hidden md:block"
             >
               ചികിത്സാ സഹായം, വിദ്യാഭ്യാസ പിന്തുണ, ഭവന സഹായം, സാമൂഹിക
               ഇടപെടലുകൾ എന്നിവയിലൂടെ ആവശ്യക്കാരുടെ ജീവിതത്തിൽ പ്രതീക്ഷയുടെ
