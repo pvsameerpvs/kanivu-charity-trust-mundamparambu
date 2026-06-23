@@ -39,7 +39,7 @@ export default function HeroSlider() {
   return (
     <section
       id="home"
-      className="relative w-full h-[calc(100dvh-64px)] md:h-[calc(100dvh-72px)] min-h-[400px] sm:min-h-[450px] overflow-hidden"
+      className="relative w-full h-[calc(100dvh-80px)] md:h-[calc(100dvh-76px)] min-h-[400px] sm:min-h-[450px] overflow-hidden"
     >
       <AnimatePresence initial={false} custom={direction} mode="popLayout">
         <motion.div
