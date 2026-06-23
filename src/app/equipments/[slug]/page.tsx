@@ -136,11 +136,11 @@ export default async function EquipmentDetailPage({ params }: Props) {
                 <ul className="space-y-2.5 text-sm text-gray-600">
                   <li className="flex items-start gap-3">
                     <span className="size-1.5 rounded-full bg-[#1CA3D8] mt-2 shrink-0" />
-                    വാടകയ്ക്കും വിൽപ്പനയ്ക്കും ലഭ്യമാണ്
+                    ഉപയോഗത്തിനായി നൽകുന്നു, ഉപയോഗശേഷം തിരികെ നൽകുക
                   </li>
                   <li className="flex items-start gap-3">
                     <span className="size-1.5 rounded-full bg-[#1CA3D8] mt-2 shrink-0" />
-                    മുണ്ടമ്പരമ്പ്, പാലക്കാട് എന്നിവിടങ്ങളിൽ ഡെലിവറി ചെയ്യുന്നു
+                    മുണ്ടംപറമ്പിൽ ഡെലിവറി ചെയ്യുന്നു
                   </li>
                   <li className="flex items-start gap-3">
                     <span className="size-1.5 rounded-full bg-[#1CA3D8] mt-2 shrink-0" />

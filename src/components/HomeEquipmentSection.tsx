@@ -24,10 +24,10 @@ export default function HomeEquipmentSection() {
               വൈദ്യുപകരണങ്ങൾ
             </div>
             <h2 className="text-2xl md:text-4xl font-bold text-gray-900 leading-tight">
-              വാടകയ്ക്ക് ലഭ്യമായ മെഡിക്കൽ ഉപകരണങ്ങൾ
+              ലഭ്യമായ മെഡിക്കൽ ഉപകരണങ്ങൾ
             </h2>
             <p className="text-gray-600 mt-3 leading-relaxed max-w-xl">
-              രോഗികൾക്കും പ്രായമായവർക്കും ആവശ്യമായ വിവിധ വൈദ്യുപകരണങ്ങൾ വാടകയ്ക്കും വിൽപ്പനയ്ക്കും ലഭ്യമാണ്.
+               രോഗികൾക്കും പ്രായമായവർക്കും ആവശ്യമായ വിവിധ വൈദ്യുപകരണങ്ങൾ ഉപയോഗത്തിനായി നൽകുന്നു. ഉപയോഗശേഷം തിരികെ നൽകേണ്ടതാണ്.
             </p>
           </div>
           <Link href="/equipments" className="hidden md:block shrink-0">
