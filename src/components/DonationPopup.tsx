@@ -19,9 +19,9 @@ const PAYTM_LINK = `paytmmp://pay?pa=${UPI_ID}&pn=${ENCODED_NAME}&cu=INR`;
 const UPI_LINK = `upi://pay?pa=${UPI_ID}&pn=${ENCODED_NAME}&cu=INR`;
 const WHATSAPP_LINK = "https://wa.me/919567178007?text=%E0%B4%A8%E0%B4%AE%E0%B4%B8%E0%B5%8D%E0%B4%95%E0%B4%BE%E0%B4%B0%E0%B4%82%2C%20%E0%B4%95%E0%B4%A8%E0%B4%BF%E0%B4%B5%E0%B5%8D%20%E0%B4%9A%E0%B4%BE%E0%B4%B0%E0%B4%BF%E0%B4%B1%E0%B5%8D%E0%B4%B1%E0%B4%BF%20%E0%B4%9F%E0%B5%8D%E0%B4%B0%E0%B4%B8%E0%B5%8D%E0%B4%B1%E0%B5%8D%E0%B4%B1%E0%B4%BF%E0%B4%A8%E0%B5%8D%E0%B4%B1%E0%B5%86%20%E0%B4%AA%E0%B5%8D%E0%B4%B0%E0%B4%B5%E0%B5%BC%E0%B4%A4%E0%B5%8D%E0%B4%A4%E0%B4%A8%E0%B4%99%E0%B5%8D%E0%B4%99%E0%B5%BE%E0%B4%95%E0%B5%8D%E0%B4%95%E0%B5%8D%20%E0%B4%B8%E0%B4%B9%E0%B4%BE%E0%B4%AF%E0%B4%82%20%E0%B4%A8%E0%B5%BD%E0%B4%95%E0%B4%BE%E0%B5%BB%20%E0%B4%86%E0%B4%97%E0%B5%8D%E0%B4%B0%E0%B4%B9%E0%B4%BF%E0%B4%95%E0%B5%8D%E0%B4%95%E0%B5%81%E0%B4%A8%E0%B5%8D%E0%B4%A8%E0%B5%81.%20%E0%B4%B5%E0%B4%BF%E0%B4%B6%E0%B4%A6%E0%B4%BE%E0%B4%82%E0%B4%B6%E0%B4%99%E0%B5%8D%E0%B4%99%E0%B5%BE%20%E0%B4%85%E0%B4%B1%E0%B4%BF%E0%B4%AF%E0%B4%BF%E0%B4%95%E0%B5%8D%E0%B4%95%E0%B4%BE%E0%B4%AE%E0%B5%8B%3F";
 
-function GooglePayIcon() {
+function GooglePayIcon({ className = "size-5 shrink-0" }: { className?: string }) {
   return (
-    <svg viewBox="0 0 40 40" className="size-5 shrink-0">
+    <svg viewBox="0 0 40 40" className={className}>
       <rect width="40" height="40" rx="8" fill="white" />
       <path d="M29.4 20.1c0-1.1-.1-2.1-.3-3H20v5.7h5.3c-.2 1.1-.8 2.1-1.8 2.8v2.3h2.9c1.7-1.5 2.7-3.8 2.7-6.5z" fill="#4285F4" />
       <path d="M20 30c2.4 0 4.4-.8 5.9-2.1l-2.9-2.3c-.8.5-1.8.8-3 .8-2.3 0-4.3-1.6-5-3.7H9v2.4C10.5 27.9 14.9 30 20 30z" fill="#34A853" />
@@ -31,9 +31,9 @@ function GooglePayIcon() {
   );
 }
 
-function PhonePeIcon() {
+function PhonePeIcon({ className = "size-5 shrink-0" }: { className?: string }) {
   return (
-    <svg viewBox="0 0 40 40" className="size-5 shrink-0">
+    <svg viewBox="0 0 40 40" className={className}>
       <rect width="40" height="40" rx="9" fill="#5F259F" />
       <text x="13" y="24" fontSize="17" fontWeight="900" fill="white" fontFamily="Arial, sans-serif">P</text>
       <text x="21" y="21" fontSize="6.5" fontWeight="700" fill="white" fontFamily="Arial, sans-serif" letterSpacing="0.3">hone</text>
@@ -42,9 +42,9 @@ function PhonePeIcon() {
   );
 }
 
-function PaytmIcon() {
+function PaytmIcon({ className = "size-5 shrink-0" }: { className?: string }) {
   return (
-    <svg viewBox="0 0 40 40" className="size-5 shrink-0">
+    <svg viewBox="0 0 40 40" className={className}>
       <rect width="40" height="40" rx="8" fill="#00BAF2" />
       <text x="10" y="26" fontSize="13" fontWeight="800" fill="white" fontFamily="Arial, sans-serif">P</text>
       <text x="18" y="26" fontSize="11" fontWeight="600" fill="white" fontFamily="Arial, sans-serif">aytm</text>
@@ -158,104 +158,102 @@ export default function DonationPopup() {
           <div
             role="dialog"
             aria-modal="true"
-            className="relative w-full max-w-sm sm:max-w-lg bg-white rounded-2xl shadow-2xl max-h-[calc(100dvh-1.5rem)] sm:max-h-[calc(100dvh-3rem)] overflow-y-auto animate-in fade-in-0 zoom-in-95 slide-in-from-bottom-4 duration-200"
+            className="relative w-full max-w-[340px] sm:max-w-md bg-white rounded-2xl shadow-2xl max-h-[calc(100dvh-1.5rem)] sm:max-h-[calc(100dvh-3rem)] overflow-y-auto animate-in fade-in-0 zoom-in-95 slide-in-from-bottom-4 duration-200"
           >
             <button
               onClick={close}
-              className="absolute top-3 right-3 z-10 p-1.5 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors"
+              className="absolute top-2.5 right-2.5 z-10 p-1.5 rounded-full bg-gray-100/80 hover:bg-gray-200 transition-colors"
             >
-              <X className="w-4 h-4 text-gray-500" />
+              <X className="w-3.5 h-3.5 text-gray-500" />
             </button>
 
-              <div className="bg-gradient-to-br from-[#EF1C25]/10 via-[#F7941D]/10 to-[#1CA3D8]/10 p-4 sm:p-5 text-center">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#EF1C25] flex items-center justify-center mx-auto mb-2 sm:mb-3 shadow-lg shadow-[#EF1C25]/30">
-                  <HandHeart className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
-                </div>
-                <h3 className="text-sm sm:text-base font-bold text-gray-900 leading-snug">
-                  {msg.title}
-                </h3>
-                <p className="text-[11px] sm:text-xs text-gray-600 mt-1 leading-relaxed max-w-sm mx-auto">
-                  {msg.desc}
-                </p>
+            <div className="bg-gradient-to-br from-[#EF1C25]/10 via-[#F7941D]/10 to-[#1CA3D8]/10 p-3 sm:p-5 text-center">
+              <div className="w-8 h-8 sm:w-12 sm:h-12 rounded-full bg-[#EF1C25] flex items-center justify-center mx-auto mb-1.5 sm:mb-3 shadow-lg shadow-[#EF1C25]/30">
+                <HandHeart className="w-4 h-4 sm:w-6 sm:h-6 text-white" />
               </div>
+              <h3 className="text-xs sm:text-base font-bold text-gray-900 leading-snug">
+                {msg.title}
+              </h3>
+              <p className="text-[10px] sm:text-xs text-gray-600 mt-0.5 sm:mt-1.5 leading-relaxed max-w-xs sm:max-w-sm mx-auto">
+                {msg.desc}
+              </p>
+            </div>
 
-              <div className="p-4 sm:p-5">
-                <div className="grid sm:grid-cols-2 gap-3 sm:gap-4 items-start">
-                  <div className="flex flex-col items-center">
-                    <div className="relative w-32 h-32 sm:w-36 sm:h-36 rounded-xl overflow-hidden bg-white p-2 shadow-md ring-1 ring-gray-100">
-                      <Image
-                        src="/images/qr-code/paymentq-r.jpeg"
-                        alt="UPI QR Code"
-                        fill
-                        className="object-contain"
-                        sizes="(max-width: 640px) 128px, 144px"
-                      />
-                    </div>
-                    <div className="flex items-center gap-1 mt-1.5 text-xs sm:text-xs text-gray-400">
-                      <Scan className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
-                      <span>Scan to pay</span>
-                    </div>
+            <div className="p-3 sm:p-5">
+              <div className="grid grid-cols-12 gap-3 sm:gap-4 items-center">
+                <div className="col-span-5 flex flex-col items-center justify-center">
+                  <div className="relative w-20 h-20 sm:w-32 sm:h-32 rounded-xl overflow-hidden bg-white p-1.5 shadow-sm ring-1 ring-gray-100">
+                    <Image
+                      src="/images/qr-code/paymentq-r.jpeg"
+                      alt="UPI QR Code"
+                      fill
+                      className="object-contain"
+                      sizes="(max-width: 640px) 80px, 128px"
+                    />
                   </div>
-
-                  <div className="flex flex-col gap-1.5 sm:gap-2">
-                    <p className="text-[10px] sm:text-xs font-semibold text-gray-900 text-center sm:text-left">
-                      Pay via UPI
-                    </p>
-
-                    <a href={gpayLink} target="_blank" rel="noopener noreferrer" className="block">
-                      <Button className="w-full h-9 sm:h-10 bg-white border-2 border-[#4285F4] text-[#4285F4] hover:bg-[#4285F4] hover:text-white text-xs sm:text-sm gap-1.5 sm:gap-2 rounded-lg shadow-sm transition-all duration-200">
-                        <GooglePayIcon />
-                        Google Pay
-                      </Button>
-                    </a>
-
-                    <a href={PHONEPE_LINK} target="_blank" rel="noopener noreferrer" className="block">
-                      <Button className="w-full h-9 sm:h-10 bg-white border-2 border-[#5F259F] text-[#5F259F] hover:bg-[#5F259F] hover:text-white text-xs sm:text-sm gap-1.5 sm:gap-2 rounded-lg shadow-sm transition-all duration-200">
-                        <PhonePeIcon />
-                        PhonePe
-                      </Button>
-                    </a>
-
-                    <a href={PAYTM_LINK} target="_blank" rel="noopener noreferrer" className="block">
-                      <Button className="w-full h-9 sm:h-10 bg-white border-2 border-[#00BAF2] text-[#00BAF2] hover:bg-[#00BAF2] hover:text-white text-xs sm:text-sm gap-1.5 sm:gap-2 rounded-lg shadow-sm transition-all duration-200">
-                        <PaytmIcon />
-                        Paytm
-                      </Button>
-                    </a>
+                  <div className="flex items-center gap-1 mt-1 text-[9px] sm:text-xs text-gray-400">
+                    <Scan className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
+                    <span className="whitespace-nowrap">Scan to pay</span>
                   </div>
                 </div>
 
-                <div className="mt-3 sm:mt-4 bg-blue-50 border border-blue-100 rounded-xl p-2.5 sm:p-3 text-left">
-                  <p className="text-[10px] sm:text-[11px] font-semibold text-blue-800 mb-1.5">
-                    ✓ UPI Payment Details
+                <div className="col-span-7 flex flex-col gap-1 sm:gap-2">
+                  <p className="text-[10px] sm:text-xs font-semibold text-gray-900 text-left">
+                    Pay via UPI
                   </p>
-                  <div className="space-y-0.5 text-[10px] sm:text-[11px] text-blue-700 leading-relaxed">
-                    <p><span className="font-medium">Recipient:</span> {PAYEE_NAME}</p>
-                    <p><span className="font-medium">UPI ID:</span> {UPI_ID}</p>
-                    <p><span className="font-medium">Bank:</span> Federal Bank</p>
-                    <p><span className="font-medium">Currency:</span> INR</p>
-                  </div>
-                  <p className="text-[9px] sm:text-[10px] text-amber-700 bg-amber-50 rounded-lg p-1.5 mt-1.5 leading-tight border border-amber-200">
-                    ⚠ Before paying, scan in Google Pay / PhonePe / Paytm and confirm the recipient name shows <span className="font-semibold">{PAYEE_NAME}</span>
-                  </p>
-                </div>
 
-                <div className="mt-2 sm:mt-3 border-t border-gray-100 pt-2 sm:pt-3">
-                  <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="block">
-                    <Button className="w-full h-9 sm:h-11 bg-[#25D366] hover:bg-[#22c35e] text-white text-xs sm:text-sm gap-1.5 sm:gap-2 rounded-xl shadow-sm">
-                      <WhatsAppIcon className="size-4 sm:size-5" />
-                      WhatsApp വഴിയും സഹായിക്കാം
+                  <a href={gpayLink} target="_blank" rel="noopener noreferrer" className="block">
+                    <Button className="w-full h-8 sm:h-10 bg-white border-2 border-[#4285F4] text-[#4285F4] hover:bg-[#4285F4] hover:text-white text-[10px] sm:text-sm gap-1 sm:gap-2 rounded-lg shadow-sm transition-all duration-200 py-0">
+                      <GooglePayIcon className="size-3.5 sm:size-5 shrink-0" />
+                      Google Pay
+                    </Button>
+                  </a>
+
+                  <a href={PHONEPE_LINK} target="_blank" rel="noopener noreferrer" className="block">
+                    <Button className="w-full h-8 sm:h-10 bg-white border-2 border-[#5F259F] text-[#5F259F] hover:bg-[#5F259F] hover:text-white text-[10px] sm:text-sm gap-1 sm:gap-2 rounded-lg shadow-sm transition-all duration-200 py-0">
+                      <PhonePeIcon className="size-3.5 sm:size-5 shrink-0" />
+                      PhonePe
+                    </Button>
+                  </a>
+
+                  <a href={PAYTM_LINK} target="_blank" rel="noopener noreferrer" className="block">
+                    <Button className="w-full h-8 sm:h-10 bg-white border-2 border-[#00BAF2] text-[#00BAF2] hover:bg-[#00BAF2] hover:text-white text-[10px] sm:text-sm gap-1 sm:gap-2 rounded-lg shadow-sm transition-all duration-200 py-0">
+                      <PaytmIcon className="size-3.5 sm:size-5 shrink-0" />
+                      Paytm
                     </Button>
                   </a>
                 </div>
-
-                <button
-                  onClick={close}
-                  className="w-full text-xs text-gray-400 hover:text-gray-600 pt-3 pb-1 transition-colors"
-                >
-                  പിന്നീട്
-                </button>
               </div>
+
+              <div className="mt-2.5 sm:mt-4 bg-blue-50/60 border border-blue-100/80 rounded-xl p-2 sm:p-3 text-left">
+                <div className="flex flex-col gap-0.5 text-[9px] sm:text-[11px] text-blue-700 leading-normal">
+                  <p className="font-semibold text-blue-800 text-[10px] sm:text-xs flex justify-between items-center">
+                    <span>✓ UPI ID: <span className="font-bold select-all text-blue-900">{UPI_ID}</span></span>
+                    <span className="text-[8px] sm:text-[10px] font-normal text-blue-500">Federal Bank</span>
+                  </p>
+                  <p><span className="font-medium text-blue-800">Recipient:</span> {PAYEE_NAME}</p>
+                </div>
+                <p className="text-[8px] sm:text-[9px] text-amber-700 bg-amber-50 rounded px-1.5 py-0.5 mt-1 leading-tight border border-amber-100 flex items-center gap-1">
+                  <span>⚠ Confirm name is <span className="font-semibold">KANIVU CHARITY TRUST...</span></span>
+                </p>
+              </div>
+
+              <div className="mt-2.5 sm:mt-3 border-t border-gray-100 pt-2.5 sm:pt-3">
+                <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="block">
+                  <Button className="w-full h-8 sm:h-11 bg-[#25D366] hover:bg-[#22c35e] text-white text-[10px] sm:text-sm gap-1.5 sm:gap-2 rounded-lg sm:rounded-xl shadow-sm py-0">
+                    <WhatsAppIcon className="size-3.5 sm:size-5" />
+                    WhatsApp വഴിയും സഹായിക്കാം
+                  </Button>
+                </a>
+              </div>
+
+              <button
+                onClick={close}
+                className="w-full text-[10px] sm:text-xs text-gray-400 hover:text-gray-600 pt-2 pb-0.5 transition-colors"
+              >
+                പിന്നീട്
+              </button>
+            </div>
           </div>
         </div>
       </div>
