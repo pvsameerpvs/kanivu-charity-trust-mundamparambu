@@ -144,7 +144,7 @@ export default function DonationPopup() {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.2 }}
-          className="fixed inset-0 z-[100] flex items-center justify-center p-4"
+          className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-4"
         >
           <div
             className="absolute inset-0 bg-black/30 backdrop-blur-sm"
@@ -155,7 +155,7 @@ export default function DonationPopup() {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             transition={{ type: "spring", stiffness: 300, damping: 25 }}
-            className="relative w-full max-w-lg bg-white rounded-2xl shadow-2xl overflow-hidden"
+             className="relative w-full max-w-sm sm:max-w-lg bg-white rounded-2xl shadow-2xl overflow-hidden"
           >
             <button
               onClick={close}
@@ -164,22 +164,22 @@ export default function DonationPopup() {
               <X className="w-4 h-4 text-gray-500" />
             </button>
 
-            <div className="bg-gradient-to-br from-[#EF1C25]/10 via-[#F7941D]/10 to-[#1CA3D8]/10 p-5 text-center">
-              <div className="w-12 h-12 rounded-full bg-[#EF1C25] flex items-center justify-center mx-auto mb-3 shadow-lg shadow-[#EF1C25]/30">
-                <HandHeart className="w-6 h-6 text-white" />
+            <div className="bg-gradient-to-br from-[#EF1C25]/10 via-[#F7941D]/10 to-[#1CA3D8]/10 p-4 sm:p-5 text-center">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#EF1C25] flex items-center justify-center mx-auto mb-2 sm:mb-3 shadow-lg shadow-[#EF1C25]/30">
+                <HandHeart className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
               </div>
-              <h3 className="text-base font-bold text-gray-900 leading-snug">
+              <h3 className="text-sm sm:text-base font-bold text-gray-900 leading-snug">
                 {msg.title}
               </h3>
-              <p className="text-xs text-gray-600 mt-1 leading-relaxed max-w-sm mx-auto">
+              <p className="text-[11px] sm:text-xs text-gray-600 mt-1 leading-relaxed max-w-sm mx-auto">
                 {msg.desc}
               </p>
             </div>
 
-            <div className="p-5">
-              <div className="grid sm:grid-cols-2 gap-4 items-start">
+            <div className="p-4 sm:p-5">
+              <div className="grid sm:grid-cols-2 gap-3 sm:gap-4 items-start">
                 <div className="flex flex-col items-center">
-                  <div className="relative w-36 h-36 rounded-xl overflow-hidden bg-white p-2 shadow-md ring-1 ring-gray-100">
+                  <div className="relative w-40 h-40 sm:w-36 sm:h-36 rounded-xl overflow-hidden bg-white p-2 shadow-md ring-1 ring-gray-100">
                     <Image
                       src="/images/qr-code/paymentq-r.jpeg"
                       alt="UPI QR Code"
@@ -188,33 +188,33 @@ export default function DonationPopup() {
                       sizes="144px"
                     />
                   </div>
-                  <div className="flex items-center gap-1 mt-2 text-xs text-gray-400">
-                    <Scan className="w-3 h-3" />
+                  <div className="flex items-center gap-1 mt-1.5 text-xs sm:text-xs text-gray-400">
+                    <Scan className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
                     <span>Scan to pay</span>
                   </div>
                 </div>
 
-                <div className="flex flex-col gap-2">
-                  <p className="text-xs font-semibold text-gray-900 text-center sm:text-left">
+                <div className="flex flex-col gap-1.5 sm:gap-2">
+                  <p className="text-[10px] sm:text-xs font-semibold text-gray-900 text-center sm:text-left">
                     Pay via UPI
                   </p>
 
                   <a href={gpayLink} target="_blank" rel="noopener noreferrer" className="block">
-                    <Button className="w-full h-10 bg-white border-2 border-[#4285F4] text-[#4285F4] hover:bg-[#4285F4] hover:text-white text-sm gap-2 rounded-lg shadow-sm transition-all duration-200">
+                    <Button className="w-full h-9 sm:h-10 bg-white border-2 border-[#4285F4] text-[#4285F4] hover:bg-[#4285F4] hover:text-white text-xs sm:text-sm gap-1.5 sm:gap-2 rounded-lg shadow-sm transition-all duration-200">
                       <GooglePayIcon />
                       Google Pay
                     </Button>
                   </a>
 
                   <a href={PHONEPE_LINK} target="_blank" rel="noopener noreferrer" className="block">
-                    <Button className="w-full h-10 bg-white border-2 border-[#5F259F] text-[#5F259F] hover:bg-[#5F259F] hover:text-white text-sm gap-2 rounded-lg shadow-sm transition-all duration-200">
+                    <Button className="w-full h-9 sm:h-10 bg-white border-2 border-[#5F259F] text-[#5F259F] hover:bg-[#5F259F] hover:text-white text-xs sm:text-sm gap-1.5 sm:gap-2 rounded-lg shadow-sm transition-all duration-200">
                       <PhonePeIcon />
                       PhonePe
                     </Button>
                   </a>
 
                   <a href={PAYTM_LINK} target="_blank" rel="noopener noreferrer" className="block">
-                    <Button className="w-full h-10 bg-white border-2 border-[#00BAF2] text-[#00BAF2] hover:bg-[#00BAF2] hover:text-white text-sm gap-2 rounded-lg shadow-sm transition-all duration-200">
+                    <Button className="w-full h-9 sm:h-10 bg-white border-2 border-[#00BAF2] text-[#00BAF2] hover:bg-[#00BAF2] hover:text-white text-xs sm:text-sm gap-1.5 sm:gap-2 rounded-lg shadow-sm transition-all duration-200">
                       <PaytmIcon />
                       Paytm
                     </Button>
@@ -222,13 +222,25 @@ export default function DonationPopup() {
                 </div>
               </div>
 
-              <div className="mt-4 pt-3 border-t border-gray-100">
+              <div className="mt-3 sm:mt-4 pt-2 sm:pt-3 border-t border-gray-100">
                 <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="block">
-                  <Button className="w-full h-11 bg-[#25D366] hover:bg-[#22c35e] text-white text-sm gap-2 rounded-xl shadow-sm">
-                    <WhatsAppIcon className="w-5 h-5" />
+                  <Button className="w-full h-9 sm:h-11 bg-[#25D366] hover:bg-[#22c35e] text-white text-xs sm:text-sm gap-1.5 sm:gap-2 rounded-xl shadow-sm">
+                    <WhatsAppIcon className="w-4 h-4 sm:w-5 sm:h-5" />
                     WhatsApp വഴിയും സഹായിക്കാം
                   </Button>
                 </a>
+              </div>
+
+              <div className="mt-2 sm:mt-3 bg-green-50 border border-green-100 rounded-xl p-2 sm:p-3 text-center">
+                <p className="text-[10px] sm:text-xs font-semibold text-green-800">
+                  ✓ സംഭാവന രസീത് ലഭ്യമാണ്
+                </p>
+                <p className="text-[10px] sm:text-[11px] text-green-700 font-medium mt-0.5 leading-tight">
+                  {PAYEE_NAME}
+                </p>
+                <p className="text-[10px] sm:text-[11px] text-green-600 mt-0.5 leading-tight">
+                  നിങ്ങളുടെ സംഭാവനയ്ക്ക് ഔദ്യോഗിക രസീത് നൽകുന്നതാണ്. രജിസ്റ്റേർഡ് ട്രസ്റ്റ്.
+                </p>
               </div>
 
               <button
