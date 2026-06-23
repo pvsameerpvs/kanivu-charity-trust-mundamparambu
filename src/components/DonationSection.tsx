@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { motion } from "framer-motion";
 import {
   Heart,
@@ -12,12 +11,10 @@ import WhatsAppIcon from "@/components/WhatsAppIcon";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import SectionWrapper from "@/components/SectionWrapper";
-import UPIPaymentWidget from "@/components/UPIPaymentWidget";
 import DonationPopup from "@/components/DonationPopup";
+import Link from "next/link";
 
 export default function DonationSection() {
-  const [showUPI, setShowUPI] = useState(false);
-
   return (
     <SectionWrapper
       id="donation"
@@ -75,13 +72,10 @@ export default function DonationSection() {
               </CardContent>
             </Card>
 
-            <button
-              onClick={() => setShowUPI(!showUPI)}
-              className="text-left w-full"
-            >
-              <Card className="bg-white/90 backdrop-blur-sm border border-gray-100 rounded-2xl hover:shadow-lg transition-all cursor-pointer">
+            <Link href="/upi-payment" className="text-left w-full">
+              <Card className="bg-white/90 backdrop-blur-sm border border-gray-100 rounded-2xl hover:shadow-lg transition-all cursor-pointer group">
                 <CardContent className="p-6 text-center">
-                  <div className="w-12 h-12 rounded-full bg-blue-50 flex items-center justify-center mx-auto mb-3">
+                  <div className="w-12 h-12 rounded-full bg-blue-50 flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform duration-300">
                     <QrCode className="w-6 h-6 text-blue-600" />
                   </div>
                   <h3 className="font-bold text-gray-900 mb-1">
@@ -92,7 +86,7 @@ export default function DonationSection() {
                   </p>
                 </CardContent>
               </Card>
-            </button>
+            </Link>
 
             <Card className="bg-white/90 backdrop-blur-sm border border-gray-100 rounded-2xl hover:shadow-lg transition-all">
               <CardContent className="p-6 text-center">
@@ -109,18 +103,7 @@ export default function DonationSection() {
             </Card>
           </motion.div>
 
-          {showUPI && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              className="overflow-hidden mb-10"
-            >
-              <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 md:p-8 shadow-lg border border-gray-100">
-                <UPIPaymentWidget />
-              </div>
-            </motion.div>
-          )}
+
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -134,8 +117,8 @@ export default function DonationSection() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <Button className="bg-[#25D366] hover:bg-[#22c35e] text-white rounded-full px-10 h-14 text-lg gap-3 shadow-xl shadow-green-200 hover:shadow-2xl transition-all duration-300 animate-pulse-soft">
-                <WhatsAppIcon className="w-6 h-6" />
+              <Button className="bg-[#25D366] hover:bg-[#22c35e] text-white rounded-full px-6 sm:px-10 h-12 sm:h-14 text-sm sm:text-lg gap-2 sm:gap-3 shadow-xl shadow-green-200 hover:shadow-2xl transition-all duration-300 animate-pulse-soft">
+                <WhatsAppIcon className="size-5 sm:size-6" />
                 WhatsApp വഴി സഹായിക്കാം
               </Button>
             </a>

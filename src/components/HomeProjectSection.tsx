@@ -60,7 +60,7 @@ export default function HomeProjectSection() {
               rel="noopener noreferrer"
             >
               <Button className="bg-[#F7941D] hover:bg-[#e0851a] text-white rounded-full px-8 h-12 gap-2 shadow-lg shadow-orange-200">
-                <Heart className="w-5 h-5 fill-current" />
+                <Heart className="size-5 fill-current" />
                 ഈ പദ്ധതിയിലേക്ക് സഹായിക്കാം
               </Button>
             </a>

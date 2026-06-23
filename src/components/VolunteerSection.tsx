@@ -88,7 +88,7 @@ export default function VolunteerSection() {
               rel="noopener noreferrer"
             >
               <Button className="bg-[#1CA3D8] hover:bg-[#1890c0] text-white rounded-full px-8 h-12 gap-2 shadow-lg shadow-blue-200">
-                <WhatsAppIcon className="w-5 h-5" />
+                <WhatsAppIcon className="size-5" />
                 വോളണ്ടിയറായി ചേരാം
                 <ArrowRight className="w-4 h-4" />
               </Button>

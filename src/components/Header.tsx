@@ -8,13 +8,13 @@ import Image from "next/image";
 import Link from "next/link";
 
 const navLinks = [
-  { label: "ഹോം", href: "#home" },
-  { label: "ഞങ്ങളെ കുറിച്ച്", href: "#about" },
-  { label: "സേവനങ്ങൾ", href: "#services" },
-  { label: "പ്രവർത്തനങ്ങൾ", href: "#activities" },
-  { label: "ഗ്യാലറി", href: "#gallery" },
-  { label: "സംഭാവന", href: "#donation" },
-  { label: "ബന്ധപ്പെടുക", href: "#contact" },
+  { label: "ഹോം", href: "/" },
+  { label: "ഞങ്ങളെ കുറിച്ച്", href: "/#about" },
+  { label: "സേവനങ്ങൾ", href: "/#services" },
+  { label: "പ്രവർത്തനങ്ങൾ", href: "/#activities" },
+  { label: "ഗ്യാലറി", href: "/#gallery" },
+  { label: "സംഭാവന", href: "/#donation" },
+  { label: "ബന്ധപ്പെടുക", href: "/#contact" },
 ];
 
 export default function Header() {
@@ -36,13 +36,13 @@ export default function Header() {
       }`}
     >
       <div className="container mx-auto flex items-center justify-between h-16 md:h-[72px] px-4">
-        <Link href="#home" className="shrink-0">
+        <Link href="/" className="shrink-0">
           <Image
             src="/images/kaniv/kaniv-logo.png"
             alt="കനിവ് ചാരിറ്റി ട്രസ്റ്റ് ലോഗോ"
             width={180}
             height={55}
-            className="object-contain h-12 w-auto md:h-16"
+            className="object-contain h-[60px] w-auto md:h-16"
             sizes="180px"
             priority
           />
@@ -67,7 +67,7 @@ export default function Header() {
             rel="noopener noreferrer"
           >
             <Button className="inline-flex bg-[#EF1C25] hover:bg-[#d91920] text-white rounded-full px-3 md:px-4 h-8 md:h-9 text-[11px] md:text-xs gap-1 shadow-md shadow-red-200 hover:shadow-lg transition-all duration-300">
-              <Heart className="w-3.5 h-3.5 fill-current" />
+              <Heart className="size-4 fill-current" />
               സഹായിക്കാം
             </Button>
           </a>
@@ -119,7 +119,7 @@ export default function Header() {
                     className="w-full"
                   >
                     <Button className="w-full bg-[#EF1C25] hover:bg-[#d91920] text-white rounded-full gap-2 h-12 text-base">
-                      <Heart className="w-5 h-5 fill-current" />
+                      <Heart className="size-5 fill-current" />
                       സഹായിക്കാം
                     </Button>
                   </a>

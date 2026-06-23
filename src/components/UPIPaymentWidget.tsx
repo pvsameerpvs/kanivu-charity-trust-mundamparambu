@@ -27,7 +27,7 @@ const UPI_LINK = `upi://pay?pa=${UPI_ID}&pn=${ENCODED_NAME}&cu=INR`;
 
 function GooglePayIcon() {
   return (
-    <svg viewBox="0 0 40 40" className="w-5 h-5 shrink-0">
+    <svg viewBox="0 0 40 40" className="size-5 shrink-0">
       <rect width="40" height="40" rx="8" fill="white" />
       <path d="M29.4 20.1c0-1.1-.1-2.1-.3-3H20v5.7h5.3c-.2 1.1-.8 2.1-1.8 2.8v2.3h2.9c1.7-1.5 2.7-3.8 2.7-6.5z" fill="#4285F4" />
       <path d="M20 30c2.4 0 4.4-.8 5.9-2.1l-2.9-2.3c-.8.5-1.8.8-3 .8-2.3 0-4.3-1.6-5-3.7H9v2.4C10.5 27.9 14.9 30 20 30z" fill="#34A853" />
@@ -39,7 +39,7 @@ function GooglePayIcon() {
 
 function PhonePeIcon() {
   return (
-    <svg viewBox="0 0 40 40" className="w-5 h-5 shrink-0">
+    <svg viewBox="0 0 40 40" className="size-5 shrink-0">
       <rect width="40" height="40" rx="9" fill="#5F259F" />
       <text x="13" y="24" fontSize="17" fontWeight="900" fill="white" fontFamily="Arial, sans-serif">P</text>
       <text x="21" y="21" fontSize="6.5" fontWeight="700" fill="white" fontFamily="Arial, sans-serif" letterSpacing="0.3">hone</text>
@@ -50,7 +50,7 @@ function PhonePeIcon() {
 
 function PaytmIcon() {
   return (
-    <svg viewBox="0 0 40 40" className="w-5 h-5 shrink-0">
+    <svg viewBox="0 0 40 40" className="size-5 shrink-0">
       <rect width="40" height="40" rx="8" fill="#00BAF2" />
       <text x="10" y="26" fontSize="13" fontWeight="800" fill="white" fontFamily="Arial, sans-serif">P</text>
       <text x="18" y="26" fontSize="11" fontWeight="600" fill="white" fontFamily="Arial, sans-serif">aytm</text>
@@ -72,12 +72,12 @@ export default function UPIPaymentWidget() {
   const [gpayLink, setGpayLink] = useState(UPI_LINK);
 
   useEffect(() => {
-    const ua = navigator.userAgent;
-    if (/iPad|iPhone|iPod/.test(ua)) {
-      setGpayLink(GPAY_IOS);
-    } else {
-      setGpayLink(GPAY_ANDROID);
-    }
+    const detectPaymentLink = window.setTimeout(() => {
+      const ua = navigator.userAgent;
+      setGpayLink(/iPad|iPhone|iPod/.test(ua) ? GPAY_IOS : GPAY_ANDROID);
+    }, 0);
+
+    return () => window.clearTimeout(detectPaymentLink);
   }, []);
 
   const copyUPIId = async () => {
@@ -96,28 +96,28 @@ export default function UPIPaymentWidget() {
   };
 
   return (
-    <div className="w-full max-w-3xl mx-auto">
-      <div className="flex flex-wrap items-center justify-center gap-3 mb-6">
-        <div className="inline-flex items-center gap-1.5 bg-green-50 text-green-700 text-xs font-medium px-3 py-1.5 rounded-full">
-          <CircleCheck className="w-3.5 h-3.5" />
+    <div className="w-full max-w-3xl mx-auto min-w-0">
+      <div className="flex flex-wrap items-center justify-center gap-2 md:gap-3 mb-4 md:mb-6">
+        <div className="inline-flex items-center gap-1 bg-green-50 text-green-700 text-[10px] sm:text-xs font-medium px-2 sm:px-3 py-1 sm:py-1.5 rounded-full whitespace-nowrap">
+          <CircleCheck className="w-3 h-3 sm:w-3.5 sm:h-3.5 shrink-0" />
           UPI Verified
         </div>
-        <div className="inline-flex items-center gap-1.5 bg-blue-50 text-blue-700 text-xs font-medium px-3 py-1.5 rounded-full">
-          <Lock className="w-3.5 h-3.5" />
-          256-bit Secure
+        <div className="inline-flex items-center gap-1 bg-blue-50 text-blue-700 text-[10px] sm:text-xs font-medium px-2 sm:px-3 py-1 sm:py-1.5 rounded-full whitespace-nowrap">
+          <Lock className="w-3 h-3 sm:w-3.5 sm:h-3.5 shrink-0" />
+          256-bit
         </div>
-        <div className="inline-flex items-center gap-1.5 bg-purple-50 text-purple-700 text-xs font-medium px-3 py-1.5 rounded-full">
-          <Building2 className="w-3.5 h-3.5" />
+        <div className="inline-flex items-center gap-1 bg-purple-50 text-purple-700 text-[10px] sm:text-xs font-medium px-2 sm:px-3 py-1 sm:py-1.5 rounded-full whitespace-nowrap">
+          <Building2 className="w-3 h-3 sm:w-3.5 sm:h-3.5 shrink-0" />
           Federal Bank
         </div>
       </div>
 
-      <div className="grid md:grid-cols-2 gap-8 items-center">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 items-start min-w-0">
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
-          className="flex flex-col items-center md:items-start"
+          className="flex w-full min-w-0 flex-col items-center md:items-start"
         >
           <div className="relative w-44 sm:w-48 md:w-52 h-44 sm:h-48 md:h-52 rounded-2xl overflow-hidden bg-white p-3 shadow-lg ring-1 ring-gray-100">
             <Image
@@ -145,7 +145,7 @@ export default function UPIPaymentWidget() {
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.15 }}
-          className="flex flex-col gap-3"
+          className="flex w-full min-w-0 flex-col gap-3"
         >
           <div className="text-center md:text-left">
             <h3 className="font-bold text-gray-900 text-lg">Pay via UPI</h3>
@@ -154,13 +154,15 @@ export default function UPIPaymentWidget() {
             </p>
           </div>
 
-          <div className="bg-gray-50 rounded-xl p-3 mb-1 border border-gray-100">
-            <div className="flex items-center gap-2 text-sm">
-              <Banknote className="w-4 h-4 text-blue-600 shrink-0" />
-              <span className="font-medium text-gray-900">Recipient:</span>
-              <span className="text-gray-600 text-xs sm:text-sm truncate">
-                {PAYEE_NAME}
-              </span>
+          <div className="bg-gray-50 rounded-xl p-3 mb-1 border border-gray-100 min-w-0 overflow-hidden">
+            <div className="flex items-start gap-2 text-sm min-w-0">
+              <Banknote className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
+              <div className="min-w-0 flex-1">
+                <span className="font-medium text-gray-900">Recipient</span>
+                <p className="text-gray-600 text-xs sm:text-sm break-words leading-snug mt-0.5">
+                  {PAYEE_NAME}
+                </p>
+              </div>
             </div>
           </div>
 
@@ -170,7 +172,7 @@ export default function UPIPaymentWidget() {
             rel="noopener noreferrer"
             className="block"
           >
-            <Button className="w-full h-12 bg-white border-2 border-[#4285F4] text-[#4285F4] hover:bg-[#4285F4] hover:text-white text-base gap-3 rounded-xl shadow-sm transition-all duration-200">
+            <Button className="w-full min-w-0 h-11 md:h-12 bg-white border-2 border-[#4285F4] text-[#4285F4] hover:bg-[#4285F4] hover:text-white text-sm md:text-base gap-2 md:gap-3 rounded-xl shadow-sm transition-all duration-200">
               <GooglePayIcon />
               Google Pay
             </Button>
@@ -182,7 +184,7 @@ export default function UPIPaymentWidget() {
             rel="noopener noreferrer"
             className="block"
           >
-            <Button className="w-full h-12 bg-white border-2 border-[#5F259F] text-[#5F259F] hover:bg-[#5F259F] hover:text-white text-base gap-3 rounded-xl shadow-sm transition-all duration-200">
+            <Button className="w-full min-w-0 h-11 md:h-12 bg-white border-2 border-[#5F259F] text-[#5F259F] hover:bg-[#5F259F] hover:text-white text-sm md:text-base gap-2 md:gap-3 rounded-xl shadow-sm transition-all duration-200">
               <PhonePeIcon />
               PhonePe
             </Button>
@@ -194,14 +196,14 @@ export default function UPIPaymentWidget() {
             rel="noopener noreferrer"
             className="block"
           >
-            <Button className="w-full h-12 bg-white border-2 border-[#00BAF2] text-[#00BAF2] hover:bg-[#00BAF2] hover:text-white text-base gap-3 rounded-xl shadow-sm transition-all duration-200">
+            <Button className="w-full min-w-0 h-11 md:h-12 bg-white border-2 border-[#00BAF2] text-[#00BAF2] hover:bg-[#00BAF2] hover:text-white text-sm md:text-base gap-2 md:gap-3 rounded-xl shadow-sm transition-all duration-200">
               <PaytmIcon />
               Paytm
             </Button>
           </a>
 
-          <div className="flex items-center gap-2 mt-1 pt-3 border-t border-gray-100">
-            <code className="text-xs sm:text-sm bg-gray-100 px-3 py-1.5 rounded-lg text-gray-700 font-mono select-all">
+          <div className="flex w-full items-center gap-2 mt-1 pt-3 border-t border-gray-100 min-w-0">
+            <code className="flex-1 text-xs sm:text-sm bg-gray-100 px-3 py-1.5 rounded-lg text-gray-700 font-mono select-all truncate min-w-0">
               {UPI_ID}
             </code>
             <button
@@ -229,12 +231,27 @@ export default function UPIPaymentWidget() {
         </motion.div>
       </div>
 
+      <div className="mt-6 md:mt-8 bg-blue-50 border border-blue-100 rounded-xl p-3 sm:p-4 text-left">
+        <p className="text-[11px] sm:text-xs font-semibold text-blue-800 mb-2">
+          ✓ UPI Payment Details
+        </p>
+        <div className="space-y-1 text-[11px] sm:text-xs text-blue-700 leading-relaxed break-words">
+          <p><span className="font-medium">Recipient:</span> {PAYEE_NAME}</p>
+          <p><span className="font-medium">UPI ID:</span> {UPI_ID}</p>
+          <p><span className="font-medium">Bank:</span> Federal Bank <span className="text-blue-500">(@fbl)</span></p>
+          <p><span className="font-medium">Currency:</span> INR</p>
+        </div>
+        <p className="text-[10px] sm:text-[11px] text-amber-700 bg-amber-50 rounded-lg p-2 mt-2 leading-tight border border-amber-200">
+          ⚠ This is not an account number. It is a UPI ID linked through Federal Bank. Before paying, scan in Google Pay / PhonePe / Paytm and confirm the recipient name shows <span className="font-semibold">{PAYEE_NAME}</span>
+        </p>
+      </div>
+
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ delay: 0.3 }}
-        className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1.5 text-sm text-gray-500 mt-8 pt-5 border-t border-gray-100"
+        className="flex flex-wrap items-center justify-center gap-x-3 md:gap-x-4 gap-y-1 text-sm text-gray-500 mt-6 md:mt-8 pt-4 md:pt-5 border-t border-gray-100"
       >
         <div className="flex items-center gap-1.5">
           <ShieldCheck className="w-4 h-4 text-green-600 shrink-0" />

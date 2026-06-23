@@ -131,7 +131,7 @@ export default function HeroSlider() {
                 rel="noopener noreferrer"
               >
                 <Button className="bg-[#EF1C25] hover:bg-[#d91920] text-white rounded-full px-6 md:px-8 h-10 md:h-12 text-sm md:text-base gap-2 shadow-xl shadow-red-500/30 hover:shadow-2xl transition-all duration-300 animate-pulse-soft border-2 border-white/20">
-                  <Heart className="w-4 h-4 md:w-5 md:h-5 fill-current" />
+                  <Heart className="size-4 md:size-5 fill-current" />
                   സഹായിക്കാം
                 </Button>
               </a>

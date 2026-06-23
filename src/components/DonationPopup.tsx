@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { createPortal } from "react-dom";
 import Image from "next/image";
 import { X, HandHeart, Scan } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -21,7 +21,7 @@ const WHATSAPP_LINK = "https://wa.me/919567178007?text=%E0%B4%A8%E0%B4%AE%E0%B4%
 
 function GooglePayIcon() {
   return (
-    <svg viewBox="0 0 40 40" className="w-5 h-5 shrink-0">
+    <svg viewBox="0 0 40 40" className="size-5 shrink-0">
       <rect width="40" height="40" rx="8" fill="white" />
       <path d="M29.4 20.1c0-1.1-.1-2.1-.3-3H20v5.7h5.3c-.2 1.1-.8 2.1-1.8 2.8v2.3h2.9c1.7-1.5 2.7-3.8 2.7-6.5z" fill="#4285F4" />
       <path d="M20 30c2.4 0 4.4-.8 5.9-2.1l-2.9-2.3c-.8.5-1.8.8-3 .8-2.3 0-4.3-1.6-5-3.7H9v2.4C10.5 27.9 14.9 30 20 30z" fill="#34A853" />
@@ -33,7 +33,7 @@ function GooglePayIcon() {
 
 function PhonePeIcon() {
   return (
-    <svg viewBox="0 0 40 40" className="w-5 h-5 shrink-0">
+    <svg viewBox="0 0 40 40" className="size-5 shrink-0">
       <rect width="40" height="40" rx="9" fill="#5F259F" />
       <text x="13" y="24" fontSize="17" fontWeight="900" fill="white" fontFamily="Arial, sans-serif">P</text>
       <text x="21" y="21" fontSize="6.5" fontWeight="700" fill="white" fontFamily="Arial, sans-serif" letterSpacing="0.3">hone</text>
@@ -44,7 +44,7 @@ function PhonePeIcon() {
 
 function PaytmIcon() {
   return (
-    <svg viewBox="0 0 40 40" className="w-5 h-5 shrink-0">
+    <svg viewBox="0 0 40 40" className="size-5 shrink-0">
       <rect width="40" height="40" rx="8" fill="#00BAF2" />
       <text x="10" y="26" fontSize="13" fontWeight="800" fill="white" fontFamily="Arial, sans-serif">P</text>
       <text x="18" y="26" fontSize="11" fontWeight="600" fill="white" fontFamily="Arial, sans-serif">aytm</text>
@@ -78,12 +78,12 @@ export default function DonationPopup() {
   const indexRef = useRef(0);
 
   useEffect(() => {
-    const ua = navigator.userAgent;
-    if (/iPad|iPhone|iPod/.test(ua)) {
-      setGpayLink(GPAY_IOS);
-    } else {
-      setGpayLink(GPAY_ANDROID);
-    }
+    const detectPaymentLink = window.setTimeout(() => {
+      const ua = navigator.userAgent;
+      setGpayLink(/iPad|iPhone|iPod/.test(ua) ? GPAY_IOS : GPAY_ANDROID);
+    }, 0);
+
+    return () => window.clearTimeout(detectPaymentLink);
   }, []);
 
   useEffect(() => {
@@ -134,28 +134,31 @@ export default function DonationPopup() {
     dismiss();
   };
 
+  useEffect(() => {
+    if (showIndex < 0) return;
+
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = originalOverflow;
+    };
+  }, [showIndex]);
+
   const msg = MESSAGES[showIndex % MESSAGES.length];
 
-  return (
-    <AnimatePresence>
-      {showIndex >= 0 && msg && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.2 }}
-          className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-4"
-        >
+  const popup =
+    showIndex >= 0 && msg ? (
+      <div className="fixed inset-0 z-[100] overflow-y-auto">
+        <div
+          className="fixed inset-0 bg-black/30 backdrop-blur-sm"
+          onClick={close}
+        />
+        <div className="relative z-10 flex min-h-full items-center justify-center p-3 sm:p-6">
           <div
-            className="absolute inset-0 bg-black/30 backdrop-blur-sm"
-            onClick={close}
-          />
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            transition={{ type: "spring", stiffness: 300, damping: 25 }}
-             className="relative w-full max-w-sm sm:max-w-lg bg-white rounded-2xl shadow-2xl overflow-hidden"
+            role="dialog"
+            aria-modal="true"
+            className="relative w-full max-w-sm sm:max-w-lg bg-white rounded-2xl shadow-2xl max-h-[calc(100dvh-1.5rem)] sm:max-h-[calc(100dvh-3rem)] overflow-y-auto animate-in fade-in-0 zoom-in-95 slide-in-from-bottom-4 duration-200"
           >
             <button
               onClick={close}
@@ -164,95 +167,101 @@ export default function DonationPopup() {
               <X className="w-4 h-4 text-gray-500" />
             </button>
 
-            <div className="bg-gradient-to-br from-[#EF1C25]/10 via-[#F7941D]/10 to-[#1CA3D8]/10 p-4 sm:p-5 text-center">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#EF1C25] flex items-center justify-center mx-auto mb-2 sm:mb-3 shadow-lg shadow-[#EF1C25]/30">
-                <HandHeart className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+              <div className="bg-gradient-to-br from-[#EF1C25]/10 via-[#F7941D]/10 to-[#1CA3D8]/10 p-4 sm:p-5 text-center">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#EF1C25] flex items-center justify-center mx-auto mb-2 sm:mb-3 shadow-lg shadow-[#EF1C25]/30">
+                  <HandHeart className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                </div>
+                <h3 className="text-sm sm:text-base font-bold text-gray-900 leading-snug">
+                  {msg.title}
+                </h3>
+                <p className="text-[11px] sm:text-xs text-gray-600 mt-1 leading-relaxed max-w-sm mx-auto">
+                  {msg.desc}
+                </p>
               </div>
-              <h3 className="text-sm sm:text-base font-bold text-gray-900 leading-snug">
-                {msg.title}
-              </h3>
-              <p className="text-[11px] sm:text-xs text-gray-600 mt-1 leading-relaxed max-w-sm mx-auto">
-                {msg.desc}
-              </p>
-            </div>
 
-            <div className="p-4 sm:p-5">
-              <div className="grid sm:grid-cols-2 gap-3 sm:gap-4 items-start">
-                <div className="flex flex-col items-center">
-                  <div className="relative w-32 h-32 sm:w-36 sm:h-36 rounded-xl overflow-hidden bg-white p-2 shadow-md ring-1 ring-gray-100">
-                    <Image
-                      src="/images/qr-code/paymentq-r.jpeg"
-                      alt="UPI QR Code"
-                      fill
-                      className="object-contain"
-                      sizes="(max-width: 640px) 128px, 144px"
-                    />
+              <div className="p-4 sm:p-5">
+                <div className="grid sm:grid-cols-2 gap-3 sm:gap-4 items-start">
+                  <div className="flex flex-col items-center">
+                    <div className="relative w-32 h-32 sm:w-36 sm:h-36 rounded-xl overflow-hidden bg-white p-2 shadow-md ring-1 ring-gray-100">
+                      <Image
+                        src="/images/qr-code/paymentq-r.jpeg"
+                        alt="UPI QR Code"
+                        fill
+                        className="object-contain"
+                        sizes="(max-width: 640px) 128px, 144px"
+                      />
+                    </div>
+                    <div className="flex items-center gap-1 mt-1.5 text-xs sm:text-xs text-gray-400">
+                      <Scan className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
+                      <span>Scan to pay</span>
+                    </div>
                   </div>
-                  <div className="flex items-center gap-1 mt-1.5 text-xs sm:text-xs text-gray-400">
-                    <Scan className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
-                    <span>Scan to pay</span>
+
+                  <div className="flex flex-col gap-1.5 sm:gap-2">
+                    <p className="text-[10px] sm:text-xs font-semibold text-gray-900 text-center sm:text-left">
+                      Pay via UPI
+                    </p>
+
+                    <a href={gpayLink} target="_blank" rel="noopener noreferrer" className="block">
+                      <Button className="w-full h-9 sm:h-10 bg-white border-2 border-[#4285F4] text-[#4285F4] hover:bg-[#4285F4] hover:text-white text-xs sm:text-sm gap-1.5 sm:gap-2 rounded-lg shadow-sm transition-all duration-200">
+                        <GooglePayIcon />
+                        Google Pay
+                      </Button>
+                    </a>
+
+                    <a href={PHONEPE_LINK} target="_blank" rel="noopener noreferrer" className="block">
+                      <Button className="w-full h-9 sm:h-10 bg-white border-2 border-[#5F259F] text-[#5F259F] hover:bg-[#5F259F] hover:text-white text-xs sm:text-sm gap-1.5 sm:gap-2 rounded-lg shadow-sm transition-all duration-200">
+                        <PhonePeIcon />
+                        PhonePe
+                      </Button>
+                    </a>
+
+                    <a href={PAYTM_LINK} target="_blank" rel="noopener noreferrer" className="block">
+                      <Button className="w-full h-9 sm:h-10 bg-white border-2 border-[#00BAF2] text-[#00BAF2] hover:bg-[#00BAF2] hover:text-white text-xs sm:text-sm gap-1.5 sm:gap-2 rounded-lg shadow-sm transition-all duration-200">
+                        <PaytmIcon />
+                        Paytm
+                      </Button>
+                    </a>
                   </div>
                 </div>
 
-                <div className="flex flex-col gap-1.5 sm:gap-2">
-                  <p className="text-[10px] sm:text-xs font-semibold text-gray-900 text-center sm:text-left">
-                    Pay via UPI
+                <div className="mt-3 sm:mt-4 bg-blue-50 border border-blue-100 rounded-xl p-2.5 sm:p-3 text-left">
+                  <p className="text-[10px] sm:text-[11px] font-semibold text-blue-800 mb-1.5">
+                    ✓ UPI Payment Details
                   </p>
+                  <div className="space-y-0.5 text-[10px] sm:text-[11px] text-blue-700 leading-relaxed">
+                    <p><span className="font-medium">Recipient:</span> {PAYEE_NAME}</p>
+                    <p><span className="font-medium">UPI ID:</span> {UPI_ID}</p>
+                    <p><span className="font-medium">Bank:</span> Federal Bank</p>
+                    <p><span className="font-medium">Currency:</span> INR</p>
+                  </div>
+                  <p className="text-[9px] sm:text-[10px] text-amber-700 bg-amber-50 rounded-lg p-1.5 mt-1.5 leading-tight border border-amber-200">
+                    ⚠ Before paying, scan in Google Pay / PhonePe / Paytm and confirm the recipient name shows <span className="font-semibold">{PAYEE_NAME}</span>
+                  </p>
+                </div>
 
-                  <a href={gpayLink} target="_blank" rel="noopener noreferrer" className="block">
-                    <Button className="w-full h-9 sm:h-10 bg-white border-2 border-[#4285F4] text-[#4285F4] hover:bg-[#4285F4] hover:text-white text-xs sm:text-sm gap-1.5 sm:gap-2 rounded-lg shadow-sm transition-all duration-200">
-                      <GooglePayIcon />
-                      Google Pay
-                    </Button>
-                  </a>
-
-                  <a href={PHONEPE_LINK} target="_blank" rel="noopener noreferrer" className="block">
-                    <Button className="w-full h-9 sm:h-10 bg-white border-2 border-[#5F259F] text-[#5F259F] hover:bg-[#5F259F] hover:text-white text-xs sm:text-sm gap-1.5 sm:gap-2 rounded-lg shadow-sm transition-all duration-200">
-                      <PhonePeIcon />
-                      PhonePe
-                    </Button>
-                  </a>
-
-                  <a href={PAYTM_LINK} target="_blank" rel="noopener noreferrer" className="block">
-                    <Button className="w-full h-9 sm:h-10 bg-white border-2 border-[#00BAF2] text-[#00BAF2] hover:bg-[#00BAF2] hover:text-white text-xs sm:text-sm gap-1.5 sm:gap-2 rounded-lg shadow-sm transition-all duration-200">
-                      <PaytmIcon />
-                      Paytm
+                <div className="mt-2 sm:mt-3 border-t border-gray-100 pt-2 sm:pt-3">
+                  <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="block">
+                    <Button className="w-full h-9 sm:h-11 bg-[#25D366] hover:bg-[#22c35e] text-white text-xs sm:text-sm gap-1.5 sm:gap-2 rounded-xl shadow-sm">
+                      <WhatsAppIcon className="size-4 sm:size-5" />
+                      WhatsApp വഴിയും സഹായിക്കാം
                     </Button>
                   </a>
                 </div>
-              </div>
 
-              <div className="mt-3 sm:mt-4 pt-2 sm:pt-3 border-t border-gray-100">
-                <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="block">
-                  <Button className="w-full h-9 sm:h-11 bg-[#25D366] hover:bg-[#22c35e] text-white text-xs sm:text-sm gap-1.5 sm:gap-2 rounded-xl shadow-sm">
-                    <WhatsAppIcon className="w-4 h-4 sm:w-5 sm:h-5" />
-                    WhatsApp വഴിയും സഹായിക്കാം
-                  </Button>
-                </a>
+                <button
+                  onClick={close}
+                  className="w-full text-xs text-gray-400 hover:text-gray-600 pt-3 pb-1 transition-colors"
+                >
+                  പിന്നീട്
+                </button>
               </div>
+          </div>
+        </div>
+      </div>
+    ) : null;
 
-              <div className="mt-2 sm:mt-3 bg-green-50 border border-green-100 rounded-xl p-2 sm:p-3 text-center">
-                <p className="text-[10px] sm:text-xs font-semibold text-green-800">
-                  ✓ സംഭാവന രസീത് ലഭ്യമാണ്
-                </p>
-                <p className="text-[10px] sm:text-[11px] text-green-700 font-medium mt-0.5 leading-tight">
-                  {PAYEE_NAME}
-                </p>
-                <p className="text-[10px] sm:text-[11px] text-green-600 mt-0.5 leading-tight">
-                  നിങ്ങളുടെ സംഭാവനയ്ക്ക് ഔദ്യോഗിക രസീത് നൽകുന്നതാണ്. രജിസ്റ്റേർഡ് ട്രസ്റ്റ്.
-                </p>
-              </div>
+  if (typeof document === "undefined") return null;
 
-              <button
-                onClick={close}
-                className="w-full text-xs text-gray-400 hover:text-gray-600 pt-3 pb-1 transition-colors"
-              >
-                പിന്നീട്
-              </button>
-            </div>
-          </motion.div>
-        </motion.div>
-      )}
-    </AnimatePresence>
-  );
+  return createPortal(popup, document.body);
 }
