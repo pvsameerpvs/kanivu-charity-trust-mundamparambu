@@ -2,6 +2,7 @@ import HeroSlider from "@/components/HeroSlider";
 import AboutSection from "@/components/AboutSection";
 import MissionVision from "@/components/MissionVision";
 import ServicesSection from "@/components/ServicesSection";
+import HomeEquipmentSection from "@/components/HomeEquipmentSection";
 import HomeProjectSection from "@/components/HomeProjectSection";
 import EducationSection from "@/components/EducationSection";
 import ActivitiesTimeline from "@/components/ActivitiesTimeline";
@@ -18,6 +19,7 @@ export default function Home() {
       <AboutSection />
       <MissionVision />
       <ServicesSection />
+      <HomeEquipmentSection />
       <HomeProjectSection />
       <EducationSection />
       <ActivitiesTimeline />

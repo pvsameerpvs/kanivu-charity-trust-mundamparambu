@@ -3,7 +3,8 @@
 import { motion } from "framer-motion"
 import Image from "next/image"
 import Link from "next/link"
-import { MessageCircle, ChevronRight } from "lucide-react"
+import { ChevronRight } from "lucide-react"
+import WhatsAppIcon from "@/components/WhatsAppIcon"
 import { Badge } from "@/components/ui/badge"
 import type { Equipment } from "@/lib/equipments"
 import { getWhatsAppUrl } from "@/lib/equipments"
@@ -63,7 +64,7 @@ export default function EquipmentCard({ equipment, index }: EquipmentCardProps) 
               className="inline-flex items-center justify-center size-10 rounded-xl bg-[#25D366] hover:bg-[#1DA95A] text-white transition-all duration-300 shadow-md shadow-[#25D366]/20 shrink-0"
               title="WhatsApp വഴി അന്വേഷിക്കുക"
             >
-              <MessageCircle className="size-5" />
+              <WhatsAppIcon className="size-5" />
             </a>
           </div>
         </div>

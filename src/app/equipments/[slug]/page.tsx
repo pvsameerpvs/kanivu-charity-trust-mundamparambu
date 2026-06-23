@@ -2,7 +2,8 @@ import { notFound } from "next/navigation"
 import Image from "next/image"
 import Link from "next/link"
 import type { Metadata } from "next"
-import { ArrowLeft, MessageCircle, CheckCircle2, Users, Stethoscope } from "lucide-react"
+import { ArrowLeft, CheckCircle2, Users, Stethoscope } from "lucide-react"
+import WhatsAppIcon from "@/components/WhatsAppIcon"
 import { equipments, getEquipmentBySlug, getWhatsAppUrl, WHATSAPP_NUMBER } from "@/lib/equipments"
 import { Badge } from "@/components/ui/badge"
 
@@ -106,7 +107,7 @@ export default async function EquipmentDetailPage({ params }: Props) {
                   rel="noopener noreferrer"
                   className="flex-1 inline-flex items-center justify-center gap-2 h-12 rounded-2xl bg-[#25D366] hover:bg-[#1DA95A] text-white font-medium transition-all duration-300 shadow-lg shadow-[#25D366]/25"
                 >
-                  <MessageCircle className="size-5" />
+                  <WhatsAppIcon className="size-5" />
                   WhatsApp വഴി അന്വേഷിക്കുക
                 </a>
                 <a
