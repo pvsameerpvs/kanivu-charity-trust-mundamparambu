@@ -29,6 +29,7 @@ export default function HeroSlider() {
   }, []);
 
   const slides = isMobile ? mobileSlides : desktopSlides;
+  const safeCurrent = current >= slides.length ? 0 : current;
 
   const next = useCallback(() => {
     setDirection(1);
@@ -39,12 +40,6 @@ export default function HeroSlider() {
     setDirection(-1);
     setCurrent((prev) => (prev - 1 + slides.length) % slides.length);
   }, [slides.length]);
-
-  useEffect(() => {
-    if (current >= slides.length) {
-      setCurrent(0);
-    }
-  }, [isMobile, slides.length, current]);
 
   useEffect(() => {
     const timer = setInterval(next, 5000);
@@ -64,7 +59,7 @@ export default function HeroSlider() {
     >
       <AnimatePresence initial={false} custom={direction} mode="popLayout">
         <motion.div
-          key={current}
+          key={safeCurrent}
           custom={direction}
           variants={variants}
           initial="enter"
@@ -74,8 +69,8 @@ export default function HeroSlider() {
           className="absolute inset-0"
         >
           <Image
-            src={slides[current].src}
-            alt={slides[current].alt}
+            src={slides[safeCurrent].src}
+            alt={slides[safeCurrent].alt}
             fill
             className="object-cover"
             priority

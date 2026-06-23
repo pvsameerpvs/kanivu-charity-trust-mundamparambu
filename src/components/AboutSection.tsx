@@ -20,7 +20,7 @@ export default function AboutSection() {
             <div className="relative">
               <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-xl">
                 <Image
-                  src="/images/hero-section/hero17.jpeg"
+                  src="/images/about/about.jpeg"
                   alt="കനിവ് ചാരിറ്റി ട്രസ്റ്റ് കൂട്ടായ്മ"
                   fill
                   className="object-cover"

@@ -52,7 +52,7 @@ export default function EquipmentCard({ equipment, index }: EquipmentCardProps) 
           <div className="mt-auto flex items-center gap-2">
             <Link
               href={`/equipments/${equipment.slug}`}
-              className="flex-1 inline-flex items-center justify-center gap-1.5 h-10 rounded-xl bg-gradient-to-r from-[#1CA3D8] to-[#1A8FC0] text-white text-sm font-medium hover:from-[#1A8FC0] hover:to-[#1579A8] transition-all duration-300 shadow-md shadow-[#1CA3D8]/20"
+              className="flex-1 inline-flex items-center justify-center gap-2 h-10 rounded-xl bg-gradient-to-r from-[#1CA3D8] to-[#1A8FC0] text-white text-sm font-medium hover:from-[#1A8FC0] hover:to-[#1579A8] transition-all duration-300 shadow-md shadow-[#1CA3D8]/20"
             >
               കൂടുതൽ വിവരങ്ങൾ
               <ChevronRight className="size-4" />

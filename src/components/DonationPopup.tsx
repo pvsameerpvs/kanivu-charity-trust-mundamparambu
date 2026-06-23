@@ -240,7 +240,7 @@ export default function DonationPopup() {
 
               <div className="mt-2.5 sm:mt-3 border-t border-gray-100 pt-2.5 sm:pt-3">
                 <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="block">
-                  <Button className="w-full h-8 sm:h-11 bg-[#25D366] hover:bg-[#22c35e] text-white text-[10px] sm:text-sm gap-1.5 sm:gap-2 rounded-lg sm:rounded-xl shadow-sm py-0">
+                  <Button className="w-full h-10 sm:h-11 bg-[#25D366] hover:bg-[#22c35e] text-white text-xs sm:text-sm gap-2 rounded-lg sm:rounded-xl shadow-sm py-0">
                     <WhatsAppIcon className="size-3.5 sm:size-5" />
                     WhatsApp വഴിയും സഹായിക്കാം
                   </Button>
