@@ -12,20 +12,10 @@ import {
 import { Card, CardContent } from "@/components/ui/card";
 import SectionWrapper from "@/components/SectionWrapper";
 
-const eduSlides = [
-  {
-    src: "/images/students/study1.jpeg",
-    alt: "കനിവ് വിദ്യാഭ്യാസ സഹായ പ്രവർത്തനം",
-  },
-  {
-    src: "/images/students/study2.jpeg",
-    alt: "കനിവ് വിദ്യാഭ്യാസ പിന്തുണ",
-  },
-  {
-    src: "/images/students/study3.jpeg",
-    alt: "കനിവ് വിദ്യാർത്ഥി സഹായം",
-  },
-];
+const eduSlides = Array.from({ length: 19 }, (_, i) => ({
+  src: `/images/students/study${i + 1}.jpeg`,
+  alt: `കനിവ് വിദ്യാഭ്യാസ സഹായ പ്രവർത്തനം ${i + 1}`,
+}));
 
 const educationCards = [
   {
