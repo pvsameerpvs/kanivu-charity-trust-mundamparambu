@@ -10,6 +10,7 @@ import Link from "next/link";
 const navLinks = [
   { label: "ഹോം", href: "/" },
   { label: "ഞങ്ങളെ കുറിച്ച്", href: "/#about" },
+  { label: "വൈദ്യുപകരണങ്ങൾ", href: "/equipments" },
   { label: "സേവനങ്ങൾ", href: "/#services" },
   { label: "പ്രവർത്തനങ്ങൾ", href: "/#activities" },
   { label: "ഗ്യാലറി", href: "/#gallery" },
