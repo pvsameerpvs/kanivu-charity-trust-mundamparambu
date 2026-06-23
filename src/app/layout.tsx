@@ -18,9 +18,10 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL(
-    process.env.VERCEL_URL
+    process.env.NEXT_PUBLIC_APP_URL ||
+    (process.env.VERCEL_URL
       ? `https://${process.env.VERCEL_URL}`
-      : "http://localhost:3000"
+      : "https://kanivcharitymundamparamb.com")
   ),
   title: "കനിവ് ചാരിറ്റി ട്രസ്റ്റ് മുണ്ടംപറമ്പ് | Charity Trust in Malappuram",
   description:
@@ -41,6 +42,21 @@ export const metadata: Metadata = {
     type: "website",
     locale: "ml_IN",
     siteName: "കനിവ് ചാരിറ്റി ട്രസ്റ്റ് മുണ്ടംപറമ്പ്",
+    images: [
+      {
+        url: "/images/kaniv/kaniv-logo.png",
+        width: 512,
+        height: 512,
+        alt: "കനിവ് ചാരിറ്റി ട്രസ്റ്റ് മുണ്ടംപറമ്പ്",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary",
+    title: "കനിവ് ചാരിറ്റി ട്രസ്റ്റ് മുണ്ടംപറമ്പ്",
+    description:
+      "കയ്യെത്തും ദൂരത്തൊരു കൈത്താങ്ങ് - മുണ്ടംപറമ്പിലെ സാമൂഹിക ജീവകാരുണ്യ കൂട്ടായ്മ",
+    images: ["/images/kaniv/kaniv-logo.png"],
   },
   robots: {
     index: true,
