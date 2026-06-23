@@ -6,24 +6,45 @@ import Image from "next/image";
 import { ChevronLeft, ChevronRight, Heart, ArrowDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-const slides = Array.from({ length: 22 }, (_, i) => ({
+const desktopSlides = Array.from({ length: 22 }, (_, i) => ({
   src: `/images/hero-section/hero${i + 1}.jpeg`,
   alt: `കനിവ് ചാരിറ്റി ട്രസ്റ്റ് - ചിത്രം ${i + 1}`,
 }));
 
+const mobileSlides = Array.from({ length: 5 }, (_, i) => ({
+  src: `/images/mobile-hero-section/hero-mobile${i + 1}.jpeg`,
+  alt: `കനിവ് ചാരിറ്റി ട്രസ്റ്റ് - ചിത്രം ${i + 1}`,
+}));
+
 export default function HeroSlider() {
+  const [isMobile, setIsMobile] = useState(false);
   const [current, setCurrent] = useState(0);
   const [direction, setDirection] = useState(1);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
+  const slides = isMobile ? mobileSlides : desktopSlides;
 
   const next = useCallback(() => {
     setDirection(1);
     setCurrent((prev) => (prev + 1) % slides.length);
-  }, []);
+  }, [slides.length]);
 
   const prev = useCallback(() => {
     setDirection(-1);
     setCurrent((prev) => (prev - 1 + slides.length) % slides.length);
-  }, []);
+  }, [slides.length]);
+
+  useEffect(() => {
+    if (current >= slides.length) {
+      setCurrent(0);
+    }
+  }, [isMobile, slides.length, current]);
 
   useEffect(() => {
     const timer = setInterval(next, 5000);
