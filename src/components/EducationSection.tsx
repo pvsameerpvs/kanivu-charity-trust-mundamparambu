@@ -14,15 +14,15 @@ import SectionWrapper from "@/components/SectionWrapper";
 
 const eduSlides = [
   {
-    src: "/images/hero-section/hero26.jpeg",
+    src: "/images/students/study1.jpeg",
     alt: "കനിവ് വിദ്യാഭ്യാസ സഹായ പ്രവർത്തനം",
   },
   {
-    src: "/images/hero-section/hero24.jpeg",
+    src: "/images/students/study2.jpeg",
     alt: "കനിവ് വിദ്യാഭ്യാസ പിന്തുണ",
   },
   {
-    src: "/images/hero-section/hero23.jpeg",
+    src: "/images/students/study3.jpeg",
     alt: "കനിവ് വിദ്യാർത്ഥി സഹായം",
   },
 ];

@@ -18,10 +18,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL(
-    process.env.NEXT_PUBLIC_APP_URL ||
-    (process.env.VERCEL_URL
-      ? `https://${process.env.VERCEL_URL}`
-      : "https://kanivcharitymundamparamb.com")
+    process.env.NEXT_PUBLIC_APP_URL || "https://kanivcharitymundamparamb.com"
   ),
   title: "കനിവ് ചാരിറ്റി ട്രസ്റ്റ് മുണ്ടംപറമ്പ് | Charity Trust in Malappuram",
   description:
