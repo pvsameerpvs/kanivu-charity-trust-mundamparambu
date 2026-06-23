@@ -1,18 +1,22 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import {
   Heart,
-  Banknote,
   ShieldCheck,
   Users,
+  QrCode,
 } from "lucide-react";
 import WhatsAppIcon from "@/components/WhatsAppIcon";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import SectionWrapper from "@/components/SectionWrapper";
+import UPIPaymentWidget from "@/components/UPIPaymentWidget";
 
 export default function DonationSection() {
+  const [showUPI, setShowUPI] = useState(false);
+
   return (
     <SectionWrapper
       id="donation"
@@ -70,19 +74,24 @@ export default function DonationSection() {
               </CardContent>
             </Card>
 
-            <Card className="bg-white/90 backdrop-blur-sm border border-gray-100 rounded-2xl hover:shadow-lg transition-all">
-              <CardContent className="p-6 text-center">
-                <div className="w-12 h-12 rounded-full bg-blue-50 flex items-center justify-center mx-auto mb-3">
-                  <Banknote className="w-6 h-6 text-blue-600" />
-                </div>
-                <h3 className="font-bold text-gray-900 mb-1">
-                  Google Pay / UPI
-                </h3>
-                <p className="text-sm text-gray-500">
-                  ഓൺലൈൻ വഴി സഹായം നൽകുക
-                </p>
-              </CardContent>
-            </Card>
+            <button
+              onClick={() => setShowUPI(!showUPI)}
+              className="text-left w-full"
+            >
+              <Card className="bg-white/90 backdrop-blur-sm border border-gray-100 rounded-2xl hover:shadow-lg transition-all cursor-pointer">
+                <CardContent className="p-6 text-center">
+                  <div className="w-12 h-12 rounded-full bg-blue-50 flex items-center justify-center mx-auto mb-3">
+                    <QrCode className="w-6 h-6 text-blue-600" />
+                  </div>
+                  <h3 className="font-bold text-gray-900 mb-1">
+                    Google Pay / UPI
+                  </h3>
+                  <p className="text-sm text-gray-500">
+                    ഓൺലൈൻ വഴി സഹായം നൽകുക
+                  </p>
+                </CardContent>
+              </Card>
+            </button>
 
             <Card className="bg-white/90 backdrop-blur-sm border border-gray-100 rounded-2xl hover:shadow-lg transition-all">
               <CardContent className="p-6 text-center">
@@ -98,6 +107,19 @@ export default function DonationSection() {
               </CardContent>
             </Card>
           </motion.div>
+
+          {showUPI && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              className="overflow-hidden mb-10"
+            >
+              <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 md:p-8 shadow-lg border border-gray-100">
+                <UPIPaymentWidget />
+              </div>
+            </motion.div>
+          )}
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
