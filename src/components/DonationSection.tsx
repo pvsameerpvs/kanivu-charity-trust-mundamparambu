@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import SectionWrapper from "@/components/SectionWrapper";
 import DonationPopup from "@/components/DonationPopup";
+import RazorpayCheckout from "@/components/RazorpayCheckout";
 import Link from "next/link";
 
 export default function DonationSection() {
@@ -120,7 +121,15 @@ export default function DonationSection() {
             </Card>
           </motion.div>
 
-
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.25 }}
+            className="bg-white/90 backdrop-blur-sm rounded-2xl p-4 sm:p-6 md:p-8 shadow-lg border border-gray-100 mb-8"
+          >
+            <RazorpayCheckout />
+          </motion.div>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}

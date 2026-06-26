@@ -7,7 +7,6 @@ import {
   X,
   HandHeart,
   Scan,
-  CreditCard,
   Loader2,
   CheckCircle2,
   XCircle,
