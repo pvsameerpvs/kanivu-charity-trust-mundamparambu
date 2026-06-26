@@ -37,10 +37,12 @@ export async function GET(request: NextRequest) {
       order_id: orderId,
       status: order.status,
     });
-  } catch (error) {
-    console.error("Check payment status error:", error);
+  } catch (error: unknown) {
+    const message =
+      error instanceof Error ? error.message : "Unknown error";
+    console.error("Check payment status error:", message, error);
     return NextResponse.json(
-      { error: "Failed to check payment status" },
+      { error: `Failed to check payment status: ${message}` },
       { status: 500 }
     );
   }

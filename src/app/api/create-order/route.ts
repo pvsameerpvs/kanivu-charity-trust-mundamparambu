@@ -31,10 +31,12 @@ export async function POST(request: NextRequest) {
       amount: order.amount,
       currency: order.currency,
     });
-  } catch (error) {
-    console.error("Razorpay order creation error:", error);
+  } catch (error: unknown) {
+    const message =
+      error instanceof Error ? error.message : "Unknown error";
+    console.error("Razorpay order creation error:", message, error);
     return NextResponse.json(
-      { error: "Failed to create order. Please try again." },
+      { error: `Failed to create order: ${message}` },
       { status: 500 }
     );
   }
