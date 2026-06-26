@@ -75,7 +75,7 @@ export default function RazorpayCheckout() {
   const getAmountInPaise = () => {
     if (selectedAmount) return selectedAmount;
     if (customAmount) return Math.round(parseFloat(customAmount) * 100);
-    return 5000;
+    return 1000;
   };
 
   const createOrderAndOpenApp = async (deepLinkFn: (am: number) => string) => {
