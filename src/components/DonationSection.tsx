@@ -6,6 +6,7 @@ import {
   ShieldCheck,
   Users,
   QrCode,
+  CreditCard,
 } from "lucide-react";
 import WhatsAppIcon from "@/components/WhatsAppIcon";
 import { Button } from "@/components/ui/button";
@@ -56,7 +57,7 @@ export default function DonationSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="grid sm:grid-cols-3 gap-4 mb-10"
+            className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-10"
           >
             <Card className="bg-white/90 backdrop-blur-sm border border-gray-100 rounded-2xl hover:shadow-lg transition-all">
               <CardContent className="p-6 text-center">
@@ -72,8 +73,8 @@ export default function DonationSection() {
               </CardContent>
             </Card>
 
-            <Link href="/upi-payment" className="text-left w-full">
-              <Card className="bg-white/90 backdrop-blur-sm border border-gray-100 rounded-2xl hover:shadow-lg transition-all cursor-pointer group">
+            <Link href="/upi-payment" className="block w-full">
+              <Card className="bg-white/90 backdrop-blur-sm border border-gray-100 rounded-2xl hover:shadow-lg transition-all cursor-pointer group h-full">
                 <CardContent className="p-6 text-center">
                   <div className="w-12 h-12 rounded-full bg-blue-50 flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform duration-300">
                     <QrCode className="w-6 h-6 text-blue-600" />
@@ -82,7 +83,23 @@ export default function DonationSection() {
                     Google Pay / UPI
                   </h3>
                   <p className="text-sm text-gray-500">
-                    ഓൺലൈൻ വഴി സഹായം നൽകുക
+                    UPI ആപ്പുകൾ വഴി സംഭാവന ചെയ്യുക
+                  </p>
+                </CardContent>
+              </Card>
+            </Link>
+
+            <Link href="/upi-payment" className="block w-full">
+              <Card className="bg-white/90 backdrop-blur-sm border border-gray-100 rounded-2xl hover:shadow-lg transition-all cursor-pointer group h-full">
+                <CardContent className="p-6 text-center">
+                  <div className="w-12 h-12 rounded-full bg-cyan-50 flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform duration-300">
+                    <CreditCard className="w-6 h-6 text-cyan-600" />
+                  </div>
+                  <h3 className="font-bold text-gray-900 mb-1">
+                    Card / NetBanking
+                  </h3>
+                  <p className="text-sm text-gray-500">
+                    കാർഡ്, നെറ്റ് ബാങ്കിംഗ്, Wallet എന്നിവ വഴി
                   </p>
                 </CardContent>
               </Card>
