@@ -32,9 +32,17 @@ export async function POST(request: NextRequest) {
       currency: order.currency,
     });
   } catch (error: unknown) {
-    const message =
-      error instanceof Error ? error.message : "Unknown error";
-    console.error("Razorpay order creation error:", message, error);
+    let message = "Unknown error";
+    let details = "";
+    if (error instanceof Error) {
+      message = error.message;
+      details = error.stack || "";
+    } else if (typeof error === "string") {
+      message = error;
+    } else if (error && typeof error === "object") {
+      try { message = JSON.stringify(error); } catch { message = String(error); }
+    }
+    console.error("Razorpay order creation error:", message, details, error);
     return NextResponse.json(
       { error: `Failed to create order: ${message}` },
       { status: 500 }
