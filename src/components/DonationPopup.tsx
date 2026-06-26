@@ -352,6 +352,9 @@ export default function DonationPopup() {
     };
   }, [showIndex]);
 
+  const hasValidAmount =
+    selectedAmount !== null || customAmount.trim() !== "";
+
   const getDeepLink = () => {
     const ua = navigator.userAgent;
     return /iPad|iPhone|iPod/.test(ua) ? GPAY_IOS : GPAY_ANDROID;
@@ -455,8 +458,8 @@ export default function DonationPopup() {
                     onClick={() =>
                       createOrderAndOpenApp((am) => gpayLink(am))
                     }
-                    disabled={loading}
-                    className="flex items-center justify-center gap-1.5 h-8 sm:h-9 rounded-lg border-2 border-[#4285F4] bg-white text-[#4285F4] hover:bg-[#4285F4] hover:text-white text-[10px] sm:text-xs font-semibold transition-all"
+                    disabled={loading || !hasValidAmount}
+                    className="flex items-center justify-center gap-1.5 h-8 sm:h-9 rounded-lg border-2 border-[#4285F4] bg-white text-[#4285F4] hover:bg-[#4285F4] hover:text-white disabled:opacity-40 disabled:pointer-events-none text-[10px] sm:text-xs font-semibold transition-all"
                   >
                     <svg viewBox="0 0 40 40" className="size-4 sm:size-5 shrink-0">
                       <rect width="40" height="40" rx="6" fill="white" />
@@ -472,8 +475,8 @@ export default function DonationPopup() {
                     onClick={() =>
                       createOrderAndOpenApp(PHONEPE_LINK)
                     }
-                    disabled={loading}
-                    className="flex items-center justify-center gap-1.5 h-8 sm:h-9 rounded-lg border-2 border-[#5F259F] bg-white text-[#5F259F] hover:bg-[#5F259F] hover:text-white text-[10px] sm:text-xs font-semibold transition-all"
+                    disabled={loading || !hasValidAmount}
+                    className="flex items-center justify-center gap-1.5 h-8 sm:h-9 rounded-lg border-2 border-[#5F259F] bg-white text-[#5F259F] hover:bg-[#5F259F] hover:text-white disabled:opacity-40 disabled:pointer-events-none text-[10px] sm:text-xs font-semibold transition-all"
                   >
                     <svg viewBox="0 0 40 40" className="size-4 sm:size-5 shrink-0">
                       <rect width="40" height="40" rx="7" fill="#5F259F" />
@@ -488,8 +491,8 @@ export default function DonationPopup() {
                     onClick={() =>
                       createOrderAndOpenApp(PAYTM_LINK)
                     }
-                    disabled={loading}
-                    className="flex items-center justify-center gap-1.5 h-8 sm:h-9 rounded-lg border-2 border-[#00BAF2] bg-white text-[#00BAF2] hover:bg-[#00BAF2] hover:text-white text-[10px] sm:text-xs font-semibold transition-all"
+                    disabled={loading || !hasValidAmount}
+                    className="flex items-center justify-center gap-1.5 h-8 sm:h-9 rounded-lg border-2 border-[#00BAF2] bg-white text-[#00BAF2] hover:bg-[#00BAF2] hover:text-white disabled:opacity-40 disabled:pointer-events-none text-[10px] sm:text-xs font-semibold transition-all"
                   >
                     <svg viewBox="0 0 40 40" className="size-4 sm:size-5 shrink-0">
                       <rect width="40" height="40" rx="6" fill="#00BAF2" />
@@ -501,8 +504,8 @@ export default function DonationPopup() {
 
                   <button
                     onClick={openCardPaymentModal}
-                    disabled={modalLoading}
-                    className="flex items-center justify-center gap-1.5 h-8 sm:h-9 rounded-lg border-2 border-[#1CA3D8] bg-white text-[#1CA3D8] hover:bg-[#1CA3D8] hover:text-white text-[10px] sm:text-xs font-semibold transition-all"
+                    disabled={modalLoading || !hasValidAmount}
+                    className="flex items-center justify-center gap-1.5 h-8 sm:h-9 rounded-lg border-2 border-[#1CA3D8] bg-white text-[#1CA3D8] hover:bg-[#1CA3D8] hover:text-white disabled:opacity-40 disabled:pointer-events-none text-[10px] sm:text-xs font-semibold transition-all"
                   >
                     {modalLoading ? (
                       <Loader2 className="size-3 sm:size-3.5 animate-spin" />

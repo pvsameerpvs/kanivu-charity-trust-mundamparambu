@@ -72,6 +72,9 @@ export default function RazorpayCheckout() {
   }>({ type: null, message: "" });
   const scriptRef = useRef<HTMLScriptElement | null>(null);
 
+  const hasValidAmount =
+    selectedAmount !== null || customAmount.trim() !== "";
+
   const getAmountInPaise = () => {
     if (selectedAmount) return selectedAmount;
     if (customAmount) return Math.round(parseFloat(customAmount) * 100);
@@ -236,8 +239,8 @@ export default function RazorpayCheckout() {
         <div className="flex flex-wrap items-center justify-center gap-2 mt-3">
           <button
             onClick={() => createOrderAndOpenApp((am) => gpayLink(am))}
-            disabled={loading}
-            className="inline-flex items-center gap-1.5 h-9 px-3 rounded-lg border-2 border-[#4285F4] bg-white text-[#4285F4] hover:bg-[#4285F4] hover:text-white text-xs font-semibold transition-all"
+            disabled={loading || !hasValidAmount}
+            className="inline-flex items-center gap-1.5 h-9 px-3 rounded-lg border-2 border-[#4285F4] bg-white text-[#4285F4] hover:bg-[#4285F4] hover:text-white disabled:opacity-40 disabled:pointer-events-none text-xs font-semibold transition-all"
           >
             <svg viewBox="0 0 40 40" className="size-4 shrink-0">
               <rect width="40" height="40" rx="6" fill="white" />
@@ -250,8 +253,8 @@ export default function RazorpayCheckout() {
           </button>
           <button
             onClick={() => createOrderAndOpenApp(PHONEPE_LINK)}
-            disabled={loading}
-            className="inline-flex items-center gap-1.5 h-9 px-3 rounded-lg border-2 border-[#5F259F] bg-white text-[#5F259F] hover:bg-[#5F259F] hover:text-white text-xs font-semibold transition-all"
+            disabled={loading || !hasValidAmount}
+            className="inline-flex items-center gap-1.5 h-9 px-3 rounded-lg border-2 border-[#5F259F] bg-white text-[#5F259F] hover:bg-[#5F259F] hover:text-white disabled:opacity-40 disabled:pointer-events-none text-xs font-semibold transition-all"
           >
             <svg viewBox="0 0 40 40" className="size-4 shrink-0">
               <rect width="40" height="40" rx="7" fill="#5F259F" />
@@ -263,8 +266,8 @@ export default function RazorpayCheckout() {
           </button>
           <button
             onClick={() => createOrderAndOpenApp(PAYTM_LINK)}
-            disabled={loading}
-            className="inline-flex items-center gap-1.5 h-9 px-3 rounded-lg border-2 border-[#00BAF2] bg-white text-[#00BAF2] hover:bg-[#00BAF2] hover:text-white text-xs font-semibold transition-all"
+            disabled={loading || !hasValidAmount}
+            className="inline-flex items-center gap-1.5 h-9 px-3 rounded-lg border-2 border-[#00BAF2] bg-white text-[#00BAF2] hover:bg-[#00BAF2] hover:text-white disabled:opacity-40 disabled:pointer-events-none text-xs font-semibold transition-all"
           >
             <svg viewBox="0 0 40 40" className="size-4 shrink-0">
               <rect width="40" height="40" rx="6" fill="#00BAF2" />
@@ -275,8 +278,8 @@ export default function RazorpayCheckout() {
           </button>
           <button
             onClick={openCardPaymentModal}
-            disabled={modalLoading}
-            className="inline-flex items-center gap-1.5 h-9 px-3 rounded-lg border-2 border-[#1CA3D8] bg-white text-[#1CA3D8] hover:bg-[#1CA3D8] hover:text-white text-xs font-semibold transition-all"
+            disabled={modalLoading || !hasValidAmount}
+            className="inline-flex items-center gap-1.5 h-9 px-3 rounded-lg border-2 border-[#1CA3D8] bg-white text-[#1CA3D8] hover:bg-[#1CA3D8] hover:text-white disabled:opacity-40 disabled:pointer-events-none text-xs font-semibold transition-all"
           >
             {modalLoading ? (
               <Loader2 className="size-4 animate-spin" />
@@ -348,8 +351,8 @@ export default function RazorpayCheckout() {
         <div className="flex gap-3">
           <Button
             onClick={() => createOrderAndOpenApp((am) => gpayLink(am))}
-            disabled={loading}
-            className="flex-1 h-12 bg-[#1CA3D8] hover:bg-[#1890c0] text-white text-base gap-2 rounded-xl shadow-lg shadow-[#1CA3D8]/20 transition-all duration-200"
+            disabled={loading || !hasValidAmount}
+            className="flex-1 h-12 bg-[#1CA3D8] hover:bg-[#1890c0] text-white text-base gap-2 rounded-xl shadow-lg shadow-[#1CA3D8]/20 transition-all duration-200 disabled:opacity-40"
           >
             {loading ? (
               <><Loader2 className="w-5 h-5 animate-spin" /> Processing...</>
@@ -359,9 +362,9 @@ export default function RazorpayCheckout() {
           </Button>
           <Button
             onClick={openCardPaymentModal}
-            disabled={modalLoading}
+            disabled={modalLoading || !hasValidAmount}
             variant="outline"
-            className="h-12 text-base gap-2 rounded-xl transition-all duration-200 border-[#1CA3D8] text-[#1CA3D8]"
+            className="h-12 text-base gap-2 rounded-xl transition-all duration-200 border-[#1CA3D8] text-[#1CA3D8] disabled:opacity-40"
           >
             {modalLoading ? (
               <Loader2 className="w-5 h-5 animate-spin" />
