@@ -57,7 +57,7 @@ const PHONEPE_LINK = (am: number) =>
   `phonepe://pay?pa=${UPI_ID}&pn=${ENCODED_NAME}&am=${am}&cu=INR`;
 const PAYTM_LINK = (am: number) =>
   `paytmmp://pay?pa=${UPI_ID}&pn=${ENCODED_NAME}&am=${am}&cu=INR`;
-const PRESET_AMOUNTS = [1000, 2000, 5000, 10000, 100000];
+const PRESET_AMOUNTS = [1000, 2000, 5000, 10000, 50000, 100000];
 
 export default function RazorpayCheckout() {
   const [customAmount, setCustomAmount] = useState("");
@@ -288,7 +288,7 @@ export default function RazorpayCheckout() {
         </div>
       </div>
 
-      <div className="grid grid-cols-5 gap-2 mb-4">
+      <div className="grid grid-cols-3 sm:grid-cols-6 gap-2 mb-4">
         {presets.map((p) => (
           <button
             key={p.value}
