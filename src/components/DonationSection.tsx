@@ -7,6 +7,7 @@ import {
   Users,
   QrCode,
   CreditCard,
+  ArrowRight,
 } from "lucide-react";
 import WhatsAppIcon from "@/components/WhatsAppIcon";
 import { Button } from "@/components/ui/button";

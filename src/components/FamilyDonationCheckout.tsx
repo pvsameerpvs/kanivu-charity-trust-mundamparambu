@@ -60,11 +60,11 @@ const PAYTM_LINK = (am: number) =>
   `paytmmp://pay?pa=${UPI_ID}&pn=${ENCODED_NAME}&am=${am}&cu=INR`;
 
 const DURATIONS = [
-  { months: 1, label: "1 Month" },
-  { months: 2, label: "2 Months" },
-  { months: 3, label: "3 Months" },
-  { months: 6, label: "6 Months" },
-  { months: 12, label: "1 Year" },
+  { months: 1, label: "1 മാസം" },
+  { months: 2, label: "2 മാസം" },
+  { months: 3, label: "3 മാസം" },
+  { months: 6, label: "6 മാസം" },
+  { months: 12, label: "1 വർഷം" },
 ];
 
 export default function FamilyDonationCheckout() {
@@ -92,7 +92,7 @@ export default function FamilyDonationCheckout() {
   const createOrderAndOpenApp = async (deepLinkFn: (am: number) => string) => {
     const amountPaise = getAmountInPaise();
     if (amountPaise < 100) {
-      setStatus({ type: "error", message: "Minimum donation is ₹10" });
+      setStatus({ type: "error", message: "കുറഞ്ഞത് ₹10 സംഭാവന നൽകണം" });
       return;
     }
     setLoading(true);
@@ -108,13 +108,13 @@ export default function FamilyDonationCheckout() {
           receipt: `family_${Date.now()}`,
         }),
       });
-      if (!res.ok) { const err = await res.json(); throw new Error(err.error || "Failed"); }
+      if (!res.ok) { const err = await res.json(); throw new Error(err.error || "പരാജയപ്പെട്ടു"); }
       const order = await res.json();
       setCurrentOrderId(order.order_id);
       window.open(deepLinkFn(amountPaise / 100), "_blank");
-      setStatus({ type: "info", message: `App opened. After payment, tap "Check Payment" below.` });
+      setStatus({ type: "info", message: `ആപ്പ് തുറന്നു. പേയ്മെന്റ് കഴിഞ്ഞ് താഴെയുള്ള "പേയ്മെന്റ് സ്റ്റാറ്റസ് പരിശോധിക്കുക" ബട്ടൺ അമർത്തുക.` });
     } catch (err) {
-      setStatus({ type: "error", message: err instanceof Error ? err.message : "Something went wrong" });
+      setStatus({ type: "error", message: err instanceof Error ? err.message : "എന്തോ പിഴവ് സംഭവിച്ചു" });
     }
     setLoading(false);
   };
@@ -125,18 +125,18 @@ export default function FamilyDonationCheckout() {
     setStatus({ type: null, message: "" });
     try {
       const res = await fetch(`/api/check-payment-status?order_id=${currentOrderId}`);
-      if (!res.ok) { const err = await res.json(); throw new Error(err.error || "Check failed"); }
+      if (!res.ok) { const err = await res.json(); throw new Error(err.error || "പരിശോധന പരാജയപ്പെട്ടു"); }
       const data = await res.json();
       if (data.paid) {
-        setStatus({ type: "success", message: `Payment successful! ₹${data.amount / 100}` });
+        setStatus({ type: "success", message: `പേയ്മെന്റ് വിജയിച്ചു! ₹${data.amount / 100}` });
         setCurrentOrderId(null);
         setSelectedMonths(null);
         setCustomAmount("");
       } else {
-        setStatus({ type: "error", message: "Payment not received yet. Try again after paying." });
+        setStatus({ type: "error", message: "പേയ്മെന്റ് ഇതുവരെ ലഭിച്ചിട്ടില്ല. പേയ്മെന്റ് കഴിഞ്ഞ ശേഷം വീണ്ടും പരിശോധിക്കുക." });
       }
     } catch (err) {
-      setStatus({ type: "error", message: err instanceof Error ? err.message : "Failed to check" });
+      setStatus({ type: "error", message: err instanceof Error ? err.message : "പരിശോധന പരാജയപ്പെട്ടു" });
     }
     setCheckingStatus(false);
   };
@@ -155,7 +155,7 @@ export default function FamilyDonationCheckout() {
   const openCardPaymentModal = async () => {
     const amountPaise = getAmountInPaise();
     if (amountPaise < 100) {
-      setStatus({ type: "error", message: "Minimum donation is ₹10" });
+      setStatus({ type: "error", message: "കുറഞ്ഞത് ₹10 സംഭാവന നൽകണം" });
       return;
     }
     setModalLoading(true);
@@ -171,14 +171,14 @@ export default function FamilyDonationCheckout() {
           receipt: `family_card_${Date.now()}`,
         }),
       });
-      if (!res.ok) { const err = await res.json(); throw new Error(err.error || "Failed"); }
+      if (!res.ok) { const err = await res.json(); throw new Error(err.error || "പരാജയപ്പെട്ടു"); }
       const order = await res.json();
       const options: RazorpayOptions = {
         key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID!,
         amount: order.amount,
         currency: order.currency,
         name: "KANIVU CHARITY TRUST",
-        description: "Family Monthly Sponsorship",
+        description: "കുടുംബ സംരക്ഷണ പദ്ധതി",
         image: "/images/kaniv/kaniv-logo.png",
         order_id: order.order_id,
         handler: async function (response: RazorpayPaymentResponse) {
@@ -188,12 +188,12 @@ export default function FamilyDonationCheckout() {
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify(response),
             });
-            if (!verifyRes.ok) { const err = await verifyRes.json(); throw new Error(err.error || "Verification failed"); }
-            setStatus({ type: "success", message: `Payment successful! Thank you for sponsoring.` });
+            if (!verifyRes.ok) { const err = await verifyRes.json(); throw new Error(err.error || "വെരിഫിക്കേഷൻ പരാജയപ്പെട്ടു"); }
+            setStatus({ type: "success", message: `പേയ്മെന്റ് വിജയിച്ചു! സ്പോൺസർ ചെയ്തതിന് നന്ദി.` });
             setSelectedMonths(null);
             setCustomAmount("");
           } catch (err) {
-            setStatus({ type: "error", message: err instanceof Error ? err.message : "Verification failed" });
+            setStatus({ type: "error", message: err instanceof Error ? err.message : "വെരിഫിക്കേഷൻ പരാജയപ്പെട്ടു" });
           }
           setModalLoading(false);
         },
@@ -203,12 +203,12 @@ export default function FamilyDonationCheckout() {
       };
       const rzp = new window.Razorpay(options);
       rzp.on("payment.failed", () => {
-        setStatus({ type: "error", message: "Payment failed. Try again." });
+        setStatus({ type: "error", message: "പേയ്മെന്റ് പരാജയപ്പെട്ടു. വീണ്ടും ശ്രമിക്കുക." });
         setModalLoading(false);
       });
       rzp.open();
     } catch (err) {
-      setStatus({ type: "error", message: err instanceof Error ? err.message : "Something went wrong" });
+      setStatus({ type: "error", message: err instanceof Error ? err.message : "എന്തോ പിഴവ് സംഭവിച്ചു" });
       setModalLoading(false);
     }
   };
@@ -225,10 +225,10 @@ export default function FamilyDonationCheckout() {
     <div className="w-full max-w-3xl mx-auto min-w-0">
       <div className="text-center mb-6">
         <h3 className="font-bold text-gray-900 text-xl">
-          Sponsor a Family&apos;s Monthly Expenses
+          ഒരു കുടുംബത്തിന്റെ മാസച്ചെലവ് സ്പോൺസർ ചെയ്യുക
         </h3>
         <p className="text-sm text-gray-500 mt-1">
-          Monthly expense per family: <span className="font-semibold text-gray-700">₹{MONTHLY_EXPENSE}</span>
+          ഓരോ കുടുംബത്തിനും മാസ ചെലവ്: <span className="font-semibold text-gray-700">₹{MONTHLY_EXPENSE}</span>
         </p>
       </div>
 
@@ -259,7 +259,7 @@ export default function FamilyDonationCheckout() {
 
       <div className="mb-4">
         <label className="block text-sm font-medium text-gray-700 mb-1.5">
-          Custom Amount (₹)
+          നിശ്ചിത തുക (₹)
         </label>
         <div className="relative">
           <IndianRupee className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
@@ -267,7 +267,7 @@ export default function FamilyDonationCheckout() {
             type="number"
             min="1"
             step="1"
-            placeholder="Enter any amount"
+            placeholder="തുക നൽകുക"
             value={customAmount}
             onChange={(e) => {
               setCustomAmount(e.target.value);
@@ -330,7 +330,7 @@ export default function FamilyDonationCheckout() {
           ) : (
             <CreditCard className="size-4 shrink-0" />
           )}
-          {modalLoading ? "Opening..." : `Card${hasValidAmount ? ` ₹${displayAmount}` : ""}`}
+          {modalLoading ? "തുറക്കുന്നു..." : `കാർഡ്${hasValidAmount ? ` ₹${displayAmount}` : ""}`}
         </button>
       </div>
 
@@ -339,7 +339,7 @@ export default function FamilyDonationCheckout() {
           <Heart className="w-4 h-4 text-red-500 shrink-0 mt-0.5" />
           <div>
             <p className="text-xs sm:text-sm font-medium text-red-800">
-              Your ₹{MONTHLY_EXPENSE}/month can cover a family&apos;s essential needs — food, medicine, and basic supplies.
+              നിങ്ങളുടെ ₹{MONTHLY_EXPENSE}/മാസം ഒരു കുടുംബത്തിന്റെ അവശ്യ ആവശ്യങ്ങളായ ഭക്ഷണം, മരുന്ന്, അടിസ്ഥാന സാധനങ്ങൾ എന്നിവ നിറവേറ്റും.
             </p>
           </div>
         </div>
@@ -351,11 +351,11 @@ export default function FamilyDonationCheckout() {
           disabled={checkingStatus}
           className="w-full h-12 bg-green-600 hover:bg-green-700 text-white text-base gap-2 rounded-xl shadow-lg transition-all duration-200"
         >
-          {checkingStatus ? (
-            <><Loader2 className="w-5 h-5 animate-spin" /> Checking Payment...</>
-          ) : (
-            <><RefreshCw className="w-5 h-5" /> Check Payment Status</>
-          )}
+              {checkingStatus ? (
+                <><Loader2 className="w-5 h-5 animate-spin" /> പരിശോധിക്കുന്നു...</>
+              ) : (
+                <><RefreshCw className="w-5 h-5" /> പേയ്മെന്റ് സ്റ്റാറ്റസ് പരിശോധിക്കുക</>
+              )}
         </Button>
       ) : (
         <Button
@@ -364,9 +364,9 @@ export default function FamilyDonationCheckout() {
           className="w-full h-12 bg-[#EF1C25] hover:bg-[#d0181f] text-white text-base gap-2 rounded-xl shadow-lg shadow-[#EF1C25]/20 transition-all duration-200 disabled:opacity-40"
         >
           {loading ? (
-            <><Loader2 className="w-5 h-5 animate-spin" /> Processing...</>
+            <><Loader2 className="w-5 h-5 animate-spin" /> പ്രോസസ്സ് ചെയ്യുന്നു...</>
           ) : (
-            <><Heart className="w-5 h-5" /> Pay Now{hasValidAmount ? ` ₹${displayAmount}` : ""}</>
+            <><Heart className="w-5 h-5" /> അടയ്ക്കുക{hasValidAmount ? ` ₹${displayAmount}` : ""}</>
           )}
         </Button>
       )}

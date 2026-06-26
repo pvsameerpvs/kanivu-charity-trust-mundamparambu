@@ -1,7 +1,8 @@
 import type { Metadata } from "next"
 import UPIPaymentWidget from "@/components/UPIPaymentWidget"
 import RazorpayCheckout from "@/components/RazorpayCheckout"
-import { HandHeart, ShieldCheck } from "lucide-react"
+import { HandHeart, ShieldCheck, Users, ArrowRight } from "lucide-react"
+import Link from "next/link"
 
 export const metadata: Metadata = {
   title: "Donate Online | കനിവ് ചാരിറ്റി ട്രസ്റ്റ് മുണ്ടംപറമ്പ്",
@@ -46,6 +47,27 @@ export default function UPIPaymentPage() {
 
       <div className="container mx-auto px-4 py-6 sm:py-10">
         <div className="max-w-5xl mx-auto">
+          {/* Family Sponsorship Banner */}
+          <Link href="/family-donation">
+            <div className="bg-gradient-to-r from-red-500 to-red-600 rounded-xl sm:rounded-2xl p-4 sm:p-6 mb-4 sm:mb-6 shadow-lg shadow-red-200 hover:shadow-xl transition-all cursor-pointer group">
+              <div className="flex items-center justify-between flex-wrap gap-3">
+                <div className="flex items-center gap-3">
+                  <div className="size-10 sm:size-12 rounded-full bg-white/20 flex items-center justify-center shrink-0">
+                    <Users className="size-5 sm:size-6 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-white font-bold text-sm sm:text-base">കുടുംബ സംരക്ഷണ പദ്ധതി</h3>
+                    <p className="text-white/80 text-xs sm:text-sm">മാസം ₹750 മാത്രം - ഒരു കുടുംബത്തിന് ആശ്വാസമായി മാറുക</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-1.5 text-white font-semibold text-sm bg-white/20 rounded-full px-4 py-2 group-hover:bg-white/30 transition-colors">
+                  കൂടുതൽ അറിയുക
+                  <ArrowRight className="size-4 group-hover:translate-x-0.5 transition-transform" />
+                </div>
+              </div>
+            </div>
+          </Link>
+
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 items-start">
             {/* UPI Section */}
             <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-sm border border-gray-100">

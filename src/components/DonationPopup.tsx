@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import Image from "next/image";
+import Link from "next/link";
 import {
   X,
   HandHeart,
@@ -14,6 +15,7 @@ import {
   RefreshCw,
   ExternalLink,
   CreditCard,
+  Heart,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import WhatsAppIcon from "@/components/WhatsAppIcon";
@@ -566,7 +568,13 @@ export default function DonationPopup() {
                 </div>
               </div>
 
-              <div className="mt-2 sm:mt-2.5 border-t border-gray-100 pt-2 sm:pt-2.5">
+              <div className="mt-2 sm:mt-2.5 border-t border-gray-100 pt-2 sm:pt-2.5 space-y-2">
+                <Link href="/family-donation" onClick={close} className="block">
+                  <Button className="w-full h-9 sm:h-10 bg-red-600 hover:bg-red-700 text-white text-[10px] sm:text-xs gap-2 rounded-lg shadow-sm py-0">
+                    <Heart className="size-3.5 sm:size-4" />
+                    കുടുംബ സംരക്ഷണ പദ്ധതി
+                  </Button>
+                </Link>
                 <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="block">
                   <Button className="w-full h-9 sm:h-10 bg-[#25D366] hover:bg-[#22c35e] text-white text-[10px] sm:text-xs gap-2 rounded-lg shadow-sm py-0">
                     <WhatsAppIcon className="size-3.5 sm:size-4" />

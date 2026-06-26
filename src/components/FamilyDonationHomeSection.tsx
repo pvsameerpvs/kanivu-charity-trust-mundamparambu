@@ -25,23 +25,24 @@ export default function FamilyDonationHomeSection() {
             <span className="text-sm font-medium text-red-600">
               കുടുംബ സംരക്ഷണ പദ്ധതി
             </span>
+          
           </div>
 
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 leading-tight">
-            Sponsor a Family&apos;s Monthly Expenses
+            ഒരു കുടുംബത്തിന്റെ മാസച്ചെലവ് സ്പോൺസർ ചെയ്യുക
           </h2>
 
           <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-2">
-            Just <span className="font-bold text-red-600">₹750/month</span> can cover a family&apos;s basic needs — food, medicine, and essential supplies.
+            വെറും <span className="font-bold text-red-600">₹750/മാസം</span> ഒരു കുടുംബത്തിന്റെ ഭക്ഷണം, മരുന്ന്, അടിസ്ഥാന ആവശ്യങ്ങൾ നിറവേറ്റും.
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-3 mt-6 mb-8">
             {[
-              { months: "1 Month", amount: "₹750" },
-              { months: "2 Months", amount: "₹1,500" },
-              { months: "3 Months", amount: "₹2,250" },
-              { months: "6 Months", amount: "₹4,500" },
-              { months: "1 Year", amount: "₹9,000" },
+              { months: "1 മാസം", amount: "₹750" },
+              { months: "2 മാസം", amount: "₹1,500" },
+              { months: "3 മാസം", amount: "₹2,250" },
+              { months: "6 മാസം", amount: "₹4,500" },
+              { months: "1 വർഷം", amount: "₹9,000" },
             ].map((opt) => (
               <div
                 key={opt.months}
@@ -55,14 +56,14 @@ export default function FamilyDonationHomeSection() {
 
           <Link href="/family-donation">
             <Button className="bg-red-600 hover:bg-red-700 text-white rounded-full px-8 h-12 text-base gap-2 shadow-lg shadow-red-200 hover:shadow-xl transition-all">
-              Sponsor Now
+              സ്പോൺസർ ചെയ്യുക
               <ArrowRight className="w-4 h-4" />
             </Button>
           </Link>
 
           <div className="flex items-center justify-center gap-2 mt-4 text-sm text-gray-400">
             <Heart className="w-3.5 h-3.5 text-red-400" />
-            100% reaches the families
+            100% കുടുംബങ്ങളിലേക്ക് എത്തുന്നു
           </div>
         </motion.div>
       </div>
