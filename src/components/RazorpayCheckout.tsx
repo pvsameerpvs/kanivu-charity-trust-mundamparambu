@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { motion } from "framer-motion";
 import {
   CreditCard,
@@ -13,6 +13,38 @@ import {
   ExternalLink,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+
+declare global {
+  interface Window {
+    Razorpay: new (options: RazorpayOptions) => RazorpayInstance;
+  }
+}
+
+interface RazorpayOptions {
+  key: string;
+  amount: number;
+  currency: string;
+  name: string;
+  description: string;
+  image?: string;
+  order_id: string;
+  handler: (response: RazorpayPaymentResponse) => void;
+  prefill?: { name?: string; email?: string; contact?: string };
+  notes?: Record<string, string>;
+  theme?: { color?: string };
+  modal?: { ondismiss?: () => void };
+}
+
+interface RazorpayInstance {
+  open: () => void;
+  on: (event: string, handler: (response: unknown) => void) => void;
+}
+
+interface RazorpayPaymentResponse {
+  razorpay_payment_id: string;
+  razorpay_order_id: string;
+  razorpay_signature: string;
+}
 
 const UPI_ID = "kanivu2214@fbl";
 const PAYEE_NAME = "KANIVU CHARITY TRUST MUNDAMPARAMBU";
@@ -31,12 +63,14 @@ export default function RazorpayCheckout() {
   const [customAmount, setCustomAmount] = useState("");
   const [selectedAmount, setSelectedAmount] = useState<number | null>(null);
   const [loading, setLoading] = useState(false);
+  const [modalLoading, setModalLoading] = useState(false);
   const [checkingStatus, setCheckingStatus] = useState(false);
   const [currentOrderId, setCurrentOrderId] = useState<string | null>(null);
   const [status, setStatus] = useState<{
     type: "success" | "error" | "info" | null;
     message: string;
   }>({ type: null, message: "" });
+  const scriptRef = useRef<HTMLScriptElement | null>(null);
 
   const getAmountInPaise = () => {
     if (selectedAmount) return selectedAmount;
@@ -50,11 +84,9 @@ export default function RazorpayCheckout() {
       setStatus({ type: "error", message: "Minimum donation is ₹10" });
       return;
     }
-
     setLoading(true);
     setStatus({ type: null, message: "" });
     setCurrentOrderId(null);
-
     try {
       const res = await fetch("/api/create-order", {
         method: "POST",
@@ -65,27 +97,13 @@ export default function RazorpayCheckout() {
           receipt: `donation_${Date.now()}`,
         }),
       });
-      if (!res.ok) {
-        const err = await res.json();
-        throw new Error(err.error || "Failed to create order");
-      }
+      if (!res.ok) { const err = await res.json(); throw new Error(err.error || "Failed"); }
       const order = await res.json();
       setCurrentOrderId(order.order_id);
-
-      const amountINR = amountPaise / 100;
-      const link = deepLinkFn(amountINR);
-      window.open(link, "_blank");
-
-      setStatus({
-        type: "info",
-        message: `App opened. After payment, tap "Check Payment" below.`,
-      });
+      window.open(deepLinkFn(amountPaise / 100), "_blank");
+      setStatus({ type: "info", message: `App opened. After payment, tap "Check Payment" below.` });
     } catch (err) {
-      setStatus({
-        type: "error",
-        message:
-          err instanceof Error ? err.message : "Something went wrong. Try again.",
-      });
+      setStatus({ type: "error", message: err instanceof Error ? err.message : "Something went wrong" });
     }
     setLoading(false);
   };
@@ -94,45 +112,100 @@ export default function RazorpayCheckout() {
     if (!currentOrderId) return;
     setCheckingStatus(true);
     setStatus({ type: null, message: "" });
-
     try {
-      const res = await fetch(
-        `/api/check-payment-status?order_id=${currentOrderId}`
-      );
-      if (!res.ok) {
-        const err = await res.json();
-        throw new Error(err.error || "Check failed");
-      }
+      const res = await fetch(`/api/check-payment-status?order_id=${currentOrderId}`);
+      if (!res.ok) { const err = await res.json(); throw new Error(err.error || "Check failed"); }
       const data = await res.json();
       if (data.paid) {
-        setStatus({
-          type: "success",
-          message: `Payment successful! ₹${data.amount / 100}`,
-        });
+        setStatus({ type: "success", message: `Payment successful! ₹${data.amount / 100}` });
         setCurrentOrderId(null);
         setSelectedAmount(null);
         setCustomAmount("");
       } else {
-        setStatus({
-          type: "error",
-          message: "Payment not received yet. Please try again after paying.",
-        });
+        setStatus({ type: "error", message: "Payment not received yet. Try again after paying." });
       }
     } catch (err) {
-      setStatus({
-        type: "error",
-        message:
-          err instanceof Error ? err.message : "Failed to check payment",
-      });
+      setStatus({ type: "error", message: err instanceof Error ? err.message : "Failed to check" });
     }
     setCheckingStatus(false);
+  };
+
+  const loadRazorpayScript = () =>
+    new Promise<void>((resolve) => {
+      if (window.Razorpay) { resolve(); return; }
+      const script = document.createElement("script");
+      script.src = "https://checkout.razorpay.com/v1/checkout.js";
+      script.async = true;
+      script.onload = () => resolve();
+      document.body.appendChild(script);
+      scriptRef.current = script;
+    });
+
+  const openCardPaymentModal = async () => {
+    const amountPaise = getAmountInPaise();
+    if (amountPaise < 100) {
+      setStatus({ type: "error", message: "Minimum donation is ₹10" });
+      return;
+    }
+    setModalLoading(true);
+    setStatus({ type: null, message: "" });
+    try {
+      await loadRazorpayScript();
+      const res = await fetch("/api/create-order", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          amount: amountPaise,
+          currency: "INR",
+          receipt: `donation_card_${Date.now()}`,
+        }),
+      });
+      if (!res.ok) { const err = await res.json(); throw new Error(err.error || "Failed"); }
+      const order = await res.json();
+      const options: RazorpayOptions = {
+        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID!,
+        amount: order.amount,
+        currency: order.currency,
+        name: "KANIVU CHARITY TRUST",
+        description: "Donation via Card / NetBanking",
+        image: "/images/kaniv/kaniv-logo.png",
+        order_id: order.order_id,
+        handler: async function (response: RazorpayPaymentResponse) {
+          try {
+            const verifyRes = await fetch("/api/verify-payment", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(response),
+            });
+            if (!verifyRes.ok) { const err = await verifyRes.json(); throw new Error(err.error || "Verification failed"); }
+            setStatus({ type: "success", message: `Payment successful! ID: ${response.razorpay_payment_id.slice(-6)}` });
+            setSelectedAmount(null);
+            setCustomAmount("");
+          } catch (err) {
+            setStatus({ type: "error", message: err instanceof Error ? err.message : "Verification failed" });
+          }
+          setModalLoading(false);
+        },
+        modal: { ondismiss: () => setModalLoading(false) },
+        prefill: { name: "", email: "", contact: "" },
+        theme: { color: "#1CA3D8" },
+      };
+      const rzp = new window.Razorpay(options);
+      rzp.on("payment.failed", () => {
+        setStatus({ type: "error", message: "Payment failed. Try again." });
+        setModalLoading(false);
+      });
+      rzp.open();
+    } catch (err) {
+      setStatus({ type: "error", message: err instanceof Error ? err.message : "Something went wrong" });
+      setModalLoading(false);
+    }
   };
 
   const getDeepLink = () => {
     const ua = navigator.userAgent;
     return /iPad|iPhone|iPod/.test(ua) ? GPAY_IOS : GPAY_ANDROID;
   };
-
   const gpayLink = (am: number) => getDeepLink()(am);
 
   const presets = PRESET_AMOUNTS.map((paise) => ({
@@ -162,9 +235,7 @@ export default function RazorpayCheckout() {
         </p>
         <div className="flex flex-wrap items-center justify-center gap-2 mt-3">
           <button
-            onClick={() =>
-              createOrderAndOpenApp((am) => gpayLink(am))
-            }
+            onClick={() => createOrderAndOpenApp((am) => gpayLink(am))}
             disabled={loading}
             className="inline-flex items-center gap-1.5 h-9 px-3 rounded-lg border-2 border-[#4285F4] bg-white text-[#4285F4] hover:bg-[#4285F4] hover:text-white text-xs font-semibold transition-all"
           >
@@ -178,9 +249,7 @@ export default function RazorpayCheckout() {
             GPay
           </button>
           <button
-            onClick={() =>
-              createOrderAndOpenApp(PHONEPE_LINK)
-            }
+            onClick={() => createOrderAndOpenApp(PHONEPE_LINK)}
             disabled={loading}
             className="inline-flex items-center gap-1.5 h-9 px-3 rounded-lg border-2 border-[#5F259F] bg-white text-[#5F259F] hover:bg-[#5F259F] hover:text-white text-xs font-semibold transition-all"
           >
@@ -193,9 +262,7 @@ export default function RazorpayCheckout() {
             PhonePe
           </button>
           <button
-            onClick={() =>
-              createOrderAndOpenApp(PAYTM_LINK)
-            }
+            onClick={() => createOrderAndOpenApp(PAYTM_LINK)}
             disabled={loading}
             className="inline-flex items-center gap-1.5 h-9 px-3 rounded-lg border-2 border-[#00BAF2] bg-white text-[#00BAF2] hover:bg-[#00BAF2] hover:text-white text-xs font-semibold transition-all"
           >
@@ -205,6 +272,18 @@ export default function RazorpayCheckout() {
               <text x="16" y="26" fontSize="10" fontWeight="600" fill="white" fontFamily="Arial">aytm</text>
             </svg>
             Paytm
+          </button>
+          <button
+            onClick={openCardPaymentModal}
+            disabled={modalLoading}
+            className="inline-flex items-center gap-1.5 h-9 px-3 rounded-lg border-2 border-[#1CA3D8] bg-white text-[#1CA3D8] hover:bg-[#1CA3D8] hover:text-white text-xs font-semibold transition-all"
+          >
+            {modalLoading ? (
+              <Loader2 className="size-4 animate-spin" />
+            ) : (
+              <CreditCard className="size-4 shrink-0" />
+            )}
+            {modalLoading ? "Opening..." : "Card"}
           </button>
         </div>
       </div>
@@ -266,19 +345,32 @@ export default function RazorpayCheckout() {
           )}
         </Button>
       ) : (
-        <Button
-          onClick={() =>
-            createOrderAndOpenApp((am) => gpayLink(am))
-          }
-          disabled={loading}
-          className="w-full h-12 bg-[#1CA3D8] hover:bg-[#1890c0] text-white text-base gap-2 rounded-xl shadow-lg shadow-[#1CA3D8]/20 transition-all duration-200"
-        >
-          {loading ? (
-            <><Loader2 className="w-5 h-5 animate-spin" /> Processing...</>
-          ) : (
-            <><CreditCard className="w-5 h-5" /> Pay ₹{getAmountInPaise() / 100}</>
-          )}
-        </Button>
+        <div className="flex gap-3">
+          <Button
+            onClick={() => createOrderAndOpenApp((am) => gpayLink(am))}
+            disabled={loading}
+            className="flex-1 h-12 bg-[#1CA3D8] hover:bg-[#1890c0] text-white text-base gap-2 rounded-xl shadow-lg shadow-[#1CA3D8]/20 transition-all duration-200"
+          >
+            {loading ? (
+              <><Loader2 className="w-5 h-5 animate-spin" /> Processing...</>
+            ) : (
+              <><CreditCard className="w-5 h-5" /> Pay ₹{getAmountInPaise() / 100}</>
+            )}
+          </Button>
+          <Button
+            onClick={openCardPaymentModal}
+            disabled={modalLoading}
+            variant="outline"
+            className="h-12 text-base gap-2 rounded-xl transition-all duration-200 border-[#1CA3D8] text-[#1CA3D8]"
+          >
+            {modalLoading ? (
+              <Loader2 className="w-5 h-5 animate-spin" />
+            ) : (
+              <CreditCard className="w-5 h-5" />
+            )}
+            {modalLoading ? "Opening..." : "Card"}
+          </Button>
+        </div>
       )}
 
       {status.type && (

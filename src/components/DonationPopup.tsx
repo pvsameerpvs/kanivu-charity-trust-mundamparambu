@@ -13,9 +13,42 @@ import {
   IndianRupee,
   RefreshCw,
   ExternalLink,
+  CreditCard,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import WhatsAppIcon from "@/components/WhatsAppIcon";
+
+declare global {
+  interface Window {
+    Razorpay: new (options: RazorpayOptions) => RazorpayInstance;
+  }
+}
+
+interface RazorpayOptions {
+  key: string;
+  amount: number;
+  currency: string;
+  name: string;
+  description: string;
+  image?: string;
+  order_id: string;
+  handler: (response: RazorpayPaymentResponse) => void;
+  prefill?: { name?: string; email?: string; contact?: string };
+  notes?: Record<string, string>;
+  theme?: { color?: string };
+  modal?: { ondismiss?: () => void };
+}
+
+interface RazorpayInstance {
+  open: () => void;
+  on: (event: string, handler: (response: unknown) => void) => void;
+}
+
+interface RazorpayPaymentResponse {
+  razorpay_payment_id: string;
+  razorpay_order_id: string;
+  razorpay_signature: string;
+}
 
 const INTERVALS = [5, 10, 20, 60, 180, 180, 180, 180, 180, 180, 180, 180];
 const UPI_ID = "kanivu2214@fbl";
@@ -71,6 +104,8 @@ export default function DonationPopup() {
     type: "success" | "error" | "info" | null;
     message: string;
   }>({ type: null, message: "" });
+  const [modalLoading, setModalLoading] = useState(false);
+  const scriptRef = useRef<HTMLScriptElement | null>(null);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const indexRef = useRef(0);
 
@@ -158,6 +193,102 @@ export default function DonationPopup() {
     setCheckingStatus(false);
   };
 
+  const loadRazorpayScript = () =>
+    new Promise<void>((resolve) => {
+      if (window.Razorpay) { resolve(); return; }
+      const script = document.createElement("script");
+      script.src = "https://checkout.razorpay.com/v1/checkout.js";
+      script.async = true;
+      script.onload = () => resolve();
+      document.body.appendChild(script);
+      scriptRef.current = script;
+    });
+
+  const openCardPaymentModal = async () => {
+    const amountPaise = getAmountInPaise(selectedAmount, customAmount);
+    if (amountPaise < 100) {
+      setStatus({ type: "error", message: "Minimum donation is ₹10" });
+      return;
+    }
+
+    setModalLoading(true);
+    setStatus({ type: null, message: "" });
+
+    try {
+      await loadRazorpayScript();
+
+      const res = await fetch("/api/create-order", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          amount: amountPaise,
+          currency: "INR",
+          receipt: `donation_card_${Date.now()}`,
+        }),
+      });
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.error || "Failed to create order");
+      }
+      const order = await res.json();
+
+      const options: RazorpayOptions = {
+        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID!,
+        amount: order.amount,
+        currency: order.currency,
+        name: "KANIVU CHARITY TRUST",
+        description: "Donation via Card / NetBanking",
+        image: "/images/kaniv/kaniv-logo.png",
+        order_id: order.order_id,
+        handler: async function (response: RazorpayPaymentResponse) {
+          try {
+            const verifyRes = await fetch("/api/verify-payment", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(response),
+            });
+            if (!verifyRes.ok) {
+              const err = await verifyRes.json();
+              throw new Error(err.error || "Verification failed");
+            }
+            setStatus({
+              type: "success",
+              message: `Payment successful! ID: ${response.razorpay_payment_id.slice(-6)}`,
+            });
+            setSelectedAmount(null);
+            setCustomAmount("");
+          } catch (err) {
+            setStatus({
+              type: "error",
+              message: err instanceof Error ? err.message : "Verification failed",
+            });
+          }
+          setModalLoading(false);
+        },
+        modal: {
+          ondismiss: function () {
+            setModalLoading(false);
+          },
+        },
+        prefill: { name: "", email: "", contact: "" },
+        theme: { color: "#1CA3D8" },
+      };
+
+      const rzp = new window.Razorpay(options);
+      rzp.on("payment.failed", function () {
+        setStatus({ type: "error", message: "Payment failed. Try again." });
+        setModalLoading(false);
+      });
+      rzp.open();
+    } catch (err) {
+      setStatus({
+        type: "error",
+        message: err instanceof Error ? err.message : "Something went wrong",
+      });
+      setModalLoading(false);
+    }
+  };
+
   useEffect(() => {
     const scheduleNext = (delay: number) => {
       if (timerRef.current) clearTimeout(timerRef.current);
@@ -204,6 +335,11 @@ export default function DonationPopup() {
     setStatus({ type: null, message: "" });
     setCurrentOrderId(null);
     setCustomAmount("");
+    setModalLoading(false);
+    if (scriptRef.current && document.body.contains(scriptRef.current)) {
+      document.body.removeChild(scriptRef.current);
+      scriptRef.current = null;
+    }
     dismiss();
   };
 
@@ -276,48 +412,6 @@ export default function DonationPopup() {
                 </div>
 
                 <div className="col-span-7 flex flex-col gap-2">
-                  <p className="text-[10px] sm:text-xs font-semibold text-gray-900 text-left">
-                    Select amount & pay via
-                  </p>
-
-                  <div className="grid grid-cols-5 gap-1">
-                    {PRESET_AMOUNTS.map((paise) => (
-                      <button
-                        key={paise}
-                        onClick={() => {
-                          setSelectedAmount(paise);
-                          setStatus({ type: null, message: "" });
-                          setCurrentOrderId(null);
-                        }}
-                        className={`py-1 rounded-md text-[10px] sm:text-xs font-semibold transition-all border ${
-                          selectedAmount === paise
-                            ? "border-[#1CA3D8] bg-[#1CA3D8]/10 text-[#1CA3D8]"
-                            : "border-gray-200 bg-white text-gray-700 hover:border-[#1CA3D8]/40"
-                        }`}
-                      >
-                        ₹{paise / 100}
-                      </button>
-                    ))}
-                  </div>
-
-                  <div className="relative">
-                    <IndianRupee className="absolute left-2 top-1/2 -translate-y-1/2 size-3 sm:size-3.5 text-gray-400" />
-                    <input
-                      type="number"
-                      min="1"
-                      step="1"
-                      placeholder="Custom amount (₹)"
-                      value={customAmount}
-                      onChange={(e) => {
-                        setCustomAmount(e.target.value);
-                        setSelectedAmount(null);
-                        setStatus({ type: null, message: "" });
-                        setCurrentOrderId(null);
-                      }}
-                      className="w-full pl-7 pr-2 py-1.5 rounded-lg border border-gray-200 bg-white text-[10px] sm:text-xs text-gray-900 placeholder:text-gray-400 focus:border-[#1CA3D8] focus:outline-none transition-colors"
-                    />
-                  </div>
-
                   <button
                     onClick={() =>
                       createOrderAndOpenApp((am) => gpayLink(am))
@@ -364,6 +458,19 @@ export default function DonationPopup() {
                       <text x="16" y="26" fontSize="10" fontWeight="600" fill="white" fontFamily="Arial">aytm</text>
                     </svg>
                     Paytm
+                  </button>
+
+                  <button
+                    onClick={openCardPaymentModal}
+                    disabled={modalLoading}
+                    className="flex items-center justify-center gap-1.5 h-8 sm:h-9 rounded-lg border-2 border-[#1CA3D8] bg-white text-[#1CA3D8] hover:bg-[#1CA3D8] hover:text-white text-[10px] sm:text-xs font-semibold transition-all"
+                  >
+                    {modalLoading ? (
+                      <Loader2 className="size-3 sm:size-3.5 animate-spin" />
+                    ) : (
+                      <CreditCard className="size-3.5 sm:size-4 shrink-0" />
+                    )}
+                    {modalLoading ? "Opening..." : "Card / NetBanking"}
                   </button>
 
                   {currentOrderId && (
