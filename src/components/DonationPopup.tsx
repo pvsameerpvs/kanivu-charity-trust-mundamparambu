@@ -394,6 +394,45 @@ export default function DonationPopup() {
             </div>
 
             <div className="p-3 sm:p-5">
+              <div className="mb-2.5 sm:mb-3">
+                <div className="grid grid-cols-3 gap-1.5 sm:gap-2 mb-2">
+                  {PRESET_AMOUNTS.map((paise) => (
+                    <button
+                      key={paise}
+                      onClick={() => {
+                        setSelectedAmount(paise);
+                        setCustomAmount("");
+                        setStatus({ type: null, message: "" });
+                        setCurrentOrderId(null);
+                      }}
+                      className={`py-1.5 sm:py-2 rounded-lg text-[10px] sm:text-xs font-semibold transition-all border ${
+                        selectedAmount === paise
+                          ? "border-[#1CA3D8] bg-[#1CA3D8]/10 text-[#1CA3D8]"
+                          : "border-gray-200 bg-white text-gray-700 hover:border-[#1CA3D8]/40 hover:text-[#1CA3D8]"
+                      }`}
+                    >
+                      ₹{paise / 100}
+                    </button>
+                  ))}
+                </div>
+                <div className="relative">
+                  <IndianRupee className="absolute left-2 top-1/2 -translate-y-1/2 w-3 h-3 sm:w-3.5 sm:h-3.5 text-gray-400" />
+                  <input
+                    type="number"
+                    min="1"
+                    step="1"
+                    placeholder="Custom amount (₹)"
+                    value={customAmount}
+                    onChange={(e) => {
+                      setCustomAmount(e.target.value);
+                      setSelectedAmount(null);
+                      setStatus({ type: null, message: "" });
+                      setCurrentOrderId(null);
+                    }}
+                    className="w-full pl-6 sm:pl-7 pr-2 py-1.5 sm:py-2 rounded-lg border border-gray-200 bg-white text-[10px] sm:text-xs text-gray-900 placeholder:text-gray-400 focus:border-[#1CA3D8] focus:outline-none transition-colors"
+                  />
+                </div>
+              </div>
               <div className="grid grid-cols-12 gap-3 sm:gap-4 items-start">
                 <div className="col-span-5 flex flex-col items-center justify-center">
                   <div className="relative w-20 h-20 sm:w-28 sm:h-28 rounded-xl overflow-hidden bg-white p-1.5 shadow-sm ring-1 ring-gray-100">
