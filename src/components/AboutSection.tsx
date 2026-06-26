@@ -75,7 +75,7 @@ export default function AboutSection() {
                   <ArrowRight className="w-4 h-4" />
                 </Button>
               </a>
-              <a href="#donation">
+              <a href="/upi-payment">
                 <Button
                   variant="outline"
                   className="border-2 border-[#EF1C25] text-[#EF1C25] hover:bg-[#EF1C25] hover:text-white rounded-full px-7 h-11"

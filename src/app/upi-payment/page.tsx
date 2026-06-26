@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import UPIPaymentWidget from "@/components/UPIPaymentWidget"
 import RazorpayCheckout from "@/components/RazorpayCheckout"
+import { HandHeart, ShieldCheck } from "lucide-react"
 
 export const metadata: Metadata = {
   title: "Donate Online | കനിവ് ചാരിറ്റി ട്രസ്റ്റ് മുണ്ടംപറമ്പ്",
@@ -14,34 +15,60 @@ export const metadata: Metadata = {
 
 export default function UPIPaymentPage() {
   return (
-    <div className="min-h-dvh bg-gradient-to-br from-[#EF1C25]/5 via-[#F7941D]/5 to-[#1CA3D8]/5">
-      <div className="container mx-auto px-4 py-8 sm:py-12 md:py-20">
-        <div className="max-w-3xl mx-auto">
-          <div className="text-center mb-6 sm:mb-10">
-            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 sm:mb-4 px-2">
-              ഓൺലൈൻ വഴി സഹായം നൽകുക
+    <div className="min-h-dvh bg-gray-50">
+      {/* Header */}
+      <div className="bg-white border-b border-gray-200">
+        <div className="container mx-auto px-4 py-8 sm:py-12">
+          <div className="max-w-4xl mx-auto text-center">
+            <div className="inline-flex items-center gap-2 text-sm text-gray-500 mb-3">
+              <HandHeart className="w-4 h-4 text-gray-400" />
+              കനിവ് ചാരിറ്റി ട്രസ്റ്റ്
+            </div>
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
+              Donate Online
             </h1>
-            <p className="text-sm sm:text-lg text-gray-600 max-w-2xl mx-auto px-2">
-              കാർഡ്, UPI, നെറ്റ് ബാങ്കിംഗ്, Google Pay, PhonePe, Paytm എന്നിവ വഴി
-              സംഭാവന ചെയ്യാം
+            <p className="text-sm text-gray-500 max-w-xl mx-auto">
+              Support education, healthcare, and housing for those in need.
             </p>
+            <div className="flex items-center justify-center gap-4 mt-4 text-xs text-gray-400">
+              <div className="flex items-center gap-1.5">
+                <ShieldCheck className="w-3.5 h-3.5" />
+                Secure
+              </div>
+              <div className="w-px h-3 bg-gray-200" />
+              <span>256-bit Encryption</span>
+              <div className="w-px h-3 bg-gray-200" />
+              <span>Razorpay</span>
+            </div>
           </div>
+        </div>
+      </div>
 
-          <div className="space-y-6">
-            <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 shadow-lg border border-gray-100">
+      <div className="container mx-auto px-4 py-6 sm:py-10">
+        <div className="max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 items-start">
+            {/* UPI Section */}
+            <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-sm border border-gray-100">
+              <div className="mb-4">
+                <h2 className="text-base sm:text-lg font-semibold text-gray-900">Pay via UPI</h2>
+                <p className="text-xs sm:text-sm text-gray-500 mt-0.5">Google Pay, PhonePe, Paytm or scan QR</p>
+              </div>
               <UPIPaymentWidget />
             </div>
 
-            <div className="flex items-center gap-3 max-w-md mx-auto">
-              <div className="flex-1 h-px bg-gray-200" />
-              <span className="text-xs font-medium text-gray-400 uppercase tracking-wider">or</span>
-              <div className="flex-1 h-px bg-gray-200" />
-            </div>
-
-            <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 shadow-lg border border-gray-100">
+            {/* Card Section */}
+            <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-sm border border-gray-100">
+              <div className="mb-4">
+                <h2 className="text-base sm:text-lg font-semibold text-gray-900">Pay via Card / NetBanking</h2>
+                <p className="text-xs sm:text-sm text-gray-500 mt-0.5">Credit Card, Debit Card, or Internet Banking</p>
+              </div>
               <RazorpayCheckout />
             </div>
           </div>
+
+          <p className="text-xs text-gray-400 text-center mt-6">
+            All payments are processed securely through Razorpay. We do not store your card or bank details.
+          </p>
         </div>
       </div>
     </div>

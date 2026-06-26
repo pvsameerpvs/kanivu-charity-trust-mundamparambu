@@ -14,7 +14,7 @@ const navLinks = [
   { label: "സേവനങ്ങൾ", href: "/#services" },
   { label: "പ്രവർത്തനങ്ങൾ", href: "/#activities" },
   { label: "ഗ്യാലറി", href: "/gallery" },
-  { label: "സംഭാവന", href: "/#donation" },
+  { label: "സംഭാവന", href: "/upi-payment" },
   { label: "ബന്ധപ്പെടുക", href: "/#contact" },
 ];
 
