@@ -7,6 +7,7 @@ import HomeProjectSection from "@/components/HomeProjectSection";
 import EducationSection from "@/components/EducationSection";
 import ActivitiesTimeline from "@/components/ActivitiesTimeline";
 import DonationSection from "@/components/DonationSection";
+import FamilyDonationHomeSection from "@/components/FamilyDonationHomeSection";
 import GallerySection from "@/components/GallerySection";
 import VolunteerSection from "@/components/VolunteerSection";
 import Testimonials from "@/components/Testimonials";
@@ -24,6 +25,7 @@ export default function Home() {
       <EducationSection />
       <ActivitiesTimeline />
       <DonationSection />
+      <FamilyDonationHomeSection />
       <GallerySection />
       <VolunteerSection />
       <Testimonials />
