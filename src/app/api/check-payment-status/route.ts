@@ -1,13 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
 import Razorpay from "razorpay";
 
-const razorpay = new Razorpay({
-  key_id: process.env.RAZORPAY_KEY_ID!,
-  key_secret: process.env.RAZORPAY_KEY_SECRET!,
-});
+function getRazorpay() {
+  return new Razorpay({
+    key_id: process.env.RAZORPAY_KEY_ID!,
+    key_secret: process.env.RAZORPAY_KEY_SECRET!,
+  });
+}
 
 export async function GET(request: NextRequest) {
   try {
+    const razorpay = getRazorpay();
     const orderId = request.nextUrl.searchParams.get("order_id");
     if (!orderId) {
       return NextResponse.json(
