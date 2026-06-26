@@ -249,7 +249,7 @@ export default function RazorpayCheckout() {
               <path d="M15 22.7c-.2-.6-.3-1.2-.3-1.9s.1-1.3.3-1.9v-2.4H9c-.6 1.2-1 2.6-1 4.1s.4 2.9 1 4.1l3-2.3 2.7-1.7z" fill="#FBBC05" />
               <path d="M20 11.8c1.3 0 2.5.5 3.4 1.3l2.5-2.5C24.1 9.2 22.2 8.5 20 8.5c-5.1 0-9.5 2.1-11 5.1l3.6 2.8c.7-2.2 2.7-3.8 5-3.8z" fill="#EA4335" />
             </svg>
-            GPay
+            GPay{hasValidAmount ? ` ₹${getAmountInPaise() / 100}` : ""}
           </button>
           <button
             onClick={() => createOrderAndOpenApp(PHONEPE_LINK)}
@@ -262,7 +262,7 @@ export default function RazorpayCheckout() {
               <text x="18" y="21" fontSize="5.5" fontWeight="700" fill="white" fontFamily="Arial" letterSpacing="0.3">hone</text>
               <text x="18" y="27" fontSize="5.5" fontWeight="700" fill="white" fontFamily="Arial" letterSpacing="0.3">Pe</text>
             </svg>
-            PhonePe
+            PhonePe{hasValidAmount ? ` ₹${getAmountInPaise() / 100}` : ""}
           </button>
           <button
             onClick={() => createOrderAndOpenApp(PAYTM_LINK)}
@@ -274,7 +274,7 @@ export default function RazorpayCheckout() {
               <text x="8" y="26" fontSize="12" fontWeight="800" fill="white" fontFamily="Arial">P</text>
               <text x="16" y="26" fontSize="10" fontWeight="600" fill="white" fontFamily="Arial">aytm</text>
             </svg>
-            Paytm
+            Paytm{hasValidAmount ? ` ₹${getAmountInPaise() / 100}` : ""}
           </button>
           <button
             onClick={openCardPaymentModal}
@@ -286,7 +286,7 @@ export default function RazorpayCheckout() {
             ) : (
               <CreditCard className="size-4 shrink-0" />
             )}
-            {modalLoading ? "Opening..." : "Card"}
+            {modalLoading ? "Opening..." : `Card${hasValidAmount ? ` ₹${getAmountInPaise() / 100}` : ""}`}
           </button>
         </div>
       </div>
