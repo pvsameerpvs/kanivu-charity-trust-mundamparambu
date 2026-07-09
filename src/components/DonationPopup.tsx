@@ -11,7 +11,6 @@ import {
   HandHeart,
   Scan,
   Heart,
-  Volleyball,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import WhatsAppIcon from "@/components/WhatsAppIcon";
@@ -135,7 +134,7 @@ export default function DonationPopup() {
     },
     {
       icon: <Heart className="w-4 h-4 sm:w-6 sm:h-6 text-white" />,
-      title: "ഷിബിൽ റഹ്മാൻ — ആദരാഞ്ജലികൾ",
+      title: "ഷിബിൽ റഹ്മാൻ — ഓർമ്മയിൽ എന്നും",
       content: (
         <div>
           <div className="flex justify-center mb-3">
@@ -155,24 +154,7 @@ export default function DonationPopup() {
         </div>
       ),
     },
-    {
-      icon: <Volleyball className="w-4 h-4 sm:w-6 sm:h-6 text-white" />,
-      title: "സൗഹൃദ ഫുട്ബോൾ മേള",
-      content: (
-        <div>
-          <p className="text-[9px] sm:text-[11px] text-stone-700 leading-relaxed text-center mb-2 px-1">
-            പ്രിയപ്പെട്ട കനിവ് ചാരിറ്റി ട്രസ്റ്റിന്റെ സുഹൃത്തുക്കളെ!
-          </p>
-          <p className="text-[9px] sm:text-[11px] text-stone-600 leading-relaxed text-center px-1">
-            നമ്മുടെ കനിവിന്റെ ജീവകാരുണ്യ പ്രവർത്തനങ്ങൾക്ക് കരുത്തേകാൻ ധനസമാഹരണത്തിന് നടത്തുന്ന സൗഹൃദ ഫുട്ബോൾ മാജിക് ലാൻഡ് ടർഫിൽ വെച്ച് നടക്കുന്നതായിരിക്കും. ഫുട്ബോളിലേക്കും താര ലേലത്തിലേക്കും മുഴുവൻ കനിവിന്റെ സുഹൃത്തുക്കളെയും ക്ഷണിക്കുന്നു. എല്ലാവരും പങ്കെടുത്ത് ഈ ഫുട്ബോൾമേള വമ്പിച്ച വിജയമാക്കണമെന്നപേക്ഷിക്കുന്നു.
-          </p>
-          <div className="mt-2 bg-green-50 border border-green-200 rounded-lg p-2 text-center">
-            <p className="text-[10px] sm:text-xs font-bold text-green-800">📅 11/07/26 ശനിയാഴ്ച</p>
-            <p className="text-[9px] sm:text-[10px] text-green-600">വൈകുന്നേരം | മാജിക് ലാൻഡ് ടർഫ്</p>
-          </div>
-        </div>
-      ),
-    },
+
   ];
 
   const current = slides[slideIndex];

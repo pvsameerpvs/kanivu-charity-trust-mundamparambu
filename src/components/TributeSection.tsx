@@ -31,7 +31,7 @@ export default function TributeSection() {
             ഷിബിൽ റഹ്മാൻ
           </h2>
           <p className="text-center text-base text-stone-500 font-medium mb-10">
-            ആദരാഞ്ജലികൾ
+            ഓർമ്മയിൽ എന്നും
           </p>
 
           {/* Photo */}
@@ -69,7 +69,7 @@ export default function TributeSection() {
           {/* Closing */}
           <div className="text-center mt-10 pt-8 border-t border-stone-200">
             <p className="text-lg sm:text-xl font-semibold text-stone-700">
-              പ്രിയ സുഹൃത്ത് ഷിബിൽ റഹ്മാന് കണ്ണീരോടെ ആദരാഞ്ജലികൾ.
+              പ്രിയ സുഹൃത്ത് ഷിബിൽ റഹ്മാൻ — ഓർമ്മയിൽ എന്നും
             </p>
           </div>
         </motion.div>
