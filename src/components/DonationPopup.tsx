@@ -191,32 +191,35 @@ export default function DonationPopup() {
           <div
             role="dialog"
             aria-modal="true"
-            className="relative w-full max-w-[340px] sm:max-w-md bg-white rounded-2xl shadow-2xl max-h-[calc(100dvh-1.5rem)] sm:max-h-[calc(100dvh-3rem)] overflow-y-auto animate-in fade-in-0 zoom-in-95 slide-in-from-bottom-4 duration-200"
+            className="relative w-full max-w-[340px] sm:max-w-md bg-white rounded-2xl shadow-2xl border border-gray-200/60 max-h-[calc(100dvh-1.5rem)] sm:max-h-[calc(100dvh-3rem)] overflow-y-auto animate-in fade-in-0 zoom-in-95 slide-in-from-bottom-4 duration-200"
           >
             <button
               onClick={close}
-              className="absolute top-2.5 right-2.5 z-10 p-1.5 rounded-full bg-gray-100/80 hover:bg-gray-200 transition-colors"
+              className="absolute top-2 right-2 z-20 p-1.5 rounded-full bg-white/90 shadow-sm border border-gray-200/60 hover:bg-white hover:shadow-md transition-all"
             >
-              <X className="w-3.5 h-3.5 text-gray-500" />
+              <X className="w-4 h-4 text-gray-500" />
             </button>
 
-            <div className="bg-gradient-to-br from-[#EF1C25]/10 via-[#F7941D]/10 to-[#1CA3D8]/10 p-3 sm:p-5 text-center relative">
-              <button
-                onClick={prev}
-                className="absolute left-1 sm:left-2 top-1/2 -translate-y-1/2 p-1 rounded-full bg-white/60 hover:bg-white/80 transition-colors"
-              >
-                <ChevronLeft className="w-4 h-4 text-gray-600" />
-              </button>
-              <button
-                onClick={next}
-                className="absolute right-1 sm:right-2 top-1/2 -translate-y-1/2 p-1 rounded-full bg-white/60 hover:bg-white/80 transition-colors"
-              >
-                <ChevronRight className="w-4 h-4 text-gray-600" />
-              </button>
-              <div className="w-8 h-8 sm:w-12 sm:h-12 rounded-full bg-[#EF1C25] flex items-center justify-center mx-auto mb-1.5 sm:mb-3 shadow-lg shadow-[#EF1C25]/30">
+            <button
+              onClick={prev}
+              className="absolute left-1 sm:left-2 top-1/2 -translate-y-1/2 z-10 p-1.5 rounded-full bg-white/90 shadow-sm border border-gray-200/60 hover:bg-white hover:shadow-md transition-all"
+            >
+              <ChevronLeft className="w-5 h-5 text-gray-700" />
+            </button>
+            <button
+              onClick={next}
+              className="absolute right-1 sm:right-2 top-1/2 -translate-y-1/2 z-10 p-1.5 rounded-full bg-white/90 shadow-sm border border-gray-200/60 hover:bg-white hover:shadow-md transition-all"
+            >
+              <ChevronRight className="w-5 h-5 text-gray-700" />
+            </button>
+            <div className="bg-gradient-to-br from-[#EF1C25]/10 via-[#F7941D]/15 to-[#1CA3D8]/10 p-4 sm:p-6 text-center">
+              <div className="w-10 h-10 sm:w-14 sm:h-14 rounded-full bg-gradient-to-br from-[#EF1C25] to-[#d9161e] flex items-center justify-center mx-auto mb-2 sm:mb-3 shadow-lg shadow-[#EF1C25]/30">
                 {current.icon}
               </div>
-              <h3 className="text-xs sm:text-base font-bold text-gray-900 leading-snug px-6">
+              <div className="inline-block px-2.5 py-0.5 rounded-full bg-white/60 backdrop-blur-sm text-[8px] sm:text-[10px] font-semibold text-[#EF1C25] mb-1.5 tracking-wide">
+                കനിവ് ചാരിറ്റി ട്രസ്റ്റ്
+              </div>
+              <h3 className="text-xs sm:text-base font-bold text-gray-900 leading-snug px-4">
                 {current.title}
               </h3>
             </div>
@@ -224,35 +227,36 @@ export default function DonationPopup() {
             <div className="p-3 sm:p-5">
               {current.content}
 
-              <div className="flex items-center justify-center gap-1.5 mt-3">
+              <div className="flex items-center justify-center gap-2 mt-4">
                 {slides.map((_, i) => (
                   <button
                     key={i}
                     onClick={() => setSlideIndex(i)}
-                    className={`w-1.5 h-1.5 rounded-full transition-colors ${
-                      i === slideIndex ? "bg-[#EF1C25]" : "bg-gray-300"
+                    className={`transition-all duration-300 rounded-full ${
+                      i === slideIndex
+                        ? "w-5 h-2 bg-[#EF1C25]"
+                        : "w-2 h-2 bg-gray-300 hover:bg-gray-400"
                     }`}
                   />
                 ))}
               </div>
 
               {slideIndex !== 1 && (
-                <div className="mt-2 sm:mt-2.5 border-t border-gray-100 pt-2 sm:pt-2.5 space-y-2">
+                <div className="mt-3 sm:mt-4 border-t border-gray-100 pt-3 sm:pt-4 space-y-2.5">
                   <Link href="/family-donation" onClick={close} className="block">
-                    <Button className="w-full h-9 sm:h-10 bg-red-600 hover:bg-red-700 text-white text-[10px] sm:text-xs gap-2 rounded-lg shadow-sm py-0">
+                    <Button className="w-full h-9 sm:h-10 bg-gradient-to-r from-[#EF1C25] to-[#d9161e] hover:from-[#d9161e] hover:to-[#c0141a] text-white text-[10px] sm:text-xs gap-2 rounded-xl shadow-md shadow-[#EF1C25]/20 py-0">
                       <Heart className="size-3.5 sm:size-4" />
                       കുടുംബ സംരക്ഷണ പദ്ധതി
                     </Button>
                   </Link>
                   <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="block">
-                    <Button className="w-full h-9 sm:h-10 bg-[#25D366] hover:bg-[#22c35e] text-white text-[10px] sm:text-xs gap-2 rounded-lg shadow-sm py-0">
+                    <Button className="w-full h-9 sm:h-10 bg-gradient-to-r from-[#25D366] to-[#22c35e] hover:from-[#22c35e] hover:to-[#1da851] text-white text-[10px] sm:text-xs gap-2 rounded-xl shadow-md shadow-[#25D366]/20 py-0">
                       <WhatsAppIcon className="size-3.5 sm:size-4" />
                       WhatsApp വഴിയും സഹായിക്കാം
                     </Button>
                   </a>
                 </div>
               )}
-
 
             </div>
           </div>
