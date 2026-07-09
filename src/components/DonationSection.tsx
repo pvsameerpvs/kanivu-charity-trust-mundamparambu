@@ -6,15 +6,13 @@ import {
   ShieldCheck,
   Users,
   QrCode,
-  CreditCard,
-  ArrowRight,
 } from "lucide-react";
 import WhatsAppIcon from "@/components/WhatsAppIcon";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import SectionWrapper from "@/components/SectionWrapper";
 import DonationPopup from "@/components/DonationPopup";
-import RazorpayCheckout from "@/components/RazorpayCheckout";
+import UPIPaymentWidget from "@/components/UPIPaymentWidget";
 import Link from "next/link";
 
 export default function DonationSection() {
@@ -82,26 +80,10 @@ export default function DonationSection() {
                     <QrCode className="w-6 h-6 text-blue-600" />
                   </div>
                   <h3 className="font-bold text-gray-900 mb-1">
-                    Google Pay / UPI
+                    UPI QR Code
                   </h3>
                   <p className="text-sm text-gray-500">
                     UPI ആപ്പുകൾ വഴി സംഭാവന ചെയ്യുക
-                  </p>
-                </CardContent>
-              </Card>
-            </Link>
-
-            <Link href="/upi-payment" className="block w-full">
-              <Card className="bg-white/90 backdrop-blur-sm border border-gray-100 rounded-2xl hover:shadow-lg transition-all cursor-pointer group h-full">
-                <CardContent className="p-6 text-center">
-                  <div className="w-12 h-12 rounded-full bg-cyan-50 flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform duration-300">
-                    <CreditCard className="w-6 h-6 text-cyan-600" />
-                  </div>
-                  <h3 className="font-bold text-gray-900 mb-1">
-                    Card / NetBanking
-                  </h3>
-                  <p className="text-sm text-gray-500">
-                    കാർഡ്, നെറ്റ് ബാങ്കിംഗ്, Wallet എന്നിവ വഴി
                   </p>
                 </CardContent>
               </Card>
@@ -120,6 +102,22 @@ export default function DonationSection() {
                 </p>
               </CardContent>
             </Card>
+
+            <Link href="/family-donation" className="block w-full">
+              <Card className="bg-white/90 backdrop-blur-sm border border-gray-100 rounded-2xl hover:shadow-lg transition-all cursor-pointer group h-full">
+                <CardContent className="p-6 text-center">
+                  <div className="w-12 h-12 rounded-full bg-red-50 flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform duration-300">
+                    <Heart className="w-6 h-6 text-red-500" />
+                  </div>
+                  <h3 className="font-bold text-gray-900 mb-1">
+                    കുടുംബ സംരക്ഷണ പദ്ധതി
+                  </h3>
+                  <p className="text-sm text-gray-500">
+                    മാസം ₹750 മാത്രം
+                  </p>
+                </CardContent>
+              </Card>
+            </Link>
           </motion.div>
 
           <motion.div
@@ -129,7 +127,7 @@ export default function DonationSection() {
             transition={{ delay: 0.25 }}
             className="bg-white/90 backdrop-blur-sm rounded-2xl p-4 sm:p-6 md:p-8 shadow-lg border border-gray-100 mb-8"
           >
-            <RazorpayCheckout />
+            <UPIPaymentWidget />
           </motion.div>
 
           <motion.div

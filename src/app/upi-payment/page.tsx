@@ -1,16 +1,15 @@
 import type { Metadata } from "next"
 import UPIPaymentWidget from "@/components/UPIPaymentWidget"
-import RazorpayCheckout from "@/components/RazorpayCheckout"
 import { HandHeart, ShieldCheck, Users, ArrowRight } from "lucide-react"
 import Link from "next/link"
 
 export const metadata: Metadata = {
   title: "Donate Online | കനിവ് ചാരിറ്റി ട്രസ്റ്റ് മുണ്ടംപറമ്പ്",
   description:
-    "കാർഡ്, UPI, നെറ്റ് ബാങ്കിംഗ്, ഗൂഗിൾ പേ, ഫോൺപേ, പേടിഎം എന്നിവ വഴി കനിവ് ചാരിറ്റി ട്രസ്റ്റിലേക്ക് സംഭാവന ചെയ്യുക.",
+    "UPI QR Code വഴി കനിവ് ചാരിറ്റി ട്രസ്റ്റിലേക്ക് സംഭാവന ചെയ്യുക.",
   openGraph: {
     title: "Donate Online - കനിവ് ചാരിറ്റി ട്രസ്റ്റ്",
-    description: "കനിവ് ചാരിറ്റി ട്രസ്റ്റിലേക്ക് ഓൺലൈൻ വഴി സംഭാവന ചെയ്യുക",
+    description: "കനിവ് ചാരിറ്റി ട്രസ്റ്റിലേക്ക് UPI വഴി സംഭാവന ചെയ്യുക",
   },
 }
 
@@ -38,8 +37,6 @@ export default function UPIPaymentPage() {
               </div>
               <div className="w-px h-3 bg-gray-200" />
               <span>256-bit Encryption</span>
-              <div className="w-px h-3 bg-gray-200" />
-              <span>Razorpay</span>
             </div>
           </div>
         </div>
@@ -68,28 +65,19 @@ export default function UPIPaymentPage() {
             </div>
           </Link>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 items-start">
+          <div className="max-w-2xl mx-auto">
             {/* UPI Section */}
             <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-sm border border-gray-100">
               <div className="mb-4">
                 <h2 className="text-base sm:text-lg font-semibold text-gray-900">Pay via UPI</h2>
-                <p className="text-xs sm:text-sm text-gray-500 mt-0.5">Google Pay, PhonePe, Paytm or scan QR</p>
+                <p className="text-xs sm:text-sm text-gray-500 mt-0.5">Scan QR code with any UPI app to donate</p>
               </div>
               <UPIPaymentWidget />
-            </div>
-
-            {/* Card Section */}
-            <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-sm border border-gray-100">
-              <div className="mb-4">
-                <h2 className="text-base sm:text-lg font-semibold text-gray-900">Pay via Card / NetBanking</h2>
-                <p className="text-xs sm:text-sm text-gray-500 mt-0.5">Credit Card, Debit Card, or Internet Banking</p>
-              </div>
-              <RazorpayCheckout />
             </div>
           </div>
 
           <p className="text-xs text-gray-400 text-center mt-6">
-            All payments are processed securely through Razorpay. We do not store your card or bank details.
+            We do not store your payment details.
           </p>
         </div>
       </div>

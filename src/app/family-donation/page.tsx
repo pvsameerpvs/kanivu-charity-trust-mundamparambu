@@ -73,7 +73,7 @@ export default function FamilyDonationPage() {
           </div>
 
           <p className="text-xs text-gray-400 text-center mt-6">
-            എല്ലാ പേയ്മെന്റുകളും Razorpay വഴി സുരക്ഷിതമായി പ്രോസസ്സ് ചെയ്യുന്നു. നിങ്ങളുടെ സംഭാവനയുടെ 100% കുടുംബ സഹായത്തിനായി എത്തുന്നു.
+            നിങ്ങളുടെ സംഭാവനയുടെ 100% കുടുംബ സഹായത്തിനായി എത്തുന്നു.
           </p>
         </div>
       </div>
