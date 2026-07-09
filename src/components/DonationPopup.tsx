@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import Image from "next/image";
 import Link from "next/link";
+import { toast } from "sonner";
 import {
   X,
   ChevronLeft,
@@ -89,10 +90,16 @@ export default function DonationPopup() {
       content: (
         <div>
           <div className="flex flex-col items-center justify-center">
-            <a
-              href={UPI_LINK}
-              target="_blank"
-              rel="noopener noreferrer"
+            <button
+              onClick={() => {
+                const link = document.createElement('a');
+                link.href = '/images/qr-code/paymentq-r.jpeg';
+                link.download = 'kanivu-qr-code.jpeg';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                toast.success("QR code saved successfully");
+              }}
               className="block relative w-32 h-32 sm:w-40 sm:h-40 rounded-xl overflow-hidden bg-white p-2 shadow-sm ring-1 ring-gray-100 hover:ring-2 hover:ring-blue-400 transition-all cursor-pointer"
             >
               <Image
@@ -102,7 +109,7 @@ export default function DonationPopup() {
                 className="object-contain"
                 sizes="(max-width: 640px) 128px, 160px"
               />
-            </a>
+            </button>
             <div className="flex items-center gap-1 mt-1.5 text-[9px] sm:text-xs text-gray-400">
               <Scan className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
               <span className="whitespace-nowrap">Scan with any UPI app to pay</span>

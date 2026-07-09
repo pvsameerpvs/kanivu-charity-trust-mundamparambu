@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { toast } from "sonner";
 import {
   Check,
   Copy,
@@ -132,7 +133,18 @@ export default function FamilyDonationCheckout() {
         {activeTab === "upi" ? (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
             <div className="flex flex-col items-center">
-              <div className="relative w-36 h-36 sm:w-40 sm:h-40 rounded-2xl overflow-hidden bg-white p-3 shadow-lg ring-1 ring-gray-100">
+              <button
+                onClick={() => {
+                  const link = document.createElement('a');
+                  link.href = '/images/qr-code/paymentq-r.jpeg';
+                  link.download = 'kanivu-qr-code.jpeg';
+                  document.body.appendChild(link);
+                  link.click();
+                  document.body.removeChild(link);
+                  toast.success("QR code saved successfully");
+                }}
+                className="relative w-36 h-36 sm:w-40 sm:h-40 rounded-2xl overflow-hidden bg-white p-3 shadow-lg ring-1 ring-gray-100 hover:ring-2 hover:ring-blue-400 transition-all cursor-pointer"
+              >
                 <Image
                   src="/images/qr-code/paymentq-r.jpeg"
                   alt="UPI Payment QR Code"
@@ -140,7 +152,7 @@ export default function FamilyDonationCheckout() {
                   className="object-contain"
                   sizes="(max-width: 640px) 144px, 160px"
                 />
-              </div>
+              </button>
               <div className="flex items-center gap-1.5 mt-2 text-sm text-gray-500">
                 <Scan className="w-4 h-4" />
                 <span>Scan to pay via UPI</span>

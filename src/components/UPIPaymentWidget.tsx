@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { toast } from "sonner";
 import {
   Check,
   Copy,
@@ -61,10 +62,16 @@ export default function UPIPaymentWidget() {
           viewport={{ once: true }}
           className="flex w-full min-w-0 flex-col items-center md:items-start"
         >
-          <a
-            href={UPI_LINK}
-            target="_blank"
-            rel="noopener noreferrer"
+          <button
+            onClick={() => {
+              const link = document.createElement('a');
+              link.href = '/images/qr-code/paymentq-r.jpeg';
+              link.download = 'kanivu-qr-code.jpeg';
+              document.body.appendChild(link);
+              link.click();
+              document.body.removeChild(link);
+              toast.success("QR code saved successfully");
+            }}
             className="block relative w-44 sm:w-48 md:w-52 h-44 sm:h-48 md:h-52 rounded-2xl overflow-hidden bg-white p-3 shadow-lg ring-1 ring-gray-100 hover:ring-2 hover:ring-blue-400 transition-all cursor-pointer"
           >
             <Image
@@ -75,7 +82,7 @@ export default function UPIPaymentWidget() {
               sizes="(max-width: 640px) 176px, (max-width: 768px) 192px, 208px"
               priority
             />
-          </a>
+          </button>
           <div className="flex items-center gap-1.5 mt-3 text-sm text-gray-500">
             <Scan className="w-4 h-4" />
             <span>Scan with any UPI app to pay</span>
