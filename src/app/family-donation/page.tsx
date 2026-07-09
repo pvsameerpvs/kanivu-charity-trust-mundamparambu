@@ -26,7 +26,7 @@ export default function FamilyDonationPage() {
               കുടുംബ സംരക്ഷണ പദ്ധതി
             </h1>
             <p className="text-sm text-gray-500 max-w-xl mx-auto">
-              ഒരു കുടുംബത്തിന്റെ മാസച്ചെലവ് സ്പോൺസർ ചെയ്യുക — ഭക്ഷണം, മരുന്ന്, അടിസ്ഥാന ആവശ്യങ്ങൾ.
+              ഒരു കുടുംബത്തിന്റെ മാസ ചിലവ് സ്പോൺസർ ചെയ്യുക — ഭക്ഷണം, മരുന്ന്, അടിസ്ഥാന ആവശ്യങ്ങൾ.
             </p>
             <div className="flex items-center justify-center gap-4 mt-4 text-xs text-gray-400">
               <div className="flex items-center gap-1.5">

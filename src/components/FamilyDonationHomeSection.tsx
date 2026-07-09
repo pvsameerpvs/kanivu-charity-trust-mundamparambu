@@ -29,7 +29,7 @@ export default function FamilyDonationHomeSection() {
           </div>
 
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 leading-tight">
-            ഒരു കുടുംബത്തിന്റെ മാസച്ചെലവ് സ്പോൺസർ ചെയ്യുക
+            ഒരു കുടുംബത്തിന്റെ മാസ ചിലവ് സ്പോൺസർ ചെയ്യുക
           </h2>
 
           <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-2">

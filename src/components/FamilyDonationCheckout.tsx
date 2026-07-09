@@ -58,7 +58,7 @@ export default function FamilyDonationCheckout() {
     <div className="w-full max-w-3xl mx-auto min-w-0">
       <div className="text-center mb-6">
         <h3 className="font-bold text-gray-900 text-xl">
-          ഒരു കുടുംബത്തിന്റെ മാസച്ചെലവ് സ്പോൺസർ ചെയ്യുക
+          ഒരു കുടുംബത്തിന്റെ മാസ ചിലവ് സ്പോൺസർ ചെയ്യുക
         </h3>
         <p className="text-sm text-gray-500 mt-1">
           ഓരോ കുടുംബത്തിനും മാസ ചെലവ്: <span className="font-semibold text-gray-700">₹{MONTHLY_EXPENSE}</span>
