@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
 import FamilyDonationCheckout from "@/components/FamilyDonationCheckout"
-import { Heart, ShieldCheck, Users } from "lucide-react"
+import { Heart, ShieldCheck, Users, ArrowRight } from "lucide-react"
 
 export const metadata: Metadata = {
   title: "കുടുംബ സംരക്ഷണ പദ്ധതി | കനിവ് ചാരിറ്റി ട്രസ്റ്റ് മുണ്ടംപറമ്പ്",
@@ -12,69 +12,113 @@ export const metadata: Metadata = {
   },
 }
 
+const impactItems = [
+  {
+    icon: Heart,
+    title: "പോഷകാഹാര സഹായം",
+    desc: "കുടുംബത്തിന് മാസാന്ത ഭക്ഷ്യ കിറ്റ്",
+    colors: { bg: "bg-red-50", icon: "text-red-500", border: "border-red-100" },
+  },
+  {
+    icon: Heart,
+    title: "വൈദ്യ സഹായം",
+    desc: "അടിസ്ഥാന ആരോഗ്യ പരിരക്ഷയും മരുന്ന് സഹായവും",
+    colors: { bg: "bg-blue-50", icon: "text-blue-500", border: "border-blue-100" },
+  },
+  {
+    icon: Users,
+    title: "അന്തസ്സും പ്രതീക്ഷയും",
+    desc: "കുടുംബങ്ങൾ അന്തസ്സോടെ ജീവിക്കുന്നുവെന്ന് ഉറപ്പാക്കൽ",
+    colors: { bg: "bg-green-50", icon: "text-green-600", border: "border-green-100" },
+  },
+]
+
 export default function FamilyDonationPage() {
   return (
-    <div className="min-h-dvh bg-gray-50">
-      <div className="bg-white border-b border-gray-200">
-        <div className="container mx-auto px-4 py-8 sm:py-12">
-          <div className="max-w-4xl mx-auto text-center">
-            <div className="inline-flex items-center gap-2 text-sm text-gray-500 mb-3">
-              <Heart className="w-4 h-4 text-red-500 fill-current" />
-              കനിവ് ചാരിറ്റി ട്രസ്റ്റ്
+    <div className="min-h-dvh bg-gradient-to-b from-gray-50 to-white">
+      {/* Hero Header */}
+      <div className="relative overflow-hidden bg-gradient-to-br from-red-600 via-red-500 to-red-700">
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2" />
+          <div className="absolute bottom-0 left-0 w-72 h-72 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/2" />
+        </div>
+        <div className="container mx-auto px-4 py-12 sm:py-16 relative z-10">
+          <div className="max-w-3xl mx-auto text-center">
+            <div className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm rounded-full px-4 py-1.5 mb-4">
+              <Heart className="w-4 h-4 text-white" />
+              <span className="text-sm font-medium text-white">കനിവ് ചാരിറ്റി ട്രസ്റ്റ്</span>
             </div>
-            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
+            <h1 className="text-3xl sm:text-4xl font-bold text-white mb-3 leading-tight">
               കുടുംബ സംരക്ഷണ പദ്ധതി
             </h1>
-            <p className="text-sm text-gray-500 max-w-xl mx-auto">
+            <p className="text-base sm:text-lg text-white/80 max-w-xl mx-auto">
               ഒരു കുടുംബത്തിന്റെ മാസ ചിലവ് സ്പോൺസർ ചെയ്യുക — ഭക്ഷണം, മരുന്ന്, അടിസ്ഥാന ആവശ്യങ്ങൾ.
             </p>
-            <div className="flex items-center justify-center gap-4 mt-4 text-xs text-gray-400">
-              <div className="flex items-center gap-1.5">
-                <ShieldCheck className="w-3.5 h-3.5" />
+            <div className="flex flex-wrap items-center justify-center gap-4 mt-6">
+              <div className="inline-flex items-center gap-1.5 text-white/70 text-sm">
+                <ShieldCheck className="w-4 h-4" />
                 സുതാര്യം
               </div>
-              <div className="w-px h-3 bg-gray-200" />
-              <span>₹1,000/മാസം ഒരു കുടുംബത്തിന്</span>
-              <div className="w-px h-3 bg-gray-200" />
-              <span>100% കുടുംബങ്ങളിലേക്ക്</span>
+              <div className="w-px h-4 bg-white/20" />
+              <span className="text-white font-semibold">₹1,000/മാസം ഒരു കുടുംബത്തിന്</span>
+              <div className="w-px h-4 bg-white/20" />
+              <div className="inline-flex items-center gap-1.5 text-white/70 text-sm">
+                <ArrowRight className="w-4 h-4" />
+                100% കുടുംബങ്ങളിലേക്ക്
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="container mx-auto px-4 py-6 sm:py-10">
-        <div className="max-w-3xl mx-auto">
-          <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-sm border border-gray-100">
-            <FamilyDonationCheckout />
-          </div>
+      {/* Content */}
+      <div className="container mx-auto px-4 py-8 sm:py-12">
+        <div className="max-w-5xl mx-auto">
+          <div className="grid lg:grid-cols-3 gap-6">
+            {/* Checkout - 2 columns */}
+            <div className="lg:col-span-2">
+              <FamilyDonationCheckout />
+            </div>
 
-          <div className="mt-6 grid sm:grid-cols-3 gap-4">
-            <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100 text-center">
-              <div className="w-10 h-10 rounded-full bg-red-50 flex items-center justify-center mx-auto mb-2">
-                <Heart className="w-5 h-5 text-red-500" />
+            {/* Impact Sidebar - 1 column */}
+            <div className="space-y-4">
+              <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
+                <h3 className="font-bold text-gray-900 text-sm mb-3 flex items-center gap-2">
+                  <Heart className="w-4 h-4 text-red-500" />
+                  നിങ്ങളുടെ സംഭാവന എത്തുന്നത്
+                </h3>
+                <div className="space-y-3">
+                  {impactItems.map((item) => {
+                    const colors = item.colors
+                    const Icon = item.icon
+                    return (
+                      <div key={item.title} className={`${colors.bg} ${colors.border} border rounded-xl p-3`}>
+                        <div className="flex items-start gap-2.5">
+                          <div className={`w-8 h-8 rounded-full ${colors.bg} flex items-center justify-center shrink-0`}>
+                            <Icon className={`w-4 h-4 ${colors.icon}`} />
+                          </div>
+                          <div>
+                            <h4 className="font-semibold text-gray-900 text-xs">{item.title}</h4>
+                            <p className="text-[11px] text-gray-500 mt-0.5">{item.desc}</p>
+                          </div>
+                        </div>
+                      </div>
+                    )
+                  })}
+                </div>
               </div>
-              <h4 className="font-semibold text-gray-900 text-sm">പോഷകാഹാര സഹായം</h4>
-              <p className="text-xs text-gray-500 mt-1">കുടുംബത്തിന് മാസാന്ത ഭക്ഷ്യ കിറ്റ്</p>
-            </div>
-            <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100 text-center">
-              <div className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center mx-auto mb-2">
-                <Heart className="w-5 h-5 text-blue-500" />
+
+              <div className="bg-gradient-to-br from-red-50 to-orange-50 border border-red-100 rounded-2xl p-5 text-center">
+                <p className="text-xs text-red-700 font-medium">
+                  നിങ്ങളുടെ സംഭാവനയുടെ 100% കുടുംബ സഹായത്തിനായി എത്തുന്നു.
+                </p>
+                <div className="flex items-center justify-center gap-1 mt-2 text-[11px] text-red-500">
+                  <ShieldCheck className="w-3.5 h-3.5" />
+                  പൂർണ്ണ സുതാര്യത ഉറപ്പ്
+                </div>
               </div>
-              <h4 className="font-semibold text-gray-900 text-sm">വൈദ്യ സഹായം</h4>
-              <p className="text-xs text-gray-500 mt-1">അടിസ്ഥാന ആരോഗ്യ പരിരക്ഷയും മരുന്ന് സഹായവും</p>
-            </div>
-            <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100 text-center">
-              <div className="w-10 h-10 rounded-full bg-green-50 flex items-center justify-center mx-auto mb-2">
-                <Users className="w-5 h-5 text-green-600" />
-              </div>
-              <h4 className="font-semibold text-gray-900 text-sm">അന്തസ്സും പ്രതീക്ഷയും</h4>
-              <p className="text-xs text-gray-500 mt-1">കുടുംബങ്ങൾ അന്തസ്സോടെ ജീവിക്കുന്നുവെന്ന് ഉറപ്പാക്കൽ</p>
             </div>
           </div>
-
-          <p className="text-xs text-gray-400 text-center mt-6">
-            നിങ്ങളുടെ സംഭാവനയുടെ 100% കുടുംബ സഹായത്തിനായി എത്തുന്നു.
-          </p>
         </div>
       </div>
     </div>

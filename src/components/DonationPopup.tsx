@@ -28,6 +28,18 @@ export default function DonationPopup() {
   const [slideIndex, setSlideIndex] = useState(0);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const indexRef = useRef(0);
+  const autoSlideRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  useEffect(() => {
+    if (showIndex >= 0) {
+      autoSlideRef.current = setInterval(() => {
+        setSlideIndex((i) => (i + 1) % 3);
+      }, 5000);
+    }
+    return () => {
+      if (autoSlideRef.current) clearInterval(autoSlideRef.current);
+    };
+  }, [showIndex]);
 
   useEffect(() => {
     const scheduleNext = (delay: number) => {
