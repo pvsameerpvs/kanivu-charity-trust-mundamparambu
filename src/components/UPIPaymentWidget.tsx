@@ -148,6 +148,19 @@ export default function UPIPaymentWidget() {
         </p>
       </div>
 
+      <div className="mt-6 md:mt-8 bg-amber-50 border border-amber-200 rounded-xl p-3 sm:p-4 text-left">
+        <p className="text-[11px] sm:text-xs font-semibold text-amber-800 mb-2">
+          ✓ Bank Transfer Details
+        </p>
+        <div className="space-y-1 text-[11px] sm:text-xs text-amber-700 leading-relaxed break-words">
+          <p><span className="font-medium">Account Name:</span> {PAYEE_NAME}</p>
+          <p><span className="font-medium">Account No:</span> <span className="font-mono font-bold text-amber-900 select-all">25150200002214</span></p>
+          <p><span className="font-medium">Bank:</span> Federal Bank</p>
+          <p><span className="font-medium">Branch:</span> Kizhisseri</p>
+          <p><span className="font-medium">IFSC:</span> <span className="font-mono font-bold text-amber-900 select-all">FDRL0002515</span></p>
+        </div>
+      </div>
+
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         whileInView={{ opacity: 1, y: 0 }}

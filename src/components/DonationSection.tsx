@@ -113,7 +113,7 @@ export default function DonationSection() {
                     കുടുംബ സംരക്ഷണ പദ്ധതി
                   </h3>
                   <p className="text-sm text-gray-500">
-                    മാസം ₹750 മാത്രം
+                    മാസം ₹1,000 മാത്രം
                   </p>
                 </CardContent>
               </Card>

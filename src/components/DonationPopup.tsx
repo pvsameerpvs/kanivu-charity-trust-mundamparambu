@@ -165,6 +165,17 @@ export default function DonationPopup() {
                 </div>
               </div>
 
+              <div className="mt-2 sm:mt-2.5 bg-amber-50 border border-amber-200 rounded-xl p-2 sm:p-3 text-left">
+                <p className="text-[9px] sm:text-[11px] font-semibold text-amber-800 mb-1">
+                  ✓ Bank Transfer
+                </p>
+                <div className="space-y-0.5 text-[8px] sm:text-[10px] text-amber-700 leading-normal">
+                  <p><span className="font-medium">A/c:</span> <span className="font-mono font-bold text-amber-900 select-all">25150200002214</span></p>
+                  <p><span className="font-medium">IFSC:</span> <span className="font-mono font-bold text-amber-900 select-all">FDRL0002515</span></p>
+                  <p><span className="font-medium">Bank:</span> Federal Bank, Kizhisseri</p>
+                </div>
+              </div>
+
               <div className="mt-2 sm:mt-2.5 border-t border-gray-100 pt-2 sm:pt-2.5 space-y-2">
                 <Link href="/family-donation" onClick={close} className="block">
                   <Button className="w-full h-9 sm:h-10 bg-red-600 hover:bg-red-700 text-white text-[10px] sm:text-xs gap-2 rounded-lg shadow-sm py-0">

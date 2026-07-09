@@ -33,16 +33,16 @@ export default function FamilyDonationHomeSection() {
           </h2>
 
           <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-2">
-            വെറും <span className="font-bold text-red-600">₹750/മാസം</span> ഒരു കുടുംബത്തിന്റെ ഭക്ഷണം, മരുന്ന്, അടിസ്ഥാന ആവശ്യങ്ങൾ നിറവേറ്റും.
+            വെറും <span className="font-bold text-red-600">₹1,000/മാസം</span> ഒരു കുടുംബത്തിന്റെ ഭക്ഷണം, മരുന്ന്, അടിസ്ഥാന ആവശ്യങ്ങൾ നിറവേറ്റും.
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-3 mt-6 mb-8">
             {[
-              { months: "1 മാസം", amount: "₹750" },
-              { months: "2 മാസം", amount: "₹1,500" },
-              { months: "3 മാസം", amount: "₹2,250" },
-              { months: "6 മാസം", amount: "₹4,500" },
-              { months: "1 വർഷം", amount: "₹9,000" },
+              { months: "1 മാസം", amount: "₹1,000" },
+              { months: "2 മാസം", amount: "₹2,000" },
+              { months: "3 മാസം", amount: "₹3,000" },
+              { months: "6 മാസം", amount: "₹6,000" },
+              { months: "1 വർഷം", amount: "₹12,000" },
             ].map((opt) => (
               <div
                 key={opt.months}
