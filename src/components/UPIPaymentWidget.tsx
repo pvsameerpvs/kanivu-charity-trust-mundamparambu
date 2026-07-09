@@ -16,6 +16,8 @@ import {
 
 const UPI_ID = "kanivu2214@fbl";
 const PAYEE_NAME = "KANIVU CHARITY TRUST MUNDAMPARAMBU";
+const ENCODED_NAME = encodeURIComponent(PAYEE_NAME);
+const UPI_LINK = `upi://pay?pa=${UPI_ID}&pn=${ENCODED_NAME}&cu=INR`;
 
 export default function UPIPaymentWidget() {
   const [copied, setCopied] = useState(false);
@@ -59,7 +61,12 @@ export default function UPIPaymentWidget() {
           viewport={{ once: true }}
           className="flex w-full min-w-0 flex-col items-center md:items-start"
         >
-          <div className="relative w-44 sm:w-48 md:w-52 h-44 sm:h-48 md:h-52 rounded-2xl overflow-hidden bg-white p-3 shadow-lg ring-1 ring-gray-100">
+          <a
+            href={UPI_LINK}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block relative w-44 sm:w-48 md:w-52 h-44 sm:h-48 md:h-52 rounded-2xl overflow-hidden bg-white p-3 shadow-lg ring-1 ring-gray-100 hover:ring-2 hover:ring-blue-400 transition-all cursor-pointer"
+          >
             <Image
               src="/images/qr-code/paymentq-r.jpeg"
               alt="UPI Payment QR Code - Kanivu Charity Trust"
@@ -68,7 +75,7 @@ export default function UPIPaymentWidget() {
               sizes="(max-width: 640px) 176px, (max-width: 768px) 192px, 208px"
               priority
             />
-          </div>
+          </a>
           <div className="flex items-center gap-1.5 mt-3 text-sm text-gray-500">
             <Scan className="w-4 h-4" />
             <span>Scan with any UPI app to pay</span>

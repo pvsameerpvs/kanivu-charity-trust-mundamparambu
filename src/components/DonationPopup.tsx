@@ -16,6 +16,8 @@ import WhatsAppIcon from "@/components/WhatsAppIcon";
 const INTERVALS = [5, 10, 20, 60, 180, 180, 180, 180, 180, 180, 180, 180];
 const UPI_ID = "kanivu2214@fbl";
 const PAYEE_NAME = "KANIVU CHARITY TRUST MUNDAMPARAMBU";
+const ENCODED_NAME = encodeURIComponent(PAYEE_NAME);
+const UPI_LINK = `upi://pay?pa=${UPI_ID}&pn=${ENCODED_NAME}&cu=INR`;
 const WHATSAPP_LINK = "https://wa.me/919567178007?text=%E0%B4%A8%E0%B4%AE%E0%B4%B8%E0%B5%8D%E0%B4%95%E0%B4%BE%E0%B4%B0%E0%B4%82%2C%20%E0%B4%95%E0%B4%A8%E0%B4%BF%E0%B4%B5%E0%B5%8D%20%E0%B4%9A%E0%B4%BE%E0%B4%B0%E0%B4%BF%E0%B4%B1%E0%B5%8D%E0%B4%B1%E0%B4%BF%20%E0%B4%9F%E0%B5%8D%E0%B4%B0%E0%B4%B8%E0%B5%8D%E0%B4%B1%E0%B5%8D%E0%B4%B1%E0%B4%BF%E0%B4%A8%E0%B5%8D%E0%B4%B1%E0%B5%86%20%E0%B4%AA%E0%B5%8D%E0%B4%B0%E0%B4%B5%E0%B5%BC%E0%B4%A4%E0%B5%8D%E0%B4%A4%E0%B4%A8%E0%B4%99%E0%B5%8D%E0%B4%99%E0%B5%BE%E0%B4%95%E0%B5%8D%E0%B4%95%E0%B5%8D%20%E0%B4%B8%E0%B4%B9%E0%B4%BE%E0%B4%AF%E0%B4%82%20%E0%B4%A8%E0%B5%BD%E0%B4%95%E0%B4%BE%E0%B5%BB%20%E0%B4%86%E0%B4%97%E0%B5%8D%E0%B4%B0%E0%B4%B9%E0%B4%BF%E0%B4%95%E0%B5%8D%E0%B4%95%E0%B5%81%E0%B4%A8%E0%B5%8D%E0%B4%A8%E0%B5%81.%20%E0%B4%B5%E0%B4%BF%E0%B4%B6%E0%B4%A6%E0%B4%BE%E0%B4%82%E0%B4%B6%E0%B4%99%E0%B5%8D%E0%B4%99%E0%B5%BE%20%E0%B4%85%E0%B4%B1%E0%B4%BF%E0%B4%AF%E0%B4%BF%E0%B4%95%E0%B5%8D%E0%B4%95%E0%B4%BE%E0%B4%AE%E0%B5%8B%3F";
 
 const MESSAGES = [
@@ -133,15 +135,20 @@ export default function DonationPopup() {
 
             <div className="p-3 sm:p-5">
               <div className="flex flex-col items-center justify-center">
-                <div className="relative w-32 h-32 sm:w-40 sm:h-40 rounded-xl overflow-hidden bg-white p-2 shadow-sm ring-1 ring-gray-100">
+                <a
+                  href={UPI_LINK}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block relative w-32 h-32 sm:w-40 sm:h-40 rounded-xl overflow-hidden bg-white p-2 shadow-sm ring-1 ring-gray-100 hover:ring-2 hover:ring-blue-400 transition-all cursor-pointer"
+                >
                   <Image
                     src="/images/qr-code/paymentq-r.jpeg"
                     alt="UPI QR Code"
                     fill
                     className="object-contain"
-                    sizes="(max-width: 640px) 96px, 128px"
+                    sizes="(max-width: 640px) 128px, 160px"
                   />
-                </div>
+                </a>
                 <div className="flex items-center gap-1 mt-1.5 text-[9px] sm:text-xs text-gray-400">
                   <Scan className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
                   <span className="whitespace-nowrap">Scan with any UPI app to pay</span>
