@@ -11,7 +11,7 @@ const desktopSlides = Array.from({ length: 22 }, (_, i) => ({
   alt: `കനിവ് ചാരിറ്റി ട്രസ്റ്റ് - ചിത്രം ${i + 1}`,
 }));
 
-const mobileSlides = Array.from({ length: 7 }, (_, i) => ({
+const mobileSlides = Array.from({ length: 6 }, (_, i) => ({
   src: `/images/mobile-hero-section/hero-mobile${i + 1}.jpeg`,
   alt: `കനിവ് ചാരിറ്റി ട്രസ്റ്റ് - ചിത്രം ${i + 1}`,
 }));
